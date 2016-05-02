@@ -19,7 +19,7 @@ CREATE  TABLE IF NOT EXISTS `deel2`.`klant` (
   UNIQUE INDEX `idKlant_UNIQUE` (`idKlant` ASC) ,
   UNIQUE INDEX `Klant_naam_email_unique` (`voornaam` ASC, `achternaam` ASC, `email` ASC) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -41,6 +41,7 @@ CREATE  TABLE IF NOT EXISTS `deel2`.`account` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -49,15 +50,15 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `deel2`.`adres` (
   `idAdres` INT(11) NOT NULL AUTO_INCREMENT ,
-  `straatnaam` VARCHAR(45) NOT NULL ,
-  `postcode` VARCHAR(45) NOT NULL ,
-  `huisnummer` VARCHAR(45) NOT NULL ,
-  `woonplaats` VARCHAR(45) NOT NULL ,
+  `straatnaam` VARCHAR(34) NOT NULL ,
+  `postcode` VARCHAR(6) NOT NULL ,
+  `huisnummer` VARCHAR(10) NOT NULL ,
+  `woonplaats` VARCHAR(30) NOT NULL ,
   PRIMARY KEY (`idAdres`) ,
   UNIQUE INDEX `idAdres_UNIQUE` (`idAdres` ASC) ,
   UNIQUE INDEX `adres_wp_pc_nr_unique` (`straatnaam` ASC, `postcode` ASC, `huisnummer` ASC, `woonplaats` ASC) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -69,7 +70,7 @@ CREATE  TABLE IF NOT EXISTS `deel2`.`adres_type` (
   `adres_type` VARCHAR(45) NULL DEFAULT NULL ,
   PRIMARY KEY (`idAdres_type`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -86,6 +87,7 @@ CREATE  TABLE IF NOT EXISTS `deel2`.`artikel` (
   UNIQUE INDEX `idArtikel_UNIQUE` (`idArtikel` ASC) ,
   UNIQUE INDEX `artikel_naam_prijs_nummer_unique` (`artikelnaam` ASC, `artikelprijs` ASC, `artikelnummer` ASC) )
 ENGINE = InnoDB
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -104,6 +106,7 @@ CREATE  TABLE IF NOT EXISTS `deel2`.`bestelling` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -131,6 +134,7 @@ CREATE  TABLE IF NOT EXISTS `deel2`.`bestelling_has_artikel` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -142,6 +146,7 @@ CREATE  TABLE IF NOT EXISTS `deel2`.`betaalwijze` (
   `betaalwijze` VARCHAR(80) NULL DEFAULT NULL ,
   PRIMARY KEY (`idBetaalwijze`) )
 ENGINE = InnoDB
+AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -150,7 +155,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `deel2`.`factuur` (
   `idFactuur` INT(11) NOT NULL AUTO_INCREMENT ,
-  `factuur_datum` DATE NOT NULL ,
+  `factuur_datum` DATETIME NOT NULL ,
   `bestelling_idBestelling` INT(11) NOT NULL ,
   PRIMARY KEY (`idFactuur`) ,
   UNIQUE INDEX `idFactuur_UNIQUE` (`idFactuur` ASC) ,
@@ -161,6 +166,7 @@ CREATE  TABLE IF NOT EXISTS `deel2`.`factuur` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -170,7 +176,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE  TABLE IF NOT EXISTS `deel2`.`betaling` (
   `idBetaling` INT(11) NOT NULL AUTO_INCREMENT ,
   `factuur_idFactuur` INT(11) NOT NULL ,
-  `betaal_datum` DATE NOT NULL ,
+  `betaal_datum` DATETIME NOT NULL ,
   `betaalwijze_idBetaalwijze` INT(11) NOT NULL ,
   `betalingsGegevens` VARCHAR(80) NULL DEFAULT NULL ,
   `klant_idKlant` INT(11) NOT NULL ,
@@ -194,6 +200,7 @@ CREATE  TABLE IF NOT EXISTS `deel2`.`betaling` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -227,7 +234,21 @@ CREATE  TABLE IF NOT EXISTS `deel2`.`klant_has_adres` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 5
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `deel2`.`login`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `deel2`.`login` (
+  `idLogin` INT(11) NOT NULL AUTO_INCREMENT ,
+  `inlognaam` VARCHAR(45) NOT NULL ,
+  `inlogwachtwoord` VARCHAR(180) NOT NULL ,
+  PRIMARY KEY (`idLogin`) ,
+  UNIQUE INDEX `loginnaam` (`inlognaam` ASC) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8;
 
 USE `deel2` ;
