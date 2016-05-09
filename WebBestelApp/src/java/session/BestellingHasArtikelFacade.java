@@ -6,6 +6,7 @@
 package session;
 
 import entity.BestellingHasArtikel;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,10 @@ public class BestellingHasArtikelFacade extends AbstractFacade<BestellingHasArti
 
     public BestellingHasArtikelFacade() {
         super(BestellingHasArtikel.class);
+    }
+    
+    public List<BestellingHasArtikel> findArtikelenInBestelling(int bestellingId){
+        return em.createNamedQuery("BestellingHasArtikel.findByBestellingId", BestellingHasArtikel.class).getResultList();
     }
     
 }

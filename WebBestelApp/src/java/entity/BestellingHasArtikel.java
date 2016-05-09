@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "BestellingHasArtikel.findAll", query = "SELECT b FROM BestellingHasArtikel b"),
     @NamedQuery(name = "BestellingHasArtikel.findByIdBestelArtikel", query = "SELECT b FROM BestellingHasArtikel b WHERE b.idBestelArtikel = :idBestelArtikel"),
-    @NamedQuery(name = "BestellingHasArtikel.findByAantal", query = "SELECT b FROM BestellingHasArtikel b WHERE b.aantal = :aantal")})
+    @NamedQuery(name = "BestellingHasArtikel.findByBestellingId", query = "SELECT b from BestellingHasArtikel b WHERE b.bestellingidBestelling = :bestelling_idBestelling")})
 public class BestellingHasArtikel implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,13 +39,16 @@ public class BestellingHasArtikel implements Serializable {
     @Basic(optional = false)
     @Column(name = "idBestelArtikel")
     private Integer idBestelArtikel;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "aantal")
     private int aantal;
+    
     @JoinColumn(name = "artikel_idArtikel", referencedColumnName = "idArtikel")
     @ManyToOne(optional = false)
     private Artikel artikelidArtikel;
+    
     @JoinColumn(name = "bestelling_idBestelling", referencedColumnName = "idBestelling")
     @ManyToOne(optional = false)
     private Bestelling bestellingidBestelling;

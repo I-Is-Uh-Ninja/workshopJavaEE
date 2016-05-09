@@ -188,4 +188,14 @@ public class Klant implements Serializable {
         return "beans.Klant[ idKlant=" + idKlant + " ]";
     }
     
+    @XmlTransient
+    public String getNaam(){
+        if(tussenvoegsel == null){
+            return voornaam + " " + achternaam;
+        }
+        else {
+            return voornaam + " " + tussenvoegsel + " " + achternaam;
+        }
+    }
+    
 }

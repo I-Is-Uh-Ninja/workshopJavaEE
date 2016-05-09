@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Bestelling.findAll", query = "SELECT b FROM Bestelling b"),
-    @NamedQuery(name = "Bestelling.findByIdBestelling", query = "SELECT b FROM Bestelling b WHERE b.idBestelling = :idBestelling")})
+    @NamedQuery(name = "Bestelling.findByIdBestelling", query = "SELECT b FROM Bestelling b WHERE b.idBestelling = :idBestelling"),
+    @NamedQuery(name = "Bestelling.findByKlantId", query = "SELECT b FROM Bestelling b WHERE b.klantidKlant = :Klant_idKlant")})
 public class Bestelling implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,11 +42,14 @@ public class Bestelling implements Serializable {
     @Basic(optional = false)
     @Column(name = "idBestelling")
     private Integer idBestelling;
+    
     @JoinColumn(name = "Klant_idKlant", referencedColumnName = "idKlant")
     @ManyToOne(optional = false)
     private Klant klantidKlant;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bestellingidBestelling")
     private Collection<BestellingHasArtikel> bestellingHasArtikelCollection;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "bestellingidBestelling")
     private Collection<Factuur> factuurCollection;
 

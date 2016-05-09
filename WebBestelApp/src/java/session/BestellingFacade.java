@@ -6,9 +6,11 @@
 package session;
 
 import entity.Bestelling;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -27,6 +29,10 @@ public class BestellingFacade extends AbstractFacade<Bestelling> {
 
     public BestellingFacade() {
         super(Bestelling.class);
+    }
+    
+    public List<Bestelling> findBestellingByKlantId(int klantId){
+        return em.createNamedQuery("Bestelling.findByKlantId", Bestelling.class).getResultList();
     }
     
 }

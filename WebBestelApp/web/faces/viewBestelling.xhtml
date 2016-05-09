@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Bekijk bestelling</title>
+    </h:head>
+    <h:body>
+        <h1>Bestelling with ID #{bestellingBean.selectedBestelling.idBestelling}</h1>
+        <f:view>
+            <h:form>
+                <h:dataTable value="#{bestellingBean.selectedBestelling.bestellingHasArtikelCollection}" var="artikel">
+                    <h:column>
+                       <f:facet name="header">Artikel ID</f:facet>
+                       #{artikel.artikelidArtikel.idArtikel}
+                    </h:column>
+                    <h:column>    				
+                       <f:facet name="header">Artikelnaam</f:facet>    				
+                       #{artikel.artikelidArtikel.artikelnaam}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Artikelprijs</f:facet>
+                        #{artikel.artikelidArtikel.artikelprijs}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Artikelnummer</f:facet>
+                        #{artikel.artikelidArtikel.artikelnummer}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Artikelomschrijving</f:facet>
+                        #{artikel.artikelidArtikel.artikelomschrijving}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Aantal</f:facet>
+                        <h:inputText size="4" value="#{artikel.aantal}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Actie</f:facet>
+                        <h:commandButton action="#{bestellingBean.editAantal(artikel)}" value="Pas aantal aan"/>
+                        <h:commandButton action="#{bestellingBean.removeArtikelFromBestelling(artikel)}" value="Verwijder artikel"/>
+                    </h:column>
+                 </h:dataTable>
+                <h:commandButton action="selectArtikel" value="Voeg artikel toe aan bestelling"/>
+            </h:form>
+        </f:view>
+    </h:body>
+</html>
+

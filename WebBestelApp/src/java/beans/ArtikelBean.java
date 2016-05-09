@@ -24,16 +24,14 @@ import session.ArtikelFacade;
 @Stateless
 public class ArtikelBean implements Serializable {
 
-    List<Artikel> artikelen;
+    private List<Artikel> artikelen;
     @EJB
-    ArtikelFacade artikelFacade;
-    String title;
-    Artikel selectedArtikel;
+    private ArtikelFacade artikelFacade;
+    private Artikel selectedArtikel;
 
     
     public ArtikelBean() {
         selectedArtikel = new Artikel();
-        title = "Testing JSF managed bean";
     }
 
     public List<Artikel> getArtikelen() {
@@ -71,20 +69,12 @@ public class ArtikelBean implements Serializable {
     public String editThisArtikel(){
         artikelFacade.edit(selectedArtikel);
         selectedArtikel = new Artikel();
-        return "index";
+        return "artikellijst";
     }
     
     public String goToEditArtikel(Artikel artikel){
         setSelectedArtikel(artikel);
         return "editArtikel";
-    }
-    
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public Artikel getSelectedArtikel() {
