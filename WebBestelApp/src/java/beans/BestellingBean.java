@@ -9,6 +9,8 @@ import entity.Artikel;
 import entity.Bestelling;
 import entity.BestellingHasArtikel;
 import entity.Klant;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -34,7 +36,13 @@ public class BestellingBean {
     private Bestelling selectedBestelling;
     private Integer klantId;
     private List<Klant> klanten;
-    private int aantal;
+    private List<BestellingHasArtikel> artikelenInBestelling;
+    private BigDecimal totaalPrijs;
+    
+    public BestellingBean(){
+        totaalPrijs = new BigDecimal(0);
+        totaalPrijs = totaalPrijs.setScale(2, RoundingMode.HALF_UP);
+    }
     
     @EJB
     private BestellingFacade bestellingFacade;
@@ -79,14 +87,23 @@ public class BestellingBean {
         this.klanten = klanten;
     }
 
-    public int getAantal() {
-        return aantal;
+    public List<BestellingHasArtikel> getArtikelenInBestelling() {
+        return artikelenInBestelling;
     }
 
-    public void setAantal(int aantal) {
-        this.aantal = aantal;
+    public void setArtikelenInBestelling(List<BestellingHasArtikel> artikelenInBestelling) {
+        this.artikelenInBestelling = artikelenInBestelling;
     }
-    
+
+    public BigDecimal getTotaalPrijs() {
+        calculateTotaalPrijs();
+        return totaalPrijs;
+    }
+
+    public void setTotaalPrijs(BigDecimal totaalPrijs) {
+        this.totaalPrijs = totaalPrijs;
+    }
+        
     //=====Adding and removing from bestelling list=====
     
     public void addToBestellingen(Bestelling bestelling){
@@ -111,39 +128,67 @@ public class BestellingBean {
         addToBestellingen(bestelling);
     }
     
+    private void addToArtikelenInBestelling(BestellingHasArtikel bHA){
+        bHAFacade.create(bHA);
+        setArtikelenInBestelling(bHAFacade.findAll());
+    }
+    
+    private void removeFromArtikelenInBestelling(BestellingHasArtikel bHA){
+        bHAFacade.remove(bHA);
+        setArtikelenInBestelling(bHAFacade.findAll());
+    }
+    
     //=====Go to other views=====
     
     public String goToViewBestelling(Bestelling bestelling){
         setSelectedBestelling(bestelling);
+        setArtikelenInBestelling((List<BestellingHasArtikel>) bestelling.getBestellingHasArtikelCollection());
         return "viewBestelling";
     }
     
     //=====Edit bestelling=====
     
     public void removeArtikelFromBestelling(BestellingHasArtikel selectedArtikel){
-        bHAFacade.remove(selectedArtikel);
+        removeFromArtikelenInBestelling(selectedArtikel);
     }
     
     public void editAantal(BestellingHasArtikel selectedArtikel){
         bHAFacade.edit(selectedArtikel);
+        setArtikelenInBestelling(bHAFacade.findAll());
     }
     
     public String addArtikelToBestelling(Artikel artikel){
-        BestellingHasArtikel nieuwArtikel = new BestellingHasArtikel();
-        nieuwArtikel.setAantal(aantal);
-        nieuwArtikel.setArtikelidArtikel(artikel);
-        nieuwArtikel.setBestellingidBestelling(selectedBestelling);
-        bHAFacade.create(nieuwArtikel);
-        selectedBestelling = bestellingFacade.find(selectedBestelling.getIdBestelling());
+        BestellingHasArtikel bestHasArt = new BestellingHasArtikel();
+        bestHasArt.setAantal(1);
+        bestHasArt.setArtikelidArtikel(artikel);
+        bestHasArt.setBestellingidBestelling(selectedBestelling);
+        addToArtikelenInBestelling(bestHasArt);
+        setSelectedBestelling(bestellingFacade.find(selectedBestelling.getIdBestelling()));
         return "viewBestelling";
     }
     
     //=====Other=====
     
+    private void calculateTotaalPrijs(){
+        List<BestellingHasArtikel> artikelen = getArtikelenInBestelling();
+        double prijs = 0;
+        for(BestellingHasArtikel bha : artikelen){
+            prijs += bha.getArtikelidArtikel().getArtikelprijs().doubleValue() * bha.getAantal();
+        }
+        BigDecimal totaal = new BigDecimal(prijs);
+        totaal = totaal.setScale(2, RoundingMode.HALF_UP);
+        setTotaalPrijs(totaal);
+    }
+    
     @PostConstruct
     public void init(){
         bestellingen = bestellingFacade.findAll();
         klanten = klantFacade.findAll();
+        if (selectedBestelling != null){
+            if(selectedBestelling.getIdBestelling() != null){
+                artikelenInBestelling = bHAFacade.findAll();
+            }
+        }
     }
     
 }

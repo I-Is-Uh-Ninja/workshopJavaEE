@@ -44,8 +44,6 @@ public class Betaalwijze implements Serializable {
     @Size(max = 80)
     @Column(name = "betaalwijze")
     private String betaalwijze;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "betaalwijzeidBetaalwijze")
-    private Collection<Betaling> betalingCollection;
 
     public Betaalwijze() {
     }
@@ -68,15 +66,6 @@ public class Betaalwijze implements Serializable {
 
     public void setBetaalwijze(String betaalwijze) {
         this.betaalwijze = betaalwijze;
-    }
-
-    @XmlTransient
-    public Collection<Betaling> getBetalingCollection() {
-        return betalingCollection;
-    }
-
-    public void setBetalingCollection(Collection<Betaling> betalingCollection) {
-        this.betalingCollection = betalingCollection;
     }
 
     @Override

@@ -29,10 +29,6 @@
                        #{artikel.artikelomschrijving}
                     </h:column>
                     <h:column>
-                       <f:facet name="header">Aantal</f:facet>
-                       <h:inputText size="4" value="#{bestellingBean.aantal}"/>
-                    </h:column>
-                    <h:column>
                         <f:facet name="header">Actie</f:facet>
                         <h:commandButton action="#{bestellingBean.addArtikelToBestelling(artikel)}" value="Selecteer"/>
                     </h:column>

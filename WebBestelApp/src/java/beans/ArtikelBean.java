@@ -44,7 +44,7 @@ public class ArtikelBean implements Serializable {
     
     public void addToArtikelen(Artikel artikel){
         artikelFacade.create(artikel);
-        artikelen.add(artikel);
+        setArtikelen(artikelFacade.findAll());
     }
     
     public void removeFromArtikelen(Artikel artikel){

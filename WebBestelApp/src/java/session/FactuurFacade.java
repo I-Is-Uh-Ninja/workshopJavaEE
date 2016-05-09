@@ -6,6 +6,7 @@
 package session;
 
 import entity.Factuur;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,4 +30,7 @@ public class FactuurFacade extends AbstractFacade<Factuur> {
         super(Factuur.class);
     }
     
+    public List<Factuur> findFactuurByBestellingId(int bestellingId){
+        return em.createNamedQuery("Factuur.findByBestellingId", Factuur.class).getResultList();
+    }
 }

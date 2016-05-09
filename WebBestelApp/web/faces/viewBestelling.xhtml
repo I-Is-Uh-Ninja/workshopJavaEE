@@ -11,7 +11,7 @@
         <h1>Bestelling with ID #{bestellingBean.selectedBestelling.idBestelling}</h1>
         <f:view>
             <h:form>
-                <h:dataTable value="#{bestellingBean.selectedBestelling.bestellingHasArtikelCollection}" var="artikel">
+                <h:dataTable value="#{bestellingBean.artikelenInBestelling}" var="artikel">
                     <h:column>
                        <f:facet name="header">Artikel ID</f:facet>
                        #{artikel.artikelidArtikel.idArtikel}
@@ -42,9 +42,13 @@
                         <h:commandButton action="#{bestellingBean.removeArtikelFromBestelling(artikel)}" value="Verwijder artikel"/>
                     </h:column>
                  </h:dataTable>
+                <br/>
+                <h3>Totaalprijs: #{bestellingBean.totaalPrijs}</h3>
+                <br/>
                 <h:commandButton action="selectArtikel" value="Voeg artikel toe aan bestelling"/>
             </h:form>
         </f:view>
+        
     </h:body>
 </html>
 
