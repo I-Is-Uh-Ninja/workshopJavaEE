@@ -50,7 +50,7 @@ public class AccountBean implements Serializable{
         int accountsListSize = accounts.size();
         int accountIndex = -1;
         for (int i = 0; i < accountsListSize; i++) {
-            if (accounts.get(i).getIdAccount() == account.getIdAccount()) {
+            if (accounts.get(i) == account) {
                 accountIndex = i;
             }
         }

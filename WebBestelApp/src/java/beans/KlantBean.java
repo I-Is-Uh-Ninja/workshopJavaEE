@@ -51,7 +51,7 @@ public class KlantBean implements Serializable{
          int klantenListSize = klanten.size();
          int klantIndex = -1;
          for (int i = 0; i < klantenListSize; i++) {
-             if (klanten.get(i).getIdKlant() == klant.getIdKlant()) {
+             if (klanten.get(i) == klant) {
                  klantIndex = i;
              }
          }

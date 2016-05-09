@@ -51,7 +51,7 @@ public class AdresBean implements Serializable {
         int adressenListSize = adressen.size();
         int adresIndex = -1;
         for (int i = 0; i < adressenListSize; i++) {
-            if (adressen.get(i).getIdAdres() == adres.getIdAdres()) {
+            if (adressen.get(i) == adres) {
                 adresIndex = i;
             }          
         }
