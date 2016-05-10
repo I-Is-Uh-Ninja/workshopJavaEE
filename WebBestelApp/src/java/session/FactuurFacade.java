@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -31,6 +32,8 @@ public class FactuurFacade extends AbstractFacade<Factuur> {
     }
     
     public List<Factuur> findFactuurByBestellingId(int bestellingId){
-        return em.createNamedQuery("Factuur.findByBestellingId", Factuur.class).getResultList();
+        Query query = em.createNamedQuery("Factuur.findByBestellingId", Factuur.class);
+        query.setParameter("idBestelling", bestellingId);
+        return query.getResultList();
     }
 }

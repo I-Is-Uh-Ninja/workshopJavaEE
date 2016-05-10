@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Betaling.findAll", query = "SELECT b FROM Betaling b"),
     @NamedQuery(name = "Betaling.findByIdBetaling", query = "SELECT b FROM Betaling b WHERE b.idBetaling = :idBetaling"),
     @NamedQuery(name = "Betaling.findByBetaalDatum", query = "SELECT b FROM Betaling b WHERE b.betaalDatum = :betaalDatum"),
-    @NamedQuery(name = "Betaling.findByBetalingsGegevens", query = "SELECT b FROM Betaling b WHERE b.betalingsGegevens = :betalingsGegevens")})
+    @NamedQuery(name = "Betaling.findByBetalingsGegevens", query = "SELECT b FROM Betaling b WHERE b.betalingsGegevens = :betalingsGegevens"),
+    @NamedQuery(name = "Betaling.findByFactuur", query = "SELECT b FROM Betaling b WHERE b.factuuridFactuur = :idFactuur")})
 public class Betaling implements Serializable {
 
     private static final long serialVersionUID = 1L;

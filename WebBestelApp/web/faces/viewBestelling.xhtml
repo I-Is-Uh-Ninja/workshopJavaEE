@@ -10,6 +10,9 @@
     <h:body>
         <h1>Bestelling with ID #{bestellingBean.selectedBestelling.idBestelling}</h1>
         <f:view>
+            <f:metadata>
+                <f:event listener="#{factuurBean.findFacturen(bestellingBean.selectedBestelling)}" type="postAddToView"/>
+            </f:metadata>
             <h:form>
                 <h:dataTable value="#{bestellingBean.artikelenInBestelling}" var="artikel">
                     <h:column>
@@ -46,6 +49,32 @@
                 <h3>Totaalprijs: #{bestellingBean.totaalPrijs}</h3>
                 <br/>
                 <h:commandButton action="selectArtikel" value="Voeg artikel toe aan bestelling"/>
+                <br/>
+                <br/>
+                <h:commandButton action="betaalBestelling" value="Betaal de bestelling"/>
+            </h:form>
+            <br/>
+            <h:form>
+                <h:dataTable value="#{factuurBean.facturenInBestelling}" var="factuur">
+                    <c:forEach items="#{factuurBean.betalingen}" var="betaling">
+                        <h:column>
+                            <f:facet name="header">Factuur ID</f:facet>
+                            #{factuur.idFactuur}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Factuur Datum</f:facet>
+                            #{factuur.factuurDatum}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Betaal-methodes</f:facet>
+                            #{betaling.betaalwijzeidBetaalwijze.betaalwijze}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Betalingsgegevens</f:facet>
+                            #{betaling.betalingsGegevens}
+                        </h:column>
+                    </c:forEach>
+                </h:dataTable>
             </h:form>
         </f:view>
         
