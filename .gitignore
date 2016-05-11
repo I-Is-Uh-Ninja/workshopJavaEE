@@ -52,3 +52,5 @@ WebBestelApp/nbproject
 WebBestelApp/build.xml
 WebBestelApp/dist
 /nbproject/private/
+/build/
+/dist/

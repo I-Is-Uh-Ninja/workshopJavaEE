@@ -23,16 +23,17 @@ import session.KlantFacade;
 @Dependent
 @Stateless
 public class KlantBean implements Serializable{
-    String title;
-    Klant selectedKlant;
-    List<Klant> klanten;
+    
+    private Klant selectedKlant;
+    private List<Klant> klanten;
     @EJB
-    KlantFacade klantFacade;
+    private KlantFacade klantFacade;
         
      public KlantBean() {
         selectedKlant = new Klant();
-        title = "JSF managed KlantBean";
     }
+     
+    //=====Getters and Setters=========
      
      public List<Klant> getKlanten() {
          return klanten;
@@ -41,6 +42,17 @@ public class KlantBean implements Serializable{
      public void setKlanten(List<Klant> klanten) {
          this.klanten = klanten;
      }
+     
+    public Klant getSelectedKlant() {
+         return selectedKlant;
+     }
+     
+     public void setSelectedKlant(Klant selectedKlant) {
+         this.selectedKlant = selectedKlant;
+     }
+     
+     
+    //=====Adding and removing from klant list===== 
      
      public void addToKlanten(Klant klant) {
          klantFacade.create(klant);
@@ -69,29 +81,18 @@ public class KlantBean implements Serializable{
      public String editThisKlant() {
          klantFacade.edit(selectedKlant);
          selectedKlant = new Klant();
-         return "klantIndex";
+         return "klantlijst";
      }
+     
+      //=====Edit bestelling=====
      
      public String goToEditKlant(Klant klant) {
          setSelectedKlant(klant);
          return "editKlant";
      }
      
-     public String getTitle() {
-         return title;
-     }
-     
-     public void setTitle(String title) {
-         this.title = title;
-     }
-     
-     public Klant getSelectedKlant() {
-         return selectedKlant;
-     }
-     
-     public void setSelectedKlant(Klant selectedKlant) {
-         this.selectedKlant = selectedKlant;
-     }
+    
+     //=====Other=====
      
      @PostConstruct
      private void init() {

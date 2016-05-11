@@ -6,7 +6,9 @@
 package beans;
 
 import entity.Account;
+import entity.Klant;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -14,6 +16,7 @@ import javax.ejb.Stateless;
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 import session.AccountFacade;
+import session.KlantFacade;
 /**
  *
  * @author Wytze Terpstra
@@ -22,16 +25,24 @@ import session.AccountFacade;
 @Dependent
 @Stateless
 public class AccountBean implements Serializable{
-    String title;
-    Account selectedAccount;
-    List<Account> accounts;
+    
+    private Account selectedAccount;
+    private List<Account> accounts;
+    private Integer klantId;
+    private List<Klant> klanten;
+    private Klant klant;
+    
     @EJB
-    AccountFacade accountFacade;
+    private AccountFacade accountFacade;
+    @EJB
+    private KlantFacade klantFacade;
     
     public AccountBean() {
         selectedAccount = new Account();
-        title = "JSF managed AccountBean";
+        //selectedAccount.setCreatieDatum(new Date());
     }
+    
+    //=====Getters and Setters=========
     
     public List<Account> getAccounts() {
         return accounts;
@@ -40,8 +51,38 @@ public class AccountBean implements Serializable{
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
     }
+       
+    public Account getSelectedAccount() {
+        return selectedAccount;
+    }
+    
+    public void setSelectedAccount(Account selectedAccount) {
+        this.selectedAccount = selectedAccount;
+    }
+    
+    public Integer getKlantId(){
+        return klantId;
+    }
+    
+    public void setKlantId(Integer id){
+        klantId = id;
+    }
+    
+    public List<Klant> getKlanten() {
+        return klanten;
+    }
+
+    public void setKlanten(List<Klant> klanten) {
+        this.klanten = klanten;
+    }
+    
+    //=====Adding and removing from account list=====
     
     public void addToAccounts(Account account) {
+        account.setCreatieDatum(new Date()); //set Datum
+        klant = new Klant();
+        klant.setIdKlant(klantId);
+        account.setKlantidKlant(klant);
         accountFacade.create(account);
         accounts.add(account);
     }
@@ -61,39 +102,32 @@ public class AccountBean implements Serializable{
     }
     
     public void addThisAccount() {
+        klant = new Klant();
+        klant.setIdKlant(klantId);
+        selectedAccount.setKlantidKlant(klant);
+        selectedAccount.setCreatieDatum(new Date()); //set Datum
         addToAccounts(selectedAccount);
         selectedAccount = new Account();
     }
     
+     //=====Edit account=====
+    
     public String editThisAccount() {
         accountFacade.edit(selectedAccount);
         selectedAccount = new Account();
-        return "accountIndex";
+        return "accountlijst";
     }
     
     public String goToEditAccount (Account account){
         setSelectedAccount(account);
         return "editAccount";
     }
-    
-    public String getTitle() {
-        return title;
-    }
-    
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    
-    public Account getSelectedAccount() {
-        return selectedAccount;
-    }
-    
-    public void setSelectedAccount(Account selectedAccount) {
-        this.selectedAccount = selectedAccount;
-    }
+
+    //=====Other=====
     
     @PostConstruct
-    private void inti() {
+    private void init() {
         setAccounts(accountFacade.findAll());
+        setKlanten(klantFacade.findAll());
     }
 }

@@ -54,7 +54,7 @@ public class Account implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "creatie_datum")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP) //was TemporalType.DATE
     private Date creatieDatum;
     
     @JoinColumn(name = "klant_idKlant", referencedColumnName = "idKlant")

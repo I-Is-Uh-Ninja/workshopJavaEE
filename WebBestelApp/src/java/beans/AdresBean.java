@@ -23,24 +23,35 @@ import session.AdresFacade;
 @Dependent
 @Stateless
 public class AdresBean implements Serializable {
-    String title;
-    Adres selectedAdres;
-    List<Adres> adressen;
+   
+    private Adres selectedAdres;
+    private List<Adres> adressen;
     @EJB
-    AdresFacade adresFacade;
+    private AdresFacade adresFacade;
         
     public AdresBean() {
         selectedAdres = new Adres();
-        title = "JSF managed AdresBean";
     }
-         
+     //=====Getters and Setters=========     
+    
     public List<Adres> getAdressen() {
         return adressen;
     } 
-    
+        
     public void setAdressen(List<Adres> adressen) {
         this.adressen = adressen;
     }
+        
+    public Adres getSelectedAdres() {
+        return selectedAdres;
+    }
+    
+    public void setSelectedAdres(Adres selectedAdres) {
+        this.selectedAdres = selectedAdres;
+    }
+    
+    
+     //=====Adding and removing from adres list=====
     
     public void addToAdressen(Adres adres) {
         adresFacade.create(adres);
@@ -66,10 +77,12 @@ public class AdresBean implements Serializable {
             selectedAdres = new Adres();
         }
     
+    //=====Edit adres=====
+    
     public String editThisAdres() {
         adresFacade.edit(selectedAdres);
         selectedAdres = new Adres();
-        return "adresIndex";
+        return "adreslijst";
     }
     
     public String goToEditAdres(Adres adres) {
@@ -77,21 +90,7 @@ public class AdresBean implements Serializable {
         return "editAdres";
     }
     
-    public String getTitle() {
-        return title;
-    }
-    
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    
-    public Adres getSelectedAdres() {
-        return selectedAdres;
-    }
-    
-    public void setSelectedAdres(Adres selectedAdres) {
-        this.selectedAdres = selectedAdres;
-    }
+    //=====Other=====
     
     @PostConstruct
     private void init() {
