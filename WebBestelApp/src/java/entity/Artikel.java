@@ -19,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -47,21 +48,21 @@ public class Artikel implements Serializable {
     @Column(name = "idArtikel")
     private Integer idArtikel;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 80)
+    @NotNull(message="Een naam moet ingevuld worden")
+    @Size(min = 1, max = 80, message="Het artikelnaam mag maximaal 80 karakters lang zijn")
     @Column(name = "artikelnaam")
     private String artikelnaam;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message="Het artikel moet een prijs hebben")
     @Column(name = "artikelprijs")
     private BigDecimal artikelprijs;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    @NotNull(message="Het artikel moet een nummer hebben")
+    @Size(min = 1, max = 45, message="Het artikelnummer mag maximaal 45 karakters lang zijn")
     @Column(name = "artikelnummer")
     private String artikelnummer;
-    @Size(max = 80)
+    @Size(max = 80, message="Omschrijving mag maximaal 80 karakters lang zijn")
     @Column(name = "artikelomschrijving")
     private String artikelomschrijving;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "artikelidArtikel")
