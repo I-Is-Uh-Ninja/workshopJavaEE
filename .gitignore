@@ -51,6 +51,11 @@ WebBestelApp/build
 WebBestelApp/nbproject
 WebBestelApp/build.xml
 WebBestelApp/dist
+WebBestelAppMaven/build
+WebBestelAppMaven/nbproject
+WebBestelAppMaven/build.xml
+WebBestelAppMaven/dist
+WebBestelAppMaven/target
 /nbproject/private/
 /build/
 /dist/

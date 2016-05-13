@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Overzicht bestellingen</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <h:dataTable value="#{bestellingBean.bestellingen}" var="bestelling">
+                    <h:column>
+                       <f:facet name="header">Bestelling ID</f:facet>
+                       #{bestelling.idBestelling}
+                    </h:column>
+                    <h:column>    				
+                       <f:facet name="header">Klantnaam</f:facet>    				
+                       #{bestelling.klantidKlant.naam}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Actie</f:facet>
+                        <h:commandButton action="#{bestellingBean.goToViewBestelling(bestelling)}" value="Bekijk bestelling"/>
+                        <h:commandButton action="#{bestellingBean.removeFromBestellingen(bestelling)}" value="Verwijderen"/>
+                    </h:column>
+                 </h:dataTable>
+            </h:form>
+        </f:view>
+        <h:form>
+            <h3>Voeg bestelling toe</h3>
+            <hr/>
+            <table>
+            <tr>
+                <td>Klant ID</td>
+                <td>
+                    <h:selectOneListbox value="#{bestellingBean.klantId}">
+                        <c:forEach items="#{bestellingBean.klanten}" var="klant">
+                            <f:selectItem itemValue="#{klant.idKlant}" itemLabel="#{klant.idKlant}" />
+                        </c:forEach>
+                    </h:selectOneListbox>
+                </td>
+            </tr>
+            <tr>
+                  <td> </td>
+                  <td><h:commandButton value="Voeg bestelling toe" action="#{bestellingBean.addSelectedBestelling()}" /></td>
+            </tr>
+            </table>
+        </h:form>
+    </h:body>
+</html>
+

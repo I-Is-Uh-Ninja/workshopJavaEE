@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Testing</title>
+    </h:head>
+    <h:body>
+        <h2>Alle artikelen in de database</h2>
+        <f:view>
+            <h:form>
+                <h:dataTable value="#{artikelBean.artikelen}" var="artikel">
+                    <h:column>    				
+                       <f:facet name="header">Naam</f:facet>    				
+                       #{artikel.artikelnaam}
+                    </h:column>
+                    <h:column>
+                       <f:facet name="header">Prijs</f:facet>
+                       #{artikel.artikelprijs}
+                    </h:column>
+                    <h:column>
+                       <f:facet name="header">Nummer</f:facet>
+                       #{artikel.artikelnummer}
+                    </h:column>
+                    <h:column>
+                       <f:facet name="header">Omschrijving</f:facet>
+                       #{artikel.artikelomschrijving}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Actie</f:facet>
+                        <h:commandButton action="#{artikelBean.goToEditArtikel(artikel)}" value="Bewerken"/>
+                        <h:commandButton action="#{artikelBean.removeFromArtikelen(artikel)}" value="Verwijderen"/>
+                    </h:column>
+                 </h:dataTable>
+            </h:form>
+        </f:view>
+        <h:form>
+            <h3>Voeg artikel toe</h3>
+            <hr/>
+            <table>
+            <tr>
+                <td>Naam</td>
+                <td><h:inputText size="80" value="#{artikelBean.selectedArtikel.artikelnaam}">
+                    <f:validateBean disabled="false"/></h:inputText></td>
+            </tr>
+            <tr>
+                <td>Prijs</td>
+                <td><h:inputText size="6" value="#{artikelBean.selectedArtikel.artikelprijs}">
+                    <f:validateBean disabled="false"/></h:inputText></td>
+            </tr>
+            <tr>
+                <td>Nummer</td>
+                <td><h:inputText size="45" value="#{artikelBean.selectedArtikel.artikelnummer}">
+                    <f:validateBean disabled="false"/></h:inputText></td>
+            </tr>
+            <tr>
+                <td>Omschrijving</td>
+                <td><h:inputText size="80" value="#{artikelBean.selectedArtikel.artikelomschrijving}">
+                <f:validateBean disabled="false"/></h:inputText></td>
+            </tr>
+            <tr>
+                <td> </td>
+                <td><h:commandButton value="Voeg artikel toe" action="#{artikelBean.addThisArtikel()}" /></td>
+            </tr>
+            </table>
+        </h:form>
+    </h:body>
+</html>
+
