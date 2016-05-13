@@ -47,22 +47,22 @@ public class Adres implements Serializable {
     private Integer idAdres;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 34)
+    @Size(min = 1, max = 34, message="Straatnaam moet tussen 1 en 34 karakters lang zijn")
     @Column(name = "straatnaam")
     private String straatnaam;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 6)
+    @Size(min = 6, max = 6, message="Postcode moet 6 karakters lang zijn")
     @Column(name = "postcode")
     private String postcode;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
+    @Size(min = 1, max = 10, message="Huisnummer met toevoeging moet tussen 1 en 10 karakters lang zijn")
     @Column(name = "huisnummer")
     private String huisnummer;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 30)
+    @Size(min = 1, max = 30, message="Woonplaats moet tussen 1 en 30 karakters lang zijn")
     @Column(name = "woonplaats")
     private String woonplaats;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "adresidAdres")

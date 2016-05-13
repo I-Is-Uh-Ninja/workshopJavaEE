@@ -54,19 +54,23 @@
             <table>
                 <tr>
                     <td>Straatnaam</td>
-                    <td><h:inputText size="34" value="#{adresBean.selectedAdres.straatnaam}" /></td>
+                    <td><h:inputText size="34" value="#{adresBean.selectedAdres.straatnaam}">
+                        <f:validateBean disabled="false"/></h:inputText></td>
                 </tr>
                  <tr>
                     <td>Huisnummer</td>
-                    <td><h:inputText size="10" value="#{adresBean.selectedAdres.huisnummer}" /></td>
+                    <td><h:inputText size="10" value="#{adresBean.selectedAdres.huisnummer}">
+                        <f:validateBean disabled="false"/></h:inputText></td>
                 </tr>
                  <tr>
                     <td>Postcode</td>
-                    <td><h:inputText size="6" value="#{adresBean.selectedAdres.postcode}" /></td>
+                    <td><h:inputText size="6" value="#{adresBean.selectedAdres.postcode}">
+                        <f:validateBean disabled="false"/></h:inputText></td>
                 </tr>
                  <tr>
                     <td>Woonplaats</td>
-                    <td><h:inputText size="30" value="#{adresBean.selectedAdres.woonplaats}" /></td>
+                    <td><h:inputText size="30" value="#{adresBean.selectedAdres.woonplaats}">
+                        <f:validateBean disabled="false"/></h:inputText></td>
                 </tr>
                 <tr>
                     <td>Adres-type</td>

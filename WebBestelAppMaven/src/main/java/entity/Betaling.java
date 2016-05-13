@@ -50,7 +50,7 @@ public class Betaling implements Serializable {
     @Column(name = "betaal_datum")
     @Temporal(TemporalType.TIMESTAMP)
     private Date betaalDatum;
-    @Size(max = 80)
+    @Size(max = 80, message="Gegevens mogen maximaal 80 karakters lang zijn")
     @Column(name = "betalingsGegevens")
     private String betalingsGegevens;
     @JoinColumn(name = "betaalwijze_idBetaalwijze", referencedColumnName = "idBetaalwijze")

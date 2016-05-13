@@ -14,24 +14,28 @@
             <hr/>
             <table>
             <tr>
-                  <td>Naam</td>
-                  <td><h:inputText size="80" value="#{artikelBean.selectedArtikel.artikelnaam}" /></td>
+                <td>Naam</td>
+                <td><h:inputText size="80" value="#{artikelBean.selectedArtikel.artikelnaam}">
+                        <f:validateBean disabled="false"/></h:inputText></td>
             </tr>
             <tr>
-                  <td>Prijs</td>
-                  <td><h:inputText size="6" value="#{artikelBean.selectedArtikel.artikelprijs}" /></td>
+                <td>Prijs</td>
+                <td><h:inputText size="6" value="#{artikelBean.selectedArtikel.artikelprijs}">
+                    <f:validateBean disabled="false"/></h:inputText></td>
             </tr>
             <tr>
-                  <td>Nummer</td>
-                  <td><h:inputText size="45" value="#{artikelBean.selectedArtikel.artikelnummer}" /></td>
+                <td>Nummer</td>
+                <td><h:inputText size="45" value="#{artikelBean.selectedArtikel.artikelnummer}">
+                    <f:validateBean disabled="false"/></h:inputText></td>
             </tr>
             <tr>
-                  <td>Omschrijving</td>
-                  <td><h:inputText size="80" value="#{artikelBean.selectedArtikel.artikelomschrijving}" /></td>
+                <td>Omschrijving</td>
+                <td><h:inputText size="80" value="#{artikelBean.selectedArtikel.artikelomschrijving}">
+                    <f:validateBean disabled="false"/></h:inputText></td>
             </tr>
             <tr>
-                  <td> </td>
-                  <td><h:commandButton value="Bewerk artikel" action="#{artikelBean.editThisArtikel()}" /></td>
+                <td> </td>
+                <td><h:commandButton value="Bewerk artikel" action="#{artikelBean.editThisArtikel()}" /></td>
             </tr>
             </table>
         </h:form>

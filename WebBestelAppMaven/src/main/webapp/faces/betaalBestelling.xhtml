@@ -38,7 +38,8 @@
                 </h:selectOneListbox>
                 <br/>
                 <h4>Overige gegevens (optioneel):</h4>
-                <h:inputTextarea value="#{betalingBean.betaling.betalingsGegevens}" rows="2"/>
+                <h:inputTextarea value="#{betalingBean.betaling.betalingsGegevens}" rows="2">
+                    <f:validateBean disabled="false"/></h:inputTextarea>
                 <br/>
                 <h:commandButton action="#{factuurBean.payBestelling(betalingBean.addBetaling())}" value="Betalen"/>
             </h:form>
