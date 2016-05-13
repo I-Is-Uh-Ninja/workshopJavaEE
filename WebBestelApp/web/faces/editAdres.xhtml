@@ -6,7 +6,9 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
         <h:head>
         <title>Adres bewerken</title>
     </h:head>
@@ -32,7 +34,18 @@ and open the template in the editor.
                     <td><h:inputText size="34" value="#{adresBean.selectedAdres.woonplaats}"/></td>
                 </tr>
                 <tr>
-                    <td><h:commandButton value="Bewerk adres" action="#{adresBean.editThisAdres()}" /></td>
+                    <td>Adrestype</td>
+                    <td>
+                        <h:selectOneListbox value="#{adresBean.selectedAdresType.idAdrestype}">
+                            <c:forEach items="#{adresBean.allAdresTypes}" var="adrestype">
+                                <f:selectItem itemValue="#{adrestype.idAdrestype}"
+                                              itemLabel="#{adrestype.adresType}" />
+                            </c:forEach>
+                        </h:selectOneListbox>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h:commandButton value="Bewerk adres" action="#{adresBean.editAdresInKlant()}" /></td>
                 </tr>
             </table>
         </h:form>>

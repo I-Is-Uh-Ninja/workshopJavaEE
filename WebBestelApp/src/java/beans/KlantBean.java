@@ -94,6 +94,10 @@ public class KlantBean implements Serializable{
     
      //=====Other=====
      
+     public Klant findKlantById(Integer id){
+         return klantFacade.find(id);
+     }
+     
      @PostConstruct
      private void init() {
          setKlanten(klantFacade.findAll());

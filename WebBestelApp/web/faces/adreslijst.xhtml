@@ -7,69 +7,61 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Adressenlijst</title>
     </h:head>
     <h:body>
-        
-        <h2>Alle adressen in de database</h2>
         <f:view>
             <h:form>
-                <h:dataTable value="#{adresBean.adressen}" var="adres">
+                <h3>Selecteer klant om adressen te zien</h3>
+                <h:selectOneListbox value="#{adresBean.klantId}">
+                    <c:forEach items="#{klantBean.klanten}" var="klant">
+                        <f:selectItem itemValue="#{klant.idKlant}" itemLabel="#{klant.naam}" />
+                    </c:forEach>
+                </h:selectOneListbox>
+                <h:commandButton action="#{adresBean.findAdressenByKlant(klantBean.findKlantById(adresBean.klantId))}" value="Submit"/>
+            </h:form>
+        </f:view>
+        <h2>Adressen bij klant</h2>
+        <f:view>
+            <h:form>
+                <h:dataTable value="#{adresBean.adressenInKlant}" var="adres">
                     <h:column>
                         <f:facet name="header">Adres Id</f:facet>
-                        #{adres.idAdres}
+                        #{adres.adresidAdres.idAdres}
                    </h:column>                    
                     <h:column>
                         <f:facet name="header">Straatnaam</f:facet>
-                        #{adres.straatnaam}
+                        #{adres.adresidAdres.straatnaam}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Postcode</f:facet>
-                        #{adres.postcode}
+                        #{adres.adresidAdres.postcode}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Huisnummer</f:facet>
-                        #{adres.huisnummer}
+                        #{adres.adresidAdres.huisnummer}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Woonplaats</f:facet>
-                        #{adres.woonplaats}
+                        #{adres.adresidAdres.woonplaats}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Adres-type</f:facet>
+                        #{adres.adrestypeidAdrestype.adresType}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Actie</f:facet>
                         <h:commandButton action="#{adresBean.goToEditAdres(adres)}" value="Bewerken"/>
-                        <h:commandButton action="#{adresBean.removeFromAdressen(adres)}" value="Verwijderen"/>
+                        <h:commandButton action="#{adresBean.removeAdresFromKlant(adres)}" value="Verwijderen"/>
                     </h:column>
                 </h:dataTable>
             </h:form>
         </f:view>
         <h:form>
-            <h3>Voeg adres toe</h3>
-            <hr/>
-            <table>
-                <tr>
-                    <td>Straatnaam</td>
-                    <td><h:inputText size="34" value="#{adresBean.selectedAdres.straatnaam}" /></td>
-                </tr>
-                 <tr>
-                    <td>Huisnummer</td>
-                    <td><h:inputText size="10" value="#{adresBean.selectedAdres.huisnummer}" /></td>
-                </tr>
-                 <tr>
-                    <td>Postcode</td>
-                    <td><h:inputText size="6" value="#{adresBean.selectedAdres.postcode}" /></td>
-                </tr>
-                 <tr>
-                    <td>Woonplaats</td>
-                    <td><h:inputText size="30" value="#{adresBean.selectedAdres.woonplaats}" /></td>
-                </tr>
-                <tr>
-                  <td> </td>
-                  <td><h:commandButton value="Voeg adres toe" action="#{adresBean.addThisAdres()}" /></td>
-            </tr>
-            </table>
+            <h:commandButton action="addAdres" value="Voeg een adres toe" />
         </h:form>
     </h:body>
 </html>

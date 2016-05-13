@@ -6,9 +6,11 @@
 package session;
 
 import entity.KlantHasAdres;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,18 @@ public class KlantHasAdresFacade extends AbstractFacade<KlantHasAdres> {
 
     public KlantHasAdresFacade() {
         super(KlantHasAdres.class);
+    }
+    
+    public List<KlantHasAdres> findByIdKlant(Integer idKlant){
+        Query query = em.createNamedQuery("KlantHasAdres.findByIdKlant", KlantHasAdres.class);
+        query.setParameter("idKlant", idKlant);
+        return query.getResultList();
+    }
+    
+    public List<KlantHasAdres> findByIdAdres(Integer idAdres){
+        Query query = em.createNamedQuery("KlantHasAdres.findByIdAdres", KlantHasAdres.class);
+        query.setParameter("idAdres", idAdres);
+        return query.getResultList();
     }
     
 }

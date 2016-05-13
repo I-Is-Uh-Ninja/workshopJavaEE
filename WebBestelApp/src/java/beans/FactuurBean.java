@@ -104,6 +104,7 @@ public class FactuurBean {
         addToBetalingen(betaling);
         factuur.setBetalingCollection(betalingen);
         factuurFacade.create(factuur);
+        setFacturenInBestelling(factuurFacade.findFactuurByBestellingId(selectedBestelling.getIdBestelling()));
         return "viewBestelling";
     }
     

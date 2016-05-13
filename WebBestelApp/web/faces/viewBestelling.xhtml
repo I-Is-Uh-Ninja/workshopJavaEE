@@ -11,7 +11,7 @@
         <h1>Bestelling with ID #{bestellingBean.selectedBestelling.idBestelling}</h1>
         <f:view>
             <f:metadata>
-                <f:event listener="#{factuurBean.findFacturen(bestellingBean.selectedBestelling)}" type="postAddToView"/>
+                <f:event listener="#{factuurBean.findFacturen(bestellingBean.selectedBestelling)}" type="preRenderView"/>
             </f:metadata>
             <h:form>
                 <h:dataTable value="#{bestellingBean.artikelenInBestelling}" var="artikel">

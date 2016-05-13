@@ -28,7 +28,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "KlantHasAdres.findAll", query = "SELECT k FROM KlantHasAdres k"),
-    @NamedQuery(name = "KlantHasAdres.findByIdKlanthasadres", query = "SELECT k FROM KlantHasAdres k WHERE k.idKlanthasadres = :idKlanthasadres")})
+    @NamedQuery(name = "KlantHasAdres.findByIdKlanthasadres", query = "SELECT k FROM KlantHasAdres k WHERE k.idKlanthasadres = :idKlanthasadres"),
+    @NamedQuery(name = "KlantHasAdres.findByIdKlant", query = "SELECT k FROM KlantHasAdres k WHERE k.klantidKlant.idKlant = :idKlant"),
+    @NamedQuery(name = "KlantHasAdres.findByIdAdres", query = "SELECT k FROM KlantHasAdres k WHERE k.adresidAdres.idAdres = :idAdres")})
 public class KlantHasAdres implements Serializable {
 
     private static final long serialVersionUID = 1L;
