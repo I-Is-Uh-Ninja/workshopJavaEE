@@ -63,7 +63,7 @@ public class LoginBean {
             HttpSession session = SessionBean.getSession();
             session.setAttribute("username", login.getInlognaam());
             login = new Login();
-            return "klantlijst";
+            return "keuzemenu";
         } else {
             FacesContext.getCurrentInstance().addMessage(
                     null,
