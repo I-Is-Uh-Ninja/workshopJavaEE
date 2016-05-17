@@ -38,8 +38,8 @@
                 <tr>
                     <td><h:outputText value="Wachtwoord" /></td>
                     <td><h:inputSecret id="password" value="#{loginBean.login.inlogwachtwoord}">
-                            <f:validateBean disabled="false"/></h:inputSecret></td>
-                    <td><h:message for="password"></h:message></td>
+                            <f:validateDoubleRange minimum="5" maximum="30" for="password"/></h:inputSecret></td>
+                    <td><h:message id="m6" for="password" style="color:red"/></td>
                 </tr>
             </table>
             <br/>
