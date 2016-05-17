@@ -10,6 +10,7 @@ import entity.AdresType;
 import entity.Klant;
 import entity.KlantHasAdres;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -127,7 +128,7 @@ public class AdresBean implements Serializable {
         adresFacade.create(selectedAdres);
         adressen.add(selectedAdres);
         addExistingAdres(selectedAdres);
-        return "adreslijst";
+        return "viewKlant";
     }
     
     //Add an existing adres to a klant
@@ -141,7 +142,7 @@ public class AdresBean implements Serializable {
         adressenInKlant.add(kha);
         selectedAdres = new Adres();
         selectedAdresType = new AdresType();
-        return "adreslijst";
+        return "viewKlant";
     }
     
     //Remove an adres from klant, then check if the adres is not connected to another klant. If it is not connected, delete it entirely
@@ -152,6 +153,10 @@ public class AdresBean implements Serializable {
             removeFromAdressen(adresInKlant.getAdresidAdres());
         }
         setAdressenInKlant(kHAFacade.findByIdKlant(adresInKlant.getKlantidKlant().getIdKlant()));
+        if (adressenInKlant == null) {
+            setAdressenInKlant(new ArrayList<KlantHasAdres>());
+        }
+        
         setAdressen(adresFacade.findAll());
     }
     
@@ -186,7 +191,8 @@ public class AdresBean implements Serializable {
         selectedAdresInKlant.setAdrestypeidAdrestype(adresTypeFacade.find(selectedAdresType.getIdAdrestype()));
         kHAFacade.edit(selectedAdresInKlant);
         selectedAdresInKlant = new KlantHasAdres();
-        return "adreslijst";
+        setAdressen(adresFacade.findAll());
+        return "viewKlant";
     }
     
     //Set selected adres en klanthasadres, and go to the "editAdres" page
@@ -201,7 +207,7 @@ public class AdresBean implements Serializable {
     //find all adressen from a klant
     public void findAdressenByKlant(Klant klant){
         setSelectedKlant(klant);
-        setAdressenInKlant(kHAFacade.findByIdKlant(klantId));
+        setAdressenInKlant(kHAFacade.findByIdKlant(klant.getIdKlant()));
     }
     
     @PostConstruct

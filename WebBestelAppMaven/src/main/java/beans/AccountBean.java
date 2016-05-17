@@ -28,7 +28,7 @@ public class AccountBean implements Serializable{
     
     private Account selectedAccount;
     private List<Account> accounts;
-    private List<Account> accountsVanKlant;
+    //private List<Account> accountsVanKlant;
     private Integer klantId;
     //private List<Klant> klanten;
     private Klant selectedKlant;
@@ -79,13 +79,13 @@ public class AccountBean implements Serializable{
         this.selectedKlant = selectedKlant;
     }
     
-    public List<Account> getAccountsVanKlant() {
+   /* public List<Account> getAccountsVanKlant() {
         return accountsVanKlant;
     }
     
     public void setAccountsVanKlant(List<Account> accountsVanKlant) {
         this.accountsVanKlant = accountsVanKlant;
-    }
+    }*/
     
    /* public List<Klant> getKlanten() {
         return klanten;
@@ -99,7 +99,7 @@ public class AccountBean implements Serializable{
     
     public void addToAccounts() {
         //selectedKlant = new Klant();
-        selectedKlant.setIdKlant(klantId);
+        //selectedKlant.setIdKlant(klantId);
         selectedAccount.setKlantidKlant(selectedKlant);
         selectedAccount.setCreatieDatum(new Date()); //set Datum
         accountFacade.create(selectedAccount);
@@ -141,7 +141,7 @@ public class AccountBean implements Serializable{
     public String editThisAccount() {
         accountFacade.edit(selectedAccount);
         selectedAccount = new Account();
-        return "accountlijst";
+        return "viewKlant";
     }
     
     public String goToEditAccount (Account account){
@@ -153,13 +153,13 @@ public class AccountBean implements Serializable{
     
     public void findAccounts(Klant klant) {
         setSelectedKlant(klant);
-        setAccountsVanKlant(accountFacade.findAccountByKlantId(selectedKlant.getIdKlant()));
+        setAccounts(accountFacade.findAccountByKlantId(selectedKlant.getIdKlant()));
     }
     
     
     @PostConstruct
     private void init() {
-        setAccounts(accountFacade.findAll());
+        //setAccounts(accountFacade.findAll());
         //setKlanten(klantFacade.findAll());
     }
 }

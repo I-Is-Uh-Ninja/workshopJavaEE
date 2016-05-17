@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -33,7 +34,9 @@ public class BestellingFacade extends AbstractFacade<Bestelling> {
     }
     
     public List<Bestelling> findBestellingByKlantId(int klantId){
-        return em.createNamedQuery("Bestelling.findByKlantId", Bestelling.class).getResultList();
+        Query query = em.createNamedQuery("Bestelling.findByKlantId", Bestelling.class);
+        query = query.setParameter("Klant_idKlant", klantId);
+        return query.getResultList();
     }
     
 }

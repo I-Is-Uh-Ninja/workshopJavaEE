@@ -35,7 +35,7 @@ public class BestellingBean {
     private List<Bestelling> bestellingen;
     private Bestelling selectedBestelling;
     private Integer klantId;
-    private List<Klant> klanten;
+    //private List<Klant> klanten;
     private List<BestellingHasArtikel> artikelenInBestelling;
     private BigDecimal totaalPrijs;
     
@@ -79,13 +79,13 @@ public class BestellingBean {
         klantId = id;
     }
 
-    public List<Klant> getKlanten() {
+   /* public List<Klant> getKlanten() {
         return klanten;
     }
 
     public void setKlanten(List<Klant> klanten) {
         this.klanten = klanten;
-    }
+    }*/
 
     public List<BestellingHasArtikel> getArtikelenInBestelling() {
         return artikelenInBestelling;
@@ -130,12 +130,12 @@ public class BestellingBean {
     
     private void addToArtikelenInBestelling(BestellingHasArtikel bHA){
         bHAFacade.create(bHA);
-        setArtikelenInBestelling(bHAFacade.findAll());
+        setArtikelenInBestelling(bHAFacade.findArtikelenInBestelling(selectedBestelling.getIdBestelling()));
     }
     
     private void removeFromArtikelenInBestelling(BestellingHasArtikel bHA){
         bHAFacade.remove(bHA);
-        setArtikelenInBestelling(bHAFacade.findAll());
+        setArtikelenInBestelling(bHAFacade.findArtikelenInBestelling(selectedBestelling.getIdBestelling()));
     }
     
     //=====Go to other views=====
@@ -154,7 +154,7 @@ public class BestellingBean {
     
     public void editAantal(BestellingHasArtikel selectedArtikel){
         bHAFacade.edit(selectedArtikel);
-        setArtikelenInBestelling(bHAFacade.findAll());
+        setArtikelenInBestelling(bHAFacade.findArtikelenInBestelling(selectedBestelling.getIdBestelling()));
     }
     
     public String addArtikelToBestelling(Artikel artikel){
@@ -180,13 +180,17 @@ public class BestellingBean {
         setTotaalPrijs(totaal);
     }
     
+    public void findBestellingenByKlantId(int klantId){
+        setKlantId(klantId);
+        setBestellingen(bestellingFacade.findBestellingByKlantId(klantId));
+    }
+    
+    
     @PostConstruct
     public void init(){
-        bestellingen = bestellingFacade.findAll();
-        klanten = klantFacade.findAll();
         if (selectedBestelling != null){
             if(selectedBestelling.getIdBestelling() != null){
-                artikelenInBestelling = bHAFacade.findAll();
+                artikelenInBestelling = bHAFacade.findArtikelenInBestelling(selectedBestelling.getIdBestelling());
             }
         }
     }

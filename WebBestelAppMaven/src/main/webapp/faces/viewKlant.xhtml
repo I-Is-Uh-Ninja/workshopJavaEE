@@ -46,15 +46,56 @@ and open the template in the editor.
             </h:dataTable>
         </h:form>
         <h2>Adresgegevens:</h2>
-          
+        <f:metadata>
+                <f:event listener="#{adresBean.findAdressenByKlant(klantBean.selectedKlant)}" type="postAddToView"/>
+        </f:metadata>            
+        <f:view>
+            <h:form>
+                <h:dataTable value="#{adresBean.adressenInKlant}" var="adres">
+                    <h:column>
+                        <f:facet name="header">Adres Id</f:facet>
+                        #{adres.adresidAdres.idAdres}
+                   </h:column>                    
+                    <h:column>
+                        <f:facet name="header">Straatnaam</f:facet>
+                        #{adres.adresidAdres.straatnaam}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Postcode</f:facet>
+                        #{adres.adresidAdres.postcode}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Huisnummer</f:facet>
+                        #{adres.adresidAdres.huisnummer}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Woonplaats</f:facet>
+                        #{adres.adresidAdres.woonplaats}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Adres-type</f:facet>
+                        #{adres.adrestypeidAdrestype.adresType}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Actie</f:facet>
+                        <h:commandButton action="#{adresBean.goToEditAdres(adres)}" value="Bewerken"/>
+                        <h:commandButton action="#{adresBean.removeAdresFromKlant(adres)}" value="Verwijderen"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </f:view>
+        <h:form>
+            <h:commandButton action="addAdres" value="Voeg een adres toe" />
+        </h:form>  
         
-        <h2>Accountgegevens:</h2>>
+        <h2>Accountgegevens:</h2>
         <f:view>
              <f:metadata>
                 <f:event listener="#{accountBean.findAccounts(klantBean.selectedKlant)}" type="postAddToView"/>
+                <f:event listener="#{accountBean.setSelectedKlant(klantBean.selectedKlant)}" type="preRenderView"/>
             </f:metadata>            
            <h:form>
-               <h:dataTable value="#{accountBean.accountsVanKlant}" var="account">
+               <h:dataTable value="#{accountBean.accounts}" var="account">
                    <h:column>
                         <f:facet name="header">Account Id</f:facet>
                         #{account.idAccount}
@@ -81,23 +122,41 @@ and open the template in the editor.
        </f:view>
        <h:form>
            <h3>Voeg account toe</h3>
-            <hr/>
+            <br/>
             <tr>
                   <td>Accountnaam</td>
                   <td><h:inputText size="80" value="#{accountBean.selectedAccount.accountNaam}">
                       <f:validateBean disabled="false"/></h:inputText></td>
-                  <f:selectItem itemValue="#{selectedAccount.idKlant}" itemLabel="#{selectedKlant.idKlant}" /><!-- werkt niet-->
             </tr>
-            <!--<h3>Selecteer juiste klant id</h3>
-            <h:selectOneListbox value="#{accountBean.klantId}">
-                    <c:forEach items="#{klantBean.klanten}" var="klant">
-                        <f:selectItem itemValue="#{klant.idKlant}" itemLabel="#{klant.idKlant}" />
-                    </c:forEach>
-            </h:selectOneListbox>   werkt, maar toont heel dropdown menu, zou automatisch moeten-->
             <tr>
                   <td><h:commandButton value="Voeg account toe" action="#{accountBean.addToAccounts()}"/></td>
             </tr>   
        </h:form>
+       <h2>Bestellingen:</h2>
+       <f:view>
+           <f:metadata>
+               <f:event listener="#{bestellingBean.findBestellingenByKlantId(klantBean.selectedKlant.idKlant)}" type="preRenderView"/>
+           </f:metadata>
+           <h:form>
+               <h:dataTable value="#{bestellingBean.bestellingen}" var="bestelling">
+               <h:column>
+                   <f:facet name="header">Bestelling ID</f:facet>
+                   #{bestelling.idBestelling}
+               </h:column>
+               <h:column>
+                        <f:facet name="header">Actie</f:facet>
+                        <h:commandButton action="#{bestellingBean.goToViewBestelling(bestelling)}" value="Selecteer bestelling"/>
+                        <h:commandButton action="#{bestellingBean.removeFromBestellingen(bestelling)}" value="Verwijder bestelling"/>
+               </h:column>    
+              </h:dataTable>
+                 <tr>
+                  <td><h:commandButton value="Voeg bestelling toe" action="#{bestellingBean.addSelectedBestelling()}" /></td>
+                </tr>
+           </h:form>
+       
+       
+       
+       </f:view>
             
     </h:body>
 </html>

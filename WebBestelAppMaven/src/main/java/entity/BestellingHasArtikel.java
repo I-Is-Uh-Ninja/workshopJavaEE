@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -31,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "BestellingHasArtikel.findAll", query = "SELECT b FROM BestellingHasArtikel b"),
     @NamedQuery(name = "BestellingHasArtikel.findByIdBestelArtikel", query = "SELECT b FROM BestellingHasArtikel b WHERE b.idBestelArtikel = :idBestelArtikel"),
-    @NamedQuery(name = "BestellingHasArtikel.findByBestellingId", query = "SELECT b from BestellingHasArtikel b WHERE b.bestellingidBestelling = :bestelling_idBestelling")})
+    @NamedQuery(name = "BestellingHasArtikel.findByBestellingId", query = "SELECT b from BestellingHasArtikel b WHERE b.bestellingidBestelling.idBestelling = :bestelling_idBestelling")})
 public class BestellingHasArtikel implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,8 +44,9 @@ public class BestellingHasArtikel implements Serializable {
     private Integer idBestelArtikel;
     
     @Basic(optional = false)
-    @NotNull
-    @Size(min=1, max=100, message="Het aantal moet minimaal 1 zijn, en mag maximaal 100 zijn")
+    @Min(1)
+    @Max(100)
+    //@Size(min=1, max=100, message="Het aantal moet minimaal 1 zijn, en mag maximaal 100 zijn")
     @Column(name = "aantal")
     private int aantal;
     
