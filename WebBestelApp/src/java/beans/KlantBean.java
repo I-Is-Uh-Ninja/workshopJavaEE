@@ -84,7 +84,17 @@ public class KlantBean implements Serializable{
          return "klantlijst";
      }
      
-      //=====Edit bestelling=====
+     
+     
+     //=====Selecteer Klant=====
+     
+     public String goToSelectedKlant(Klant klant) {
+         setSelectedKlant(klant);
+         return "viewKlant";
+     }
+
+     
+      //=====Edit Klant=====
      
      public String goToEditKlant(Klant klant) {
          setSelectedKlant(klant);
@@ -93,11 +103,12 @@ public class KlantBean implements Serializable{
      
     
      //=====Other=====
-     
-     public Klant findKlantById(Integer id){
+      
+    public Klant findKlantById(Integer id){
          return klantFacade.find(id);
      }
-     
+
+   
      @PostConstruct
      private void init() {
          setKlanten(klantFacade.findAll());

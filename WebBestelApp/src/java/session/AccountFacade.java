@@ -6,13 +6,15 @@
 package session;
 
 import entity.Account;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
- * @author Ian
+ * @author Ian/Wytze
  */
 @Stateless
 public class AccountFacade extends AbstractFacade<Account> {
@@ -27,6 +29,12 @@ public class AccountFacade extends AbstractFacade<Account> {
 
     public AccountFacade() {
         super(Account.class);
+    }
+    
+    public List<Account> findAccountByKlantId(int KlantId) {
+        Query query = em.createNamedQuery("Account.findAccountByKlantId", Account.class);
+        query.setParameter("idKlant", KlantId);
+        return query.getResultList();
     }
     
 }

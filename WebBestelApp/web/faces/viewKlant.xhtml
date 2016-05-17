@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Bekijk klantgegevens</title>
+    </h:head>
+    <h:body>
+        <h1>Klant met ID: #{klantBean.selectedKlant.idKlant}</h1>
+        
+        <h2>Klantgegevens:</h2>
+        <h:form>
+            <h:dataTable value ="#{klantBean.selectedKlant}" var="klant">
+                <h:column>
+                        <f:facet name="header">Klant Id</f:facet>
+                        #{klant.idKlant}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Voornaam</f:facet>
+                        #{klant.voornaam}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Tussenvoegsel</f:facet>
+                        #{klant.tussenvoegsel}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Achternaam</f:facet>
+                        #{klant.achternaam}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Email</f:facet>
+                        #{klant.email}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Actie</f:facet>
+                        <h:commandButton action="#{klantBean.goToEditKlant(klant)}" value="Bewerken"/>
+                        <h:commandButton action="#{klantBean.removeFromKlanten(klant)}" value="Verwijderen"/>
+                    </h:column>
+            </h:dataTable>
+        </h:form>
+        <h2>Adresgegevens:</h2>
+          
+        
+        <h2>Accountgegevens:</h2>>
+        <f:view>
+             <f:metadata>
+                <f:event listener="#{accountBean.findAccounts(klantBean.selectedKlant)}" type="postAddToView"/>
+            </f:metadata>            
+           <h:form>
+               <h:dataTable value="#{accountBean.accountsVanKlant}" var="account">
+                   <h:column>
+                        <f:facet name="header">Account Id</f:facet>
+                        #{account.idAccount}
+                   </h:column>       
+                   <h:column>    				
+                       <f:facet name="header">Accountnaam</f:facet>    				
+                       #{account.accountNaam}
+                    </h:column>             
+                   <h:column>    				
+                       <f:facet name="header">Creatie datum</f:facet>    				
+                       #{account.creatieDatum}
+                   </h:column>
+                   <h:column>    				
+                       <f:facet name="header">Klant id</f:facet>    				
+                       #{account.klantidKlant.idKlant}
+                    </h:column>
+                   <h:column>
+                        <f:facet name="header">Actie</f:facet>
+                        <h:commandButton action="#{accountBean.goToEditAccount(account)}" value="Bewerken"/>
+                        <h:commandButton action="#{accountBean.removeFromAccounts(account)}" value="Verwijderen"/>
+                    </h:column>
+               </h:dataTable>
+           </h:form>
+       </f:view>
+       <h:form>
+           <h3>Voeg account toe</h3>
+            <hr/>
+            <tr>
+                  <td>Accountnaam</td>
+                  <td><h:inputText size="80" value="#{accountBean.selectedAccount.accountNaam}" /></td>
+                  <f:selectItem itemValue="#{selectedAccount.idKlant}" itemLabel="#{selectedKlant.idKlant}" /><!-- werkt niet-->
+            </tr>
+            <h3>Selecteer juiste klant id</h3>
+            <!--<h:selectOneListbox value="#{accountBean.klantId}">
+                    <c:forEach items="#{klantBean.klanten}" var="klant">
+                        <f:selectItem itemValue="#{klant.idKlant}" itemLabel="#{klant.idKlant}" />
+                    </c:forEach>
+            </h:selectOneListbox>   werkt, maar toont heel dropdown menu, zou automatisch moeten-->
+            
+                  <td><h:commandButton value="Voeg account toe" action="#{accountBean.addToAccounts()}" /></td>
+            </tr>
+            
+            
+            
+       </h:form>
+            
+    </h:body>
+</html>

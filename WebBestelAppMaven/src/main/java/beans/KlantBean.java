@@ -83,8 +83,15 @@ public class KlantBean implements Serializable{
          selectedKlant = new Klant();
          return "klantlijst";
      }
+    
+     //=====Selecteer Klant=====
      
-      //=====Edit bestelling=====
+     public String goToSelectedKlant(Klant klant) {
+         setSelectedKlant(klant);
+         return "viewKlant";
+     }
+     
+      //=====Edit Klant=====
      
      public String goToEditKlant(Klant klant) {
          setSelectedKlant(klant);

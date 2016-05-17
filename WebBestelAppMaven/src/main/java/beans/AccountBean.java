@@ -28,9 +28,11 @@ public class AccountBean implements Serializable{
     
     private Account selectedAccount;
     private List<Account> accounts;
+    private List<Account> accountsVanKlant;
     private Integer klantId;
-    private List<Klant> klanten;
-    private Klant klant;
+    //private List<Klant> klanten;
+    private Klant selectedKlant;
+    
     
     @EJB
     private AccountFacade accountFacade;
@@ -39,6 +41,7 @@ public class AccountBean implements Serializable{
     
     public AccountBean() {
         selectedAccount = new Account();
+        selectedKlant = new Klant();
         //selectedAccount.setCreatieDatum(new Date());
     }
     
@@ -68,23 +71,39 @@ public class AccountBean implements Serializable{
         klantId = id;
     }
     
-    public List<Klant> getKlanten() {
+    public Klant getSelectedKlant () {
+        return selectedKlant;
+    }
+    
+    public void setSelectedKlant(Klant selectedKlant) {
+        this.selectedKlant = selectedKlant;
+    }
+    
+    public List<Account> getAccountsVanKlant() {
+        return accountsVanKlant;
+    }
+    
+    public void setAccountsVanKlant(List<Account> accountsVanKlant) {
+        this.accountsVanKlant = accountsVanKlant;
+    }
+    
+   /* public List<Klant> getKlanten() {
         return klanten;
     }
 
     public void setKlanten(List<Klant> klanten) {
         this.klanten = klanten;
-    }
+    }*/
     
     //=====Adding and removing from account list=====
     
-    public void addToAccounts(Account account) {
-        account.setCreatieDatum(new Date()); //set Datum
-        klant = new Klant();
-        klant.setIdKlant(klantId);
-        account.setKlantidKlant(klant);
-        accountFacade.create(account);
-        accounts.add(account);
+    public void addToAccounts() {
+        //selectedKlant = new Klant();
+        selectedKlant.setIdKlant(klantId);
+        selectedAccount.setKlantidKlant(selectedKlant);
+        selectedAccount.setCreatieDatum(new Date()); //set Datum
+        accountFacade.create(selectedAccount);
+        accounts.add(selectedAccount);
     }
     
     public void removeFromAccounts(Account account) {
@@ -101,12 +120,19 @@ public class AccountBean implements Serializable{
         }
     }
     
+    /*
+    
+    public void addAccountToAccountsVanKlant(Account account) {
+        addToAccounts(account);
+        setAccountsVanKlant(accountFacade.findAll());
+    }*/
+    
     public void addThisAccount() {
-        klant = new Klant();
-        klant.setIdKlant(klantId);
-        selectedAccount.setKlantidKlant(klant);
+        //klant = new Klant();
+        //klant.setIdKlant(klantId);
+        //selectedAccount.setKlantidKlant(klant);
         selectedAccount.setCreatieDatum(new Date()); //set Datum
-        addToAccounts(selectedAccount);
+        addToAccounts();
         selectedAccount = new Account();
     }
     
@@ -125,9 +151,15 @@ public class AccountBean implements Serializable{
 
     //=====Other=====
     
+    public void findAccounts(Klant klant) {
+        setSelectedKlant(klant);
+        setAccountsVanKlant(accountFacade.findAccountByKlantId(selectedKlant.getIdKlant()));
+    }
+    
+    
     @PostConstruct
     private void init() {
         setAccounts(accountFacade.findAll());
-        setKlanten(klantFacade.findAll());
+        //setKlanten(klantFacade.findAll());
     }
 }

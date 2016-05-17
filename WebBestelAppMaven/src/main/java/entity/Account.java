@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
     @NamedQuery(name = "Account.findByIdAccount", query = "SELECT a FROM Account a WHERE a.idAccount = :idAccount"),
     @NamedQuery(name = "Account.findByAccountNaam", query = "SELECT a FROM Account a WHERE a.accountNaam = :accountNaam"),
-    @NamedQuery(name = "Account.findByCreatieDatum", query = "SELECT a FROM Account a WHERE a.creatieDatum = :creatieDatum")})
+    @NamedQuery(name = "Account.findByCreatieDatum", query = "SELECT a FROM Account a WHERE a.creatieDatum = :creatieDatum"),
+    @NamedQuery(name = "Account.findAccountByKlantId", query = "SELECT a FROM Account a WHERE a.klantidKlant.idKlant = :idKlant")})
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,8 +47,8 @@ public class Account implements Serializable {
     private Integer idAccount;
     
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 80)
+    @NotNull(message="De account moet een naam hebben.")
+    @Size(min = 1, max = 80, message="De accountnaam moet uit minimaal 1 teken en maxmiaal 80 tekens bestaan.")
     @Column(name = "account_naam")
     private String accountNaam;
     

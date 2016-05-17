@@ -38,6 +38,7 @@ and open the template in the editor.
                     </h:column>
                     <h:column>
                         <f:facet name="header">Actie</f:facet>
+                        <h:commandButton action="#{klantBean.goToSelectedKlant(klant)}" value="Selecteren"/>
                         <h:commandButton action="#{klantBean.goToEditKlant(klant)}" value="Bewerken"/>
                         <h:commandButton action="#{klantBean.removeFromKlanten(klant)}" value="Verwijderen"/>
                     </h:column>
