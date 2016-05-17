@@ -38,6 +38,7 @@ and open the template in the editor.
                     </h:column>
                     <h:column>
                         <f:facet name="header">Actie</f:facet>
+                        <h:commandButton action="#{klantBean.goToSelectedKlant(klant)}" value="Selecteren"/>
                         <h:commandButton action="#{klantBean.goToEditKlant(klant)}" value="Bewerken"/>
                         <h:commandButton action="#{klantBean.removeFromKlanten(klant)}" value="Verwijderen"/>
                     </h:column>
@@ -50,19 +51,23 @@ and open the template in the editor.
             <table>
                 <tr>
                     <td>Voornaam</td>
-                    <td><h:inputText size='50' value="#{klantBean.selectedKlant.voornaam}" /></td>
+                    <td><h:inputText size='50' value="#{klantBean.selectedKlant.voornaam}">
+                        <f:validateBean disabled="false"/></h:inputText></td>
                 </tr>
                 <tr>
                     <td>Tussenvoegsel</td>
-                    <td><h:inputText size='10' value="#{klantBean.selectedKlant.tussenvoegsel}" /></td>
+                    <td><h:inputText size='10' value="#{klantBean.selectedKlant.tussenvoegsel}">
+                        <f:validateBean disabled="false"/></h:inputText></td>
                 </tr>
                 <tr>
                     <td>Achternaam</td>
-                    <td><h:inputText size='52' value="#{klantBean.selectedKlant.achternaam}" /></td>
+                    <td><h:inputText size='52' value="#{klantBean.selectedKlant.achternaam}">
+                        <f:validateBean disabled="false"/></h:inputText></td>
                 </tr>
                 <tr>
                     <td>Email</td>
-                    <td><h:inputText size='80' value="#{klantBean.selectedKlant.email}" /></td>
+                    <td><h:inputText size='80' value="#{klantBean.selectedKlant.email}">
+                        <f:validateBean disabled="false"/></h:inputText></td>
                 </tr>
                 <tr>
                   <td> </td>

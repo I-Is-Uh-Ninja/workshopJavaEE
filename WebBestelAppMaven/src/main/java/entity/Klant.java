@@ -46,22 +46,22 @@ public class Klant implements Serializable {
     @Column(name = "idKlant")
     private Integer idKlant;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @NotNull(message="De klant met een voornaam hebben")
+    @Size(min = 1, max = 50, message="De voornaam moet minimaal 1 en maximaal 50 karakters lang zijn")
     @Column(name = "voornaam")
     private String voornaam;
-    @Size(max = 10)
+    @Size(max = 10, message="Het tussenvoegsel mag maximaal 10 karakters lang zijn.")
     @Column(name = "tussenvoegsel")
     private String tussenvoegsel;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 51)
+    @NotNull(message="De klant moet een achternaam hebben")
+    @Size(min = 1, max = 51, message="De achternaam moet minimaal 1 en maximaal 51 karakters lang zijn")
     @Column(name = "achternaam")
     private String achternaam;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 80)
+    @NotNull(message="De klant moet een emailadres opgeven")
+    @Size(min = 1, max = 80, message="Het emailadres moet minimaal 1 en maximaal 80 karakters lang zijn")
     @Column(name = "email")
     private String email;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "klantidKlant")
