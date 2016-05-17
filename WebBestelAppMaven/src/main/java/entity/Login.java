@@ -46,11 +46,7 @@ public class Login implements Serializable {
     private String inlognaam;
     @Basic(optional = false)
     @NotNull
-<<<<<<< HEAD
-    //@Size(min = 5, max = 30, message="Wachtwoord moet tussen de 5 en 30 karakters lang zijn")
-=======
     @Size(min = 1, max = 180)
->>>>>>> refs/remotes/origin/master
     @Column(name = "inlogwachtwoord")
     private String inlogwachtwoord;
 
