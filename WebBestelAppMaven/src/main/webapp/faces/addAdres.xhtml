@@ -10,6 +10,18 @@
     <h:body>
         <f:view>
             <h:form>
+                <h2>Selecteer het adrestype</h2>
+                <br/>                
+                <h:column>
+                        <f:facet name="header">Adres-type</f:facet>
+                        <h:selectOneListbox value="#{adresBean.selectedAdresType.idAdrestype}">
+                            <c:forEach items="#{adresBean.allAdresTypes}" var="adrestypes">
+                                <f:selectItem itemValue="#{adrestypes.idAdrestype}"
+                                              itemLabel="#{adrestypes.adresType}" />
+                            </c:forEach>
+                        </h:selectOneListbox>
+                </h:column>
+                <br/>
                 <h2>Voeg een bestaand adres toe</h2>
                 <h:dataTable value="#{adresBean.adressen}" var="adres">
                     <h:column>
@@ -32,15 +44,7 @@
                         <f:facet name="header">Woonplaats</f:facet>
                         #{adres.woonplaats}
                     </h:column>
-                    <h:column>
-                        <f:facet name="header">Adres-type</f:facet>
-                        <h:selectOneListbox value="#{adresBean.selectedAdresType.idAdrestype}">
-                            <c:forEach items="#{adresBean.allAdresTypes}" var="adrestypes">
-                                <f:selectItem itemValue="#{adrestypes.idAdrestype}"
-                                              itemLabel="#{adrestypes.adresType}" />
-                            </c:forEach>
-                        </h:selectOneListbox>
-                    </h:column>
+                    
                     <h:column>
                         <f:facet name="header">Voeg toe</f:facet>
                         <h:commandButton value="Voeg toe" action="#{adresBean.addExistingAdres(adres)}" />
