@@ -33,7 +33,7 @@ public class FactuurFacade extends AbstractFacade<Factuur> {
     
     public List<Factuur> findFactuurByBestellingId(int bestellingId){
         Query query = em.createNamedQuery("Factuur.findByBestellingId", Factuur.class);
-        query.setParameter("idBestelling", bestellingId);
+        query = query.setParameter("idBestelling", bestellingId);
         return query.getResultList();
     }
 }

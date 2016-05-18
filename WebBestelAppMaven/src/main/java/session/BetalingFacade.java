@@ -34,7 +34,7 @@ public class BetalingFacade extends AbstractFacade<Betaling> {
     
     public List<Betaling> findByFactuur(int factuurId){
         Query query = em.createNamedQuery("Betaling.findByFactuur", Betaling.class);
-        query.setParameter("idFactuur", factuurId);
+        query = query.setParameter("idFactuur", factuurId);
         return query.getResultList();
     }
     

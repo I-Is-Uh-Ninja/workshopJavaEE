@@ -10,8 +10,9 @@ import entity.Betaling;
 import entity.Factuur;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import javax.annotation.PostConstruct;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Named;
@@ -32,6 +33,7 @@ public class FactuurBean {
     private List<Betaling> betalingen;
     private Factuur factuur;
     private List<Factuur> facturenInBestelling;
+    private Map<Betaling, Factuur> betalingenInFactuur;
     
     @EJB
     BetalingFacade betalingFacade;
@@ -43,6 +45,7 @@ public class FactuurBean {
     
     public FactuurBean() {
         factuur = new Factuur();
+        betalingenInFactuur = new HashMap();
     }
     
     //=====Getters and setters=====
@@ -78,6 +81,16 @@ public class FactuurBean {
     public void setFacturenInBestelling(List<Factuur> facturenInBestelling) {
         this.facturenInBestelling = facturenInBestelling;
     }
+
+    public Map<Betaling, Factuur> getBetalingenInFactuur() {
+        return betalingenInFactuur;
+    }
+
+    public void setBetalingenInFactuur(Map<Betaling, Factuur> betalingenInFactuur) {
+        this.betalingenInFactuur = betalingenInFactuur;
+    }
+    
+    
     
     //=====Add to/remove from betalingen=====
     
@@ -94,6 +107,17 @@ public class FactuurBean {
         }
     }
     
+    public List<Betaling> findBetalingenByFactuur(Factuur factuur){
+        int size = betalingenInFactuur.size();
+        List<Betaling> returnBetalingen = new ArrayList<>();
+        for (Map.Entry<Betaling, Factuur> next : betalingenInFactuur.entrySet()) {
+            if(next.getValue().equals(factuur)){
+                returnBetalingen.add(next.getKey());
+            }
+        }
+        return returnBetalingen;
+    }
+    
     //=====Add factuur=====
     
     public String payBestelling(Betaling betaling){
@@ -101,6 +125,7 @@ public class FactuurBean {
         factuur.setFactuurDatum(new Date());
         betaling.setFactuuridFactuur(factuur);
         betaling.setKlantidKlant(selectedBestelling.getKlantidKlant());
+        setBetalingen((List<Betaling>)factuur.getBetalingCollection());
         addToBetalingen(betaling);
         factuur.setBetalingCollection(betalingen);
         factuurFacade.create(factuur);
@@ -108,8 +133,14 @@ public class FactuurBean {
         return "viewBestelling";
     }
     
-    public void findFacturen(Bestelling bestelling){
+    public List<Factuur> findFacturen(Bestelling bestelling){
         setSelectedBestelling(bestelling);
-        setFacturenInBestelling(factuurFacade.findFactuurByBestellingId(selectedBestelling.getIdBestelling()));
+        setFacturenInBestelling(factuurFacade.findFactuurByBestellingId(bestelling.getIdBestelling()));
+        for(Factuur f : facturenInBestelling){
+            for(Betaling b : betalingFacade.findByFactuur(f.getIdFactuur())){
+                betalingenInFactuur.put(b, f);
+            }
+        }
+        return facturenInBestelling;
     }
 }

@@ -79,7 +79,6 @@ public class BetalingBean {
     //=====Adding betaling=====
     
     public Betaling addBetaling(){
-        setBetaling(new Betaling());
         betaling.setBetaalDatum(new Date());
         setSelectedBetaalwijze(betaalwijzeFacade.find(betaalwijzeId));
         betaling.setBetaalwijzeidBetaalwijze(selectedBetaalwijze);
@@ -88,6 +87,7 @@ public class BetalingBean {
     
     @PostConstruct
     public void init(){
+        betaling = new Betaling();
         allBetaalwijzes = betaalwijzeFacade.findAll();
     }
     
