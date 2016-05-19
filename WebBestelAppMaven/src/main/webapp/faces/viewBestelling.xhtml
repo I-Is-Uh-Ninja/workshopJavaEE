@@ -4,84 +4,100 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Bekijk bestelling</title>
     </h:head>
     <h:body>
-        <h1>Bestelling with ID #{bestellingBean.selectedBestelling.idBestelling}</h1>
-        <f:view>
-            <f:metadata>
-                <f:event listener="#{factuurBean.findFacturen(bestellingBean.selectedBestelling)}" type="preRenderView"/>
-            </f:metadata>
-            <h:form>
-                <h:dataTable value="#{bestellingBean.artikelenInBestelling}" var="artikel">
-                    <h:column>
-                       <f:facet name="header">Artikel ID</f:facet>
-                       #{artikel.artikelidArtikel.idArtikel}
-                    </h:column>
-                    <h:column>    				
-                       <f:facet name="header">Artikelnaam</f:facet>    				
-                       #{artikel.artikelidArtikel.artikelnaam}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Artikelprijs</f:facet>
-                        #{artikel.artikelidArtikel.artikelprijs}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Artikelnummer</f:facet>
-                        #{artikel.artikelidArtikel.artikelnummer}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Artikelomschrijving</f:facet>
-                        #{artikel.artikelidArtikel.artikelomschrijving}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Aantal</f:facet>
-                        <h:inputText size="4" value="#{artikel.aantal}">
-                           <f:validateBean disabled="false"/></h:inputText>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Actie</f:facet>
-                        <h:commandButton action="#{bestellingBean.editAantal(artikel)}" value="Pas aantal aan"/>
-                        <h:commandButton action="#{bestellingBean.removeArtikelFromBestelling(artikel)}" value="Verwijder artikel"/>
-                    </h:column>
-                 </h:dataTable>
-                <br/>
-                <h3>Totaalprijs: #{bestellingBean.totaalPrijs}</h3>
-                <br/>
-                <h:commandButton action="selectArtikel" value="Voeg artikel toe aan bestelling"/>
-                <br/>
-                <br/>
-                <h:commandButton action="betaalBestelling" value="Betaal de bestelling"/>
-            </h:form>
-            <br/>
-            <h:form>
-                <h:dataTable value="#{factuurBean.findFacturen(bestellingBean.selectedBestelling)}" var="factuur">
-                    <h:column>
-                        <f:facet name="header">Factuur ID</f:facet>
-                        #{factuur.idFactuur}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Factuur Datum</f:facet>
-                        #{factuur.factuurDatum}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Betaalmethode</f:facet>
-                        <ui:repeat value="#{factuurBean.findBetalingenByFactuur(factuur)}" var="betaling">
-                            #{betaling.betaalwijzeidBetaalwijze.betaalwijze}
-                        </ui:repeat>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Betalingsgegevens</f:facet>
-                        <ui:repeat value="#{factuurBean.findBetalingenByFactuur(factuur)}" var="betaling">
-                            #{betaling.betalingsGegevens}
-                        </ui:repeat>
-                    </h:column>
-                </h:dataTable>
-            </h:form>
-        </f:view>
-        
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" style="min-height:75px;margin:0;padding:0;border-style:none">
+                <h:form style="border-style:none;margin:0;padding:0">
+                    <p:menubar style="text-align:center;margin:0;padding:10px">
+                        <p:menuitem value="Keuzemenu" url="keuzemenu.xhtml"/>
+                        <p:menuitem value="Artikellijst" url="artikellijst.xhtml"/>
+                        <p:menuitem value="Klantenlijst" url="klantlijst.xhtml"/>
+                        <p:menuitem value="Logout" action="#{loginBean.logout()}" ajax="false"/>
+                    </p:menubar>
+                </h:form>
+            </p:layoutUnit>
+            <p:layoutUnit position="center" style="max-height:900px;border-style:none">
+                <div style="height:125px;padding: 0px 10px">
+                    <h1 styleClass="ui-outputlabel" style="text-align:center;line-height:100px;width:100%;height:100px;">Bestelling with ID #{bestellingBean.selectedBestelling.idBestelling}</h1>
+                </div>
+                <f:view>
+                    <f:metadata>
+                        <f:event listener="#{factuurBean.findFacturen(bestellingBean.selectedBestelling)}" type="preRenderView"/>
+                    </f:metadata>
+                    <h:form>
+                        <p:dataTable id="artikelen" value="#{bestellingBean.artikelenInBestelling}" var="artikel">
+                            <p:column>
+                               <f:facet name="header">Artikel ID</f:facet>
+                               #{artikel.artikelidArtikel.idArtikel}
+                            </p:column>
+                            <p:column>    				
+                               <f:facet name="header">Artikelnaam</f:facet>    				
+                               #{artikel.artikelidArtikel.artikelnaam}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Artikelprijs</f:facet>
+                                #{artikel.artikelidArtikel.artikelprijs}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Artikelnummer</f:facet>
+                                #{artikel.artikelidArtikel.artikelnummer}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Artikelomschrijving</f:facet>
+                                #{artikel.artikelidArtikel.artikelomschrijving}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Aantal</f:facet>
+                                <p:inputText size="4" value="#{artikel.aantal}">
+                                   <f:validateBean disabled="false"/></p:inputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Actie</f:facet>
+                                <p:commandButton action="#{bestellingBean.editAantal(artikel)}" value="Pas aantal aan"/>
+                                <p:commandButton action="#{bestellingBean.removeArtikelFromBestelling(artikel)}" value="Verwijder artikel" update="artikelen"/>
+                            </p:column>
+                         </p:dataTable>
+                        <br/>
+                        <h3 styleClass="ui-outputlabel">Totaalprijs: #{bestellingBean.totaalPrijs}</h3>
+                        <br/>
+                        <p:button outcome="selectArtikel" value="Voeg artikel toe aan bestelling"/>
+                        <br/>
+                        <br/>
+                        <p:button outcome="betaalBestelling" value="Betaal de bestelling"/>
+                    </h:form>
+                    <br/>
+                    <h:form>
+                        <p:dataTable value="#{factuurBean.findFacturen(bestellingBean.selectedBestelling)}" var="factuur">
+                            <p:column>
+                                <f:facet name="header">Factuur ID</f:facet>
+                                #{factuur.idFactuur}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Factuur Datum</f:facet>
+                                #{factuur.factuurDatum}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Betaalmethode</f:facet>
+                                <ui:repeat value="#{factuurBean.findBetalingenByFactuur(factuur)}" var="betaling">
+                                    #{betaling.betaalwijzeidBetaalwijze.betaalwijze}
+                                </ui:repeat>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Betalingsgegevens</f:facet>
+                                <ui:repeat value="#{factuurBean.findBetalingenByFactuur(factuur)}" var="betaling">
+                                    #{betaling.betalingsGegevens}
+                                </ui:repeat>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+            </p:layoutUnit>
+        </p:layout>
     </h:body>
 </html>
 
