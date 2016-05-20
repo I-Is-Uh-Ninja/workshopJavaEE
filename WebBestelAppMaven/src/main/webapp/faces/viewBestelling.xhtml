@@ -58,12 +58,12 @@
                             </p:column>
                             <p:column>
                                 <f:facet name="header">Actie</f:facet>
-                                <p:commandButton action="#{bestellingBean.editAantal(artikel)}" value="Pas aantal aan"/>
-                                <p:commandButton action="#{bestellingBean.removeArtikelFromBestelling(artikel)}" value="Verwijder artikel" update="artikelen"/>
+                                <p:commandButton action="#{bestellingBean.editAantal(artikel)}" value="Pas aantal aan" update="@form"/>
+                                <p:commandButton action="#{bestellingBean.removeArtikelFromBestelling(artikel)}" value="Verwijder artikel" update="@form"/>
                             </p:column>
                          </p:dataTable>
                         <br/>
-                        <h3 styleClass="ui-outputlabel">Totaalprijs: #{bestellingBean.totaalPrijs}</h3>
+                        <h3 styleClass="ui-outputLabel">Totaalprijs: #{bestellingBean.totaalPrijs}</h3>
                         <br/>
                         <p:button outcome="selectArtikel" value="Voeg artikel toe aan bestelling"/>
                         <br/>

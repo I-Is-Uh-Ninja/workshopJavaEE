@@ -147,11 +147,13 @@ public class BestellingBean {
     
     public void removeArtikelFromBestelling(BestellingHasArtikel selectedArtikel){
         removeFromArtikelenInBestelling(selectedArtikel);
+        calculateTotaalPrijs();
     }
     
     public void editAantal(BestellingHasArtikel selectedArtikel){
         bHAFacade.edit(selectedArtikel);
         setArtikelenInBestelling(bHAFacade.findArtikelenInBestelling(selectedBestelling.getIdBestelling()));
+        calculateTotaalPrijs();
     }
     
     public String addArtikelToBestelling(Artikel artikel){

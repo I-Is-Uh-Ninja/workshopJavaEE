@@ -8,50 +8,58 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
         <h:head>
         <title>Adres bewerken</title>
     </h:head>
     <h:body>
-        <h:form>
-            <h3>Bewerk adres</h3>
-            <hr/>
-            <table>
-                <tr>
-                    <td>Straatnaam</td>
-                    <td><h:inputText size="34" value="#{adresBean.selectedAdres.straatnaam}">
-                        <f:validateBean disabled="false"/></h:inputText></td>
-                </tr>
-                 <tr>
-                    <td>Huisnummer</td>
-                    <td><h:inputText size="10" value="#{adresBean.selectedAdres.huisnummer}">
-                        <f:validateBean disabled="false"/></h:inputText></td>
-                </tr>
-                 <tr>
-                    <td>Postcode</td>
-                    <td><h:inputText size="6" value="#{adresBean.selectedAdres.postcode}">
-                        <f:validateBean disabled="false"/></h:inputText></td>
-                </tr>
-                 <tr>
-                    <td>Woonplaats</td>
-                    <td><h:inputText size="30" value="#{adresBean.selectedAdres.woonplaats}">
-                        <f:validateBean disabled="false"/></h:inputText></td>
-                </tr>
-                <tr>
-                    <td>Adrestype</td>
-                    <td>
-                        <h:selectOneListbox value="#{adresBean.selectedAdresType.idAdrestype}">
-                            <c:forEach items="#{adresBean.allAdresTypes}" var="adrestype">
-                                <f:selectItem itemValue="#{adrestype.idAdrestype}"
-                                              itemLabel="#{adrestype.adresType}" />
-                            </c:forEach>
-                        </h:selectOneListbox>
-                    </td>
-                </tr>
-                <tr>
-                    <td><h:commandButton value="Bewerk adres" action="#{adresBean.editAdresInKlant()}" /></td>
-                </tr>
-            </table>
-        </h:form>>
+        <p:layout>
+            <p:layoutUnit position="north" style="min-height: 50px">
+                <p:button value="Terug naar klant-overzicht" outcome="viewKlant"/>
+            </p:layoutUnit>
+            <p:layoutUnit position="center" style="min-height: 750px">
+                <h:form>
+                    <h3 styleClass="ui-outputLabel">Bewerk adres</h3>
+                    <hr/>
+                    <table>
+                        <tr>
+                            <td>Straatnaam</td>
+                            <td><p:inputText size="34" value="#{adresBean.selectedAdres.straatnaam}">
+                                <f:validateBean disabled="false"/></p:inputText></td>
+                        </tr>
+                         <tr>
+                            <td>Huisnummer</td>
+                            <td><p:inputText size="10" value="#{adresBean.selectedAdres.huisnummer}">
+                                <f:validateBean disabled="false"/></p:inputText></td>
+                        </tr>
+                         <tr>
+                            <td>Postcode</td>
+                            <td><p:inputText size="6" value="#{adresBean.selectedAdres.postcode}">
+                                <f:validateBean disabled="false"/></p:inputText></td>
+                        </tr>
+                         <tr>
+                            <td>Woonplaats</td>
+                            <td><p:inputText size="30" value="#{adresBean.selectedAdres.woonplaats}">
+                                <f:validateBean disabled="false"/></p:inputText></td>
+                        </tr>
+                        <tr>
+                            <td>Adrestype</td>
+                            <td>
+                                <p:selectOneListbox value="#{adresBean.selectedAdresType.idAdrestype}">
+                                    <c:forEach items="#{adresBean.allAdresTypes}" var="adrestype">
+                                        <f:selectItem itemValue="#{adrestype.idAdrestype}"
+                                                      itemLabel="#{adrestype.adresType}" />
+                                    </c:forEach>
+                                </p:selectOneListbox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p:commandButton value="Bewerk adres" action="#{adresBean.editAdresInKlant()}" ajax="false"/></td>
+                        </tr>
+                    </table>
+                </h:form>
+            </p:layoutUnit>
+        </p:layout>
     </h:body>
 </html>

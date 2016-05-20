@@ -3,47 +3,55 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Betaal de Bestelling</title>
     </h:head>
     <h:body>
-        <f:view>
-            <f:metadata>
-                <f:event type="preRenderView" listener="#{factuurBean.setSelectedBestelling(bestellingBean.selectedBestelling)}"/>
-            </f:metadata>
-            <h:form>
-                <h:dataTable value="#{bestellingBean.artikelenInBestelling}" var="artikel">
-                    <h:column>    				
-                       <f:facet name="header">Artikelnaam</f:facet>    				
-                       #{artikel.artikelidArtikel.artikelnaam}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Artikelprijs</f:facet>
-                        #{artikel.artikelidArtikel.artikelprijs}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Aantal</f:facet>
-                        #{artikel.aantal}
-                    </h:column>
-                </h:dataTable>
-                <br/>
-                <h3>Totaalprijs: #{bestellingBean.totaalPrijs}</h3>
-                <br/>
-                <h4>Selecteer een betaal-methode:</h4>
-                <h:selectOneListbox value="#{betalingBean.betaalwijzeId}">
-                    <c:forEach items="#{betalingBean.allBetaalwijzes}" var="betaalwijze">
-                        <f:selectItem itemValue="#{betaalwijze.idBetaalwijze}" itemLabel="#{betaalwijze.betaalwijze}" />
-                    </c:forEach>
-                </h:selectOneListbox>
-                <br/>
-                <h4>Overige gegevens (optioneel):</h4>
-                <h:inputTextarea value="#{betalingBean.betaling.betalingsGegevens}" rows="2">
-                    <f:validateBean disabled="false"/></h:inputTextarea>
-                <br/>
-                <h:commandButton action="#{factuurBean.payBestelling(betalingBean.addBetaling())}" value="Betalen"/>
-            </h:form>
-        </f:view>
+        <p:layout>
+            <p:layoutUnit position="north" style="min-height:60px;border-style: none">
+                <p:button value="Terug naar bestelling-overzicht" outcome="viewBestelling"/>
+            </p:layoutUnit>
+            <p:layoutUnit position="center" style="min-height:750px">
+                <f:view>
+                    <f:metadata>
+                        <f:event type="preRenderView" listener="#{factuurBean.setSelectedBestelling(bestellingBean.selectedBestelling)}"/>
+                    </f:metadata>
+                    <h:form>
+                        <p:dataTable value="#{bestellingBean.artikelenInBestelling}" var="artikel">
+                            <p:column>    				
+                               <f:facet name="header">Artikelnaam</f:facet>    				
+                               #{artikel.artikelidArtikel.artikelnaam}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Artikelprijs</f:facet>
+                                #{artikel.artikelidArtikel.artikelprijs}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Aantal</f:facet>
+                                #{artikel.aantal}
+                            </p:column>
+                        </p:dataTable>
+                        <br/>
+                        <h3>Totaalprijs: #{bestellingBean.totaalPrijs}</h3>
+                        <br/>
+                        <h4>Selecteer een betaal-methode:</h4>
+                        <p:selectOneListbox value="#{betalingBean.betaalwijzeId}">
+                            <c:forEach items="#{betalingBean.allBetaalwijzes}" var="betaalwijze">
+                                <f:selectItem itemValue="#{betaalwijze.idBetaalwijze}" itemLabel="#{betaalwijze.betaalwijze}" />
+                            </c:forEach>
+                        </p:selectOneListbox>
+                        <br/>
+                        <h4>Overige gegevens (optioneel):</h4>
+                        <p:inputTextarea value="#{betalingBean.betaling.betalingsGegevens}" rows="2">
+                            <f:validateBean disabled="false"/></p:inputTextarea>
+                        <br/>
+                        <p:commandButton action="#{factuurBean.payBestelling(betalingBean.addBetaling())}" value="Betalen" ajax="false"/>
+                    </h:form>
+                </f:view>
+            </p:layoutUnit>
+        </p:layout>
     </h:body>
 </html>
 

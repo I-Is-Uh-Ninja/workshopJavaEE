@@ -3,96 +3,103 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Voeg een adres toe</title>
     </h:head>
     <h:body>
-        <f:view>
-            <h:form>
-                <h2>Selecteer het adrestype</h2>
-                <br/>                
-                <h:column>
-                        <f:facet name="header">Adres-type</f:facet>
-                        <h:selectOneListbox value="#{adresBean.selectedAdresType.idAdrestype}">
-                            <c:forEach items="#{adresBean.allAdresTypes}" var="adrestypes">
-                                <f:selectItem itemValue="#{adrestypes.idAdrestype}"
-                                              itemLabel="#{adrestypes.adresType}" />
-                            </c:forEach>
-                        </h:selectOneListbox>
-                </h:column>
-                <br/>
-                <h2>Voeg een bestaand adres toe</h2>
-                <h:dataTable value="#{adresBean.adressen}" var="adres">
-                    <h:column>
-                        <f:facet name="header">Adres Id</f:facet>
-                        #{adres.idAdres}
-                   </h:column>                    
-                    <h:column>
-                        <f:facet name="header">Straatnaam</f:facet>
-                        #{adres.straatnaam}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Postcode</f:facet>
-                        #{adres.postcode}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Huisnummer</f:facet>
-                        #{adres.huisnummer}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Woonplaats</f:facet>
-                        #{adres.woonplaats}
-                    </h:column>
-                    
-                    <h:column>
-                        <f:facet name="header">Voeg toe</f:facet>
-                        <h:commandButton value="Voeg toe" action="#{adresBean.addExistingAdres(adres)}" />
-                    </h:column>
-                </h:dataTable>
-            </h:form>
-        </f:view>
-        <h:form>
-            <h3>Voeg een nieuw adres toe</h3>
-            <hr/>
-            <table>
-                <tr>
-                    <td>Straatnaam</td>
-                    <td><h:inputText size="34" value="#{adresBean.selectedAdres.straatnaam}">
-                        <f:validateBean disabled="false"/></h:inputText></td>
-                </tr>
-                 <tr>
-                    <td>Huisnummer</td>
-                    <td><h:inputText size="10" value="#{adresBean.selectedAdres.huisnummer}">
-                        <f:validateBean disabled="false"/></h:inputText></td>
-                </tr>
-                 <tr>
-                    <td>Postcode</td>
-                    <td><h:inputText size="6" value="#{adresBean.selectedAdres.postcode}">
-                        <f:validateBean disabled="false"/></h:inputText></td>
-                </tr>
-                 <tr>
-                    <td>Woonplaats</td>
-                    <td><h:inputText size="30" value="#{adresBean.selectedAdres.woonplaats}">
-                        <f:validateBean disabled="false"/></h:inputText></td>
-                </tr>
-                <tr>
-                    <td>Adres-type</td>
-                    <td>
-                        <h:selectOneListbox value="#{adresBean.selectedAdresType.idAdrestype}">
-                            <c:forEach items="#{adresBean.allAdresTypes}" var="adrestype">
-                                <f:selectItem itemValue="#{adrestype.idAdrestype}"
-                                              itemLabel="#{adrestype.adresType}" />
-                            </c:forEach>
-                        </h:selectOneListbox>
-                    </td>
-                </tr>
-                <tr>
-                  <td> </td>
-                  <td><h:commandButton value="Voeg adres toe" action="#{adresBean.addToAdressen()}" /></td>
-            </tr>
-            </table>
-        </h:form>
+        <p:layout>
+            <p:layoutUnit position="north" style="min-height: 50px">
+                <p:button value="Terug naar klant-overzicht" outcome="viewKlant"/>
+            </p:layoutUnit>
+            <p:layoutUnit position="center" style="min-height: 750px">
+                <f:view>
+                    <h:form>
+                        <h2 styleClass="ui-outputLabel">Selecteer het adrestype</h2>
+                        <br/>                
+                        <h:column>
+                            <f:facet name="header">Adres-type</f:facet>
+                            <p:selectOneListbox value="#{adresBean.selectedAdresType.idAdrestype}">
+                                <c:forEach items="#{adresBean.allAdresTypes}" var="adrestypes">
+                                    <f:selectItem itemValue="#{adrestypes.idAdrestype}"
+                                                  itemLabel="#{adrestypes.adresType}" />
+                                </c:forEach>
+                            </p:selectOneListbox>
+                        </h:column>
+                        <br/>
+                        <h2 styleClass="ui-outputLabel">Voeg een bestaand adres toe</h2>
+                        <p:dataTable value="#{adresBean.adressen}" var="adres">
+                            <p:column>
+                                <f:facet name="header">Adres Id</f:facet>
+                                #{adres.idAdres}
+                            </p:column>                    
+                            <p:column>
+                                <f:facet name="header">Straatnaam</f:facet>
+                                #{adres.straatnaam}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Postcode</f:facet>
+                                #{adres.postcode}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Huisnummer</f:facet>
+                                #{adres.huisnummer}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Woonplaats</f:facet>
+                                #{adres.woonplaats}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Voeg toe</f:facet>
+                                <p:commandButton value="Voeg toe" action="#{adresBean.addExistingAdres(adres)}" ajax="false"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+                <h:form>
+                    <h3 styleClass="ui-outputLabel">Voeg een nieuw adres toe</h3>
+                    <hr/>
+                    <table>
+                        <tr>
+                            <td>Straatnaam</td>
+                            <td><p:inputText size="34" value="#{adresBean.selectedAdres.straatnaam}">
+                                <f:validateBean disabled="false"/></p:inputText></td>
+                        </tr>
+                         <tr>
+                            <td>Huisnummer</td>
+                            <td><p:inputText size="10" value="#{adresBean.selectedAdres.huisnummer}">
+                                <f:validateBean disabled="false"/></p:inputText></td>
+                        </tr>
+                         <tr>
+                            <td>Postcode</td>
+                            <td><p:inputText size="6" value="#{adresBean.selectedAdres.postcode}">
+                                <f:validateBean disabled="false"/></p:inputText></td>
+                        </tr>
+                         <tr>
+                            <td>Woonplaats</td>
+                            <td><p:inputText size="30" value="#{adresBean.selectedAdres.woonplaats}">
+                                <f:validateBean disabled="false"/></p:inputText></td>
+                        </tr>
+                        <tr>
+                            <td>Adres-type</td>
+                            <td>
+                                <p:selectOneListbox value="#{adresBean.selectedAdresType.idAdrestype}">
+                                    <c:forEach items="#{adresBean.allAdresTypes}" var="adrestype">
+                                        <f:selectItem itemValue="#{adrestype.idAdrestype}"
+                                                      itemLabel="#{adrestype.adresType}" />
+                                    </c:forEach>
+                                </p:selectOneListbox>
+                            </td>
+                        </tr>
+                        <tr>
+                          <td> </td>
+                          <td><p:commandButton value="Voeg adres toe" action="#{adresBean.addToAdressen()}" /></td>
+                    </tr>
+                    </table>
+                </h:form>
+            </p:layoutUnit>
+        </p:layout>
     </h:body>
 </html>
 

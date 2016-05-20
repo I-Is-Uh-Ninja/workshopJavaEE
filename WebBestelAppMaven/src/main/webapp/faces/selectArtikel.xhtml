@@ -2,39 +2,47 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Selecteer een artikel</title>
     </h:head>
     <h:body>
-        <h1>Selecteer een artikel om toe te voegen aan de bestelling</h1>
-        <br/>
-        <f:view>
-            <h:form>
-                <h:dataTable value="#{artikelBean.artikelen}" var="artikel">
-                    <h:column>    				
-                       <f:facet name="header">Naam</f:facet>    				
-                       #{artikel.artikelnaam}
-                    </h:column>
-                    <h:column>
-                       <f:facet name="header">Prijs</f:facet>
-                       #{artikel.artikelprijs}
-                    </h:column>
-                    <h:column>
-                       <f:facet name="header">Nummer</f:facet>
-                       #{artikel.artikelnummer}
-                    </h:column>
-                    <h:column>
-                       <f:facet name="header">Omschrijving</f:facet>
-                       #{artikel.artikelomschrijving}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Actie</f:facet>
-                        <h:commandButton action="#{bestellingBean.addArtikelToBestelling(artikel)}" value="Selecteer"/>
-                    </h:column>
-                 </h:dataTable>
-            </h:form>
-        </f:view>
+        <p:layout>
+            <p:layoutUnit position="north" style="min-height:60px;border-style: none">
+                <p:button value="Terug naar bestelling-overzicht" outcome="viewBestelling"/>
+            </p:layoutUnit>
+            <p:layoutUnit position="center" style="min-height: 750px">
+                <h1>Selecteer een artikel om toe te voegen aan de bestelling</h1>
+                <br/>
+                <f:view>
+                    <h:form>
+                        <p:dataTable value="#{artikelBean.artikelen}" var="artikel">
+                            <p:column>    				
+                               <f:facet name="header">Naam</f:facet>    				
+                               #{artikel.artikelnaam}
+                            </p:column>
+                            <p:column>
+                               <f:facet name="header">Prijs</f:facet>
+                               #{artikel.artikelprijs}
+                            </p:column>
+                            <p:column>
+                               <f:facet name="header">Nummer</f:facet>
+                               #{artikel.artikelnummer}
+                            </p:column>
+                            <p:column>
+                               <f:facet name="header">Omschrijving</f:facet>
+                               #{artikel.artikelomschrijving}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Actie</f:facet>
+                                <p:commandButton action="#{bestellingBean.addArtikelToBestelling(artikel)}" value="Selecteer" ajax="false"/>
+                            </p:column>
+                         </p:dataTable>
+                    </h:form>
+                </f:view>
+            </p:layoutUnit>
+        </p:layout>
     </h:body>
 </html>
 
