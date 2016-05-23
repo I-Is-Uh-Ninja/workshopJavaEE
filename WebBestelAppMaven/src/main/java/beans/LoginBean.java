@@ -66,7 +66,7 @@ public class LoginBean {
             return "keuzemenu";
         } else {
             FacesContext.getCurrentInstance().addMessage(
-                    null,
+                    "invalidUserOrPassword",
                     new FacesMessage(FacesMessage.SEVERITY_WARN,
                             "Incorrect Username and Passowrd",
                             "Please enter correct username and Password"));
