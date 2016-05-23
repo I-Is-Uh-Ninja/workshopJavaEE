@@ -40,13 +40,13 @@
                 <tr>
                     <td><p:outputLabel value="Wachtwoord" /></td>
                     <td><p:password id="password" value="#{loginBean.login.inlogwachtwoord}">
-                            <f:validateDoubleRange minimum="5" maximum="30" for="password"/></p:password></td>
+                            <f:validateLength minimum="5" maximum="30" for="password"/></p:password></td>
                     <td><p:message for="password" style="color:red"/></td>
                 </tr>
             </table>
             <br/>
             <p:commandButton action="#{loginBean.addLogin()}"
-                value="Voeg login toe"></p:commandButton>
+                value="Voeg login toe" update="@form"></p:commandButton>
         </h:form>
     </h:body>
 </html>

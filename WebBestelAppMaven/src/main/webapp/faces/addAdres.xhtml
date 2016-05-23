@@ -73,7 +73,7 @@
                         </tr>
                          <tr>
                             <td>Postcode</td>
-                            <td><p:inputText size="6" value="#{adresBean.selectedAdres.postcode}">
+                            <td><p:inputText id="postcode" size="6" value="#{adresBean.selectedAdres.postcode}">
                                 <f:validateBean disabled="false"/></p:inputText></td>
                         </tr>
                          <tr>
@@ -94,7 +94,7 @@
                         </tr>
                         <tr>
                           <td> </td>
-                          <td><p:commandButton value="Voeg adres toe" action="#{adresBean.addToAdressen()}" /></td>
+                          <td><p:commandButton value="Voeg adres toe" action="#{adresBean.addToAdressen()}" update="@form"/></td>
                     </tr>
                     </table>
                 </h:form>

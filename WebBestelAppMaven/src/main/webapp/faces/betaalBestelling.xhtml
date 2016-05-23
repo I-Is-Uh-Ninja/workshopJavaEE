@@ -47,7 +47,7 @@
                         <p:inputTextarea value="#{betalingBean.betaling.betalingsGegevens}" rows="2">
                             <f:validateBean disabled="false"/></p:inputTextarea>
                         <br/>
-                        <p:commandButton action="#{factuurBean.payBestelling(betalingBean.addBetaling())}" value="Betalen" ajax="false"/>
+                        <p:commandButton action="#{factuurBean.payBestelling(betalingBean.addBetaling())}" value="Betalen" ajax="false" update="@form"/>
                     </h:form>
                 </f:view>
             </p:layoutUnit>
