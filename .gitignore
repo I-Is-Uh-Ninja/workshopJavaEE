@@ -56,6 +56,11 @@ WebBestelAppMaven/nbproject
 WebBestelAppMaven/build.xml
 WebBestelAppMaven/dist
 WebBestelAppMaven/target/*
+RestTest/build
+RestTest/nbproject
+RestTest/build.xml
+RestTest/dist
+RestTest/target/*
 /nbproject/private/
 /build/
 /dist/
