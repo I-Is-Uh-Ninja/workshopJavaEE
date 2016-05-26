@@ -32,48 +32,16 @@ public class LoginFacadeREST {
     LoginFacade loginFacade;
 
     @POST
+    @Path("create")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Login entity) {
         loginFacade.create(entity);
     }
-
-    @PUT
-    @Path("{id}")
+    
+    @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Login entity) {
-        loginFacade.edit(entity);
+    public void login(Login entity) {
+        //TODO: add login function
     }
 
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") Integer id) {
-        loginFacade.remove(loginFacade.find(id));
-    }
-
-    @GET
-    @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Login find(@PathParam("id") Integer id) {
-        return loginFacade.find(id);
-    }
-
-    @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Login> findAll() {
-        return loginFacade.findAll();
-    }
-
-    @GET
-    @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Login> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return loginFacade.findRange(new int[]{from, to});
-    }
-
-    @GET
-    @Path("count")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String countREST() {
-        return String.valueOf(loginFacade.count());
-    }
 }

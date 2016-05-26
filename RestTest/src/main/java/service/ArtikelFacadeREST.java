@@ -62,6 +62,13 @@ public class ArtikelFacadeREST  {
     public List<Artikel> findAll() {
         return artikelFacade.findAll();
     }
+    
+    @GET
+    @Path("json")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Artikel> findAllJson() {
+        return artikelFacade.findAll();
+    }
 
     @GET
     @Path("{from}/{to}")

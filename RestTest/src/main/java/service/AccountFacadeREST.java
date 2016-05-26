@@ -6,6 +6,7 @@
 package service;
 
 import entity.Account;
+import entity.Klant;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -19,21 +20,37 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import session.AccountFacade;
+import session.KlantFacade;
 
 /**
  *
  * @author BAM
  */
 @Stateless
-@Path("account")
+@Path("klant/{klantId}/account")
 public class AccountFacadeREST {
 
-   @EJB
-   AccountFacade accountFacade;
+    @EJB
+    AccountFacade accountFacade;
+    
+    @EJB
+    KlantFacade klantFacade;
+    
+    private Klant selectedKlant;
+    
+    public void setSelectedKlant(Integer klantId){
+        this.selectedKlant = klantFacade.find(klantId);
+    }
+    
+    public Klant getSelectedKlant(){
+        return this.selectedKlant;
+    }
 
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Account entity) {
+    public void create(Account entity, @PathParam("klantId") Integer klantId) {
+        setSelectedKlant(klantId);
+        entity.setKlantidKlant(selectedKlant);
         accountFacade.create(entity);
     }
 
@@ -59,8 +76,8 @@ public class AccountFacadeREST {
 
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Account> findAll() {
-        return accountFacade.findAll();
+    public List<Account> findAllByKlant(@PathParam("klantId") Integer id) {
+        return accountFacade.findAccountByKlantId(id);
     }
 
     @GET
