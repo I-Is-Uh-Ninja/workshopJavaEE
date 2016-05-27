@@ -24,6 +24,11 @@ import session.BetalingFacade;
  *
  * @author BAM
  */
+//=== XMLcode kan weg 
+//=== Toevoegen/lezen van Betaling aan code toevoegen
+//=== Lezen van Betaalwijze toevoegen en selecteer maken in een Betaling
+//=== Factuur aan betaling toevoegen
+
 @Stateless
 @Path("betaling")
 public class BetalingFacadeREST {
