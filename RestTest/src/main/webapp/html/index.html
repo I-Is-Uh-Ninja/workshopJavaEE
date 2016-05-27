@@ -12,12 +12,20 @@
         <br/>
         <h2>Alle klanten in database</h2>
         <br/>
-        <table id="klanten">
-            <thead id="klantenTitle">
-            </thead>
-            <tbody id="klantenBody">
-            </tbody>
-        </table>
+        <form>
+            <table id="klanten">
+                <thead id="klantenTitle">
+                </thead>
+                <tbody id="klantenBody">
+                </tbody>
+            </table>
+        </form>
+        
+        <br/>
+        <button type="button" id="editKlant">Bewerk deze klant-gegevens</button>
+        <br/>
+        <button type="button" id="deleteKlant">Verwijder deze klant</button>
+        
         <br/>
         <h2>Voeg nieuw klant toe</h2>
         <br/>
@@ -37,37 +45,61 @@
                     <td><input type="text" size="80" id="email"/></td>
                 </tr><tr>
                     <td></td><td>
-                        <input type="submit" value="Voeg artikel toe"/></td>
+                        <input type="submit" value="Voeg klant toe"/></td>
                 </tr>
             </table>
         </form>
         <p id="error"></p>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+        <!--
         <script>
             $(document).ready(function(){
                 var restURL = "http://localhost:8080/RestTest/rest/klant";
+                
                 $.getJSON(restURL, function(result){
                     $.each(result, function(i, field){
-                        $("#klantenBody").append("<tr>");
+                        $("#klantenBody").append("<tr id='" + field.idKlant + "'></tr>");
                         for (var p in field){
                             if(i===0){
                                 $("#klantenTitle").append("<th>" + p + "</th>");
                             }
-                            $("#klantenBody").append("<td>" + field[p] + "</td>");
+                            $("tr#" + field.idKlant).append("<td>" + field[p] + "</td>");
                         }
-                        if(i===0){
-                            $("#klantenTitle").append("<th colspan=2>Actie</th>")
+                        if (i===0){
+                            $("#klantenTitle").append("<th>Actie</th>");
                         }
-                        $("#klantenBody").append('<td><input type="button" id="editKlant" value="Bewerken"/></td>');
-                        $("#klantenBody").append('<td><input type="button" class="delete" id="'+ field.idKlant + '" value="Verwijderen"/></td>');
-                        $("#klantenBody").append("</tr>");
+                        $("tr#" + field.idKlant).append("<td id='select'><button type='button' id='"+ field.idKlant + "'>Selecteer</button>");
                     });
                 });
                 
-                $("#nieuwKlant").submit(function(){
-                    $.post(restURL, formToJson(), alert(formToJson()));
+                var selectedId = 0;
+                
+                $(document).on("click", "td#select button", function(){
+                    alert("button clicked");
+                    selectedId = $(this).attr('id');
+                    $("tr").removeClass('highlight');
+                    $("tr#" + selectedId).addClass('highlight');
+                    $('button#deleteKlant').removeAttr("hidden");
                 });
+                
+                $("#nieuwKlant").submit(function(){
+                    //$.post(restURL, formToJson(), alert(formToJson()));
+                    $.ajax({
+                        type: 'POST',
+                        contentType: 'application/json',
+                        url: restURL,
+                        dataType: "application/json",
+                        data: formToJson(),
+                        success: function(data, textStatus, jqXHR){
+                            alert(formToJson());
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                            alert('Error: ' + errorThrown + formToJson());
+                        }
+                    });
+                });
+                
                 function formToJson(){
                     return JSON.stringify({
                         "achternaam": $("#achternaam").val(),
@@ -76,20 +108,24 @@
                         "voornaam": $("#voornaam").val()
                     });
                 }
-                $(".delete").click(function(){
-                    alert('Klant delete called');
+                
+                $('button#deleteKlant').click(function(){
+                    var URL = restURL + "/" + selectedId;
                     $.ajax({
                         type: 'DELETE',
-                        url: restURL + "/" + event.target.id,
+                        url: URL,
                         success: function(data, textStatus, jqXHR){
-                            alert('Klant deleted successfully');
+                            alert(url);
                         },
                         error: function(jqXHR, textStatus, errorThrown){
-                            alert('Error when deleting klant');
+                            alert(url);
                         }
                     });
                 });
             });
         </script>
+        -->
+        <script src="../js/klant.js"></script>
+        
     </body>
 </html>

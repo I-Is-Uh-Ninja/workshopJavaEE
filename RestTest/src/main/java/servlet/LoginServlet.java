@@ -9,7 +9,6 @@ import com.lambdaworks.crypto.SCryptUtil;
 import session.LoginFacade;
 import entity.Login;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
