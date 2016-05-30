@@ -69,9 +69,10 @@ public class AdresFacadeREST {
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Integer id, @PathParam("klantId") Integer klantId) {
+        Integer idAdres = khaFacade.find(id).getAdresidAdres().getIdAdres();
         khaFacade.remove(khaFacade.find(id));
-        if(khaFacade.findByIdKlant(klantId).isEmpty()){
-            adresFacade.remove(adresFacade.find(id));
+        if(khaFacade.findByIdAdres(idAdres).isEmpty()){
+            adresFacade.remove(adresFacade.find(idAdres));
         }
     }
 
