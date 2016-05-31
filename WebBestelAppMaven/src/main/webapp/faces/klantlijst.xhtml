@@ -54,9 +54,8 @@ and open the template in the editor.
                     </p:column>
                     <p:column>
                         <f:facet name="header">Actie</f:facet>
-                        <h:commandButton action="#{klantBean.goToSelectedKlant(klant)}" value="Selecteren"/>
-                        <h:commandButton action="#{klantBean.goToEditKlant(klant)}" value="Bewerken"/>
-                        <h:commandButton action="#{klantBean.removeFromKlanten(klant)}" value="Verwijderen"/>
+                        <p:commandButton action="#{klantBean.goToSelectedKlant(klant)}" value="Selecteren"/>
+                        <p:commandButton action="#{klantBean.removeFromKlanten(klant)}" value="Verwijderen" update="@form"/>
                     </p:column>
                     </p:dataTable>
                 </h:form>

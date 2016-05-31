@@ -58,7 +58,7 @@ and open the template in the editor.
                     <p:column>
                         <f:facet name="header">Actie</f:facet>
                         <p:commandButton action="#{klantBean.goToEditKlant(klant)}" value="Bewerken"/>
-                        <p:commandButton action="#{klantBean.removeFromKlanten(klant)}" value="Verwijderen"/>
+                        <p:commandButton action="#{klantBean.removeFromKlanten(klant)}" value="Verwijderen" update="@form"/>
                     </p:column>
             </p:dataTable>
         </h:form>
@@ -96,7 +96,6 @@ and open the template in the editor.
                     <p:column>
                         <f:facet name="header">Actie</f:facet>
                         <p:commandButton action="#{adresBean.goToEditAdres(adres)}" value="Bewerken"/>
-                        <p:commandButton action="#{adresBean.removeAdresFromKlant(adres)}" value="Verwijderen"/>
                     </p:column>
                 </p:dataTable>
             </h:form>
@@ -132,7 +131,7 @@ and open the template in the editor.
                    <p:column>
                         <f:facet name="header">Actie</f:facet>
                         <p:commandButton action="#{accountBean.goToEditAccount(account)}" value="Bewerken"/>
-                        <p:commandButton action="#{accountBean.removeFromAccounts(account)}" value="Verwijderen"/>
+                        <p:commandButton action="#{accountBean.removeFromAccounts(account)}" value="Verwijderen" update="@form"/>
                     </p:column>
                </p:dataTable>
            </h:form>
@@ -164,11 +163,11 @@ and open the template in the editor.
                <p:column>
                         <f:facet name="header">Actie</f:facet>
                         <p:commandButton action="#{bestellingBean.goToViewBestelling(bestelling)}" value="Selecteer bestelling"/>
-                        <p:commandButton action="#{bestellingBean.removeFromBestellingen(bestelling)}" value="Verwijder bestelling"/>
+                        <p:commandButton action="#{bestellingBean.removeFromBestellingen(bestelling)}" value="Verwijder bestelling" update="@form"/>
                </p:column>    
               </p:dataTable>
                  <tr>
-                  <td><p:commandButton value="Voeg bestelling toe" action="#{bestellingBean.addSelectedBestelling()}" /></td>
+                  <td><p:commandButton value="Voeg bestelling toe" action="#{bestellingBean.addSelectedBestelling()}" update="@form"/></td>
                 </tr>
            </h:form>
        
