@@ -19,8 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -57,8 +56,7 @@ public class Artikel implements Serializable {
     @Basic(optional = false)
     @NotNull(message="Het artikel moet een prijs hebben")
     @Column(name = "artikelprijs")
-    @DecimalMin(value="0.01", message="Prijs moet hoger of gelijk aan 0.01 euro zijn")
-    @DecimalMax(value="999.99", message="Prijs moet lager dan 1000 euro zijn")
+    @Digits(integer=4, fraction=2, message="De prijs mag maximaal 4 cijfers voor de komma, en 2 cijfers na de komma hebben")
     private BigDecimal artikelprijs;
     @Basic(optional = false)
     @NotNull(message="Het artikel moet een nummer hebben")

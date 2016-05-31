@@ -41,7 +41,7 @@ public class Login implements Serializable {
     private Integer idLogin;
     @Basic(optional = false)
     @NotNull
-    //@Size(min = 1, max = 45, message="Inlognaam mag niet meer dan 45 karakters lang zijn")
+    @Size(min = 1, max = 45, message="Inlognaam mag niet meer dan 45 karakters lang zijn")
     @Column(name = "inlognaam")
     private String inlognaam;
     @Basic(optional = false)
