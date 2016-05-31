@@ -110,7 +110,7 @@ and open the template in the editor.
                 <f:event listener="#{accountBean.findAccounts(klantBean.selectedKlant)}" type="postAddToView"/>
                 <f:event listener="#{accountBean.setSelectedKlant(klantBean.selectedKlant)}" type="preRenderView"/>
             </f:metadata>            
-           <h:form>
+           <h:form id="accounts">
                <p:dataTable value="#{accountBean.accounts}" var="account">
                    <p:column>
                         <f:facet name="header">Account Id</f:facet>
@@ -145,7 +145,7 @@ and open the template in the editor.
                       <f:validateBean disabled="false"/></p:inputText></td>
             </tr>
             <tr>
-                  <td><p:commandButton value="Voeg account toe" action="#{accountBean.addToAccounts()}"/></td>
+                  <td><p:commandButton value="Voeg account toe" action="#{accountBean.addToAccounts()}" update="accounts"/></td>
             </tr>   
        </h:form>
        <h2>Bestellingen:</h2>
