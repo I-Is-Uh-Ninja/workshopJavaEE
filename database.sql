@@ -213,7 +213,7 @@ CREATE  TABLE IF NOT EXISTS `deel2`.`klant_has_adres` (
   `adres_type_idAdres_type` INT(11) NOT NULL ,
   `klant_idKlant` INT(11) NOT NULL ,
   PRIMARY KEY (`idKlant_has_adres`) ,
-  UNIQUE INDEX `Klantid_AdresId_unique` (`klant_idKlant` ASC, `adres_idAdres` ASC, `adres_type_idAdres_type` ASC) ,
+  UNIQUE INDEX `Klantid_AdresTypeid_unique` (`klant_idKlant` ASC, `adres_type_idAdres_type` ASC) ,
   UNIQUE INDEX `Idklant_adres_UNIQUE` (`idKlant_has_adres` ASC) ,
   INDEX `fk_Klant_has_Adres_Adres1_idx` (`adres_idAdres` ASC) ,
   INDEX `fk_Klant_has_Adres_Klant1_idx` (`klant_idKlant` ASC) ,
