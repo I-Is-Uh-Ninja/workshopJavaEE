@@ -12,16 +12,17 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui">
         <h:head>
         <title>Adres bewerken</title>
+        <link rel="stylesheet" href="../css/customFlickPrimefaces.css" type="text/css"/>
     </h:head>
-    <h:body>
+    <h:body id="slim">
         <p:layout>
-            <p:layoutUnit position="north" style="min-height: 50px">
+            <p:layoutUnit position="north" styleClass="menu">
                 <p:button value="Terug naar klant-overzicht" outcome="viewKlant"/>
             </p:layoutUnit>
-            <p:layoutUnit position="center" style="min-height: 750px">
+            <p:layoutUnit position="center" styleClass="centerLayout">
                 <h:form>
                     <h3 styleClass="ui-outputLabel">Bewerk adres</h3>
-                    <hr/>
+                    <br/>
                     <table>
                         <tr>
                             <td>Straatnaam</td>

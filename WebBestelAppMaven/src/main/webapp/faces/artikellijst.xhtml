@@ -6,12 +6,13 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Lijst met artikelen</title>
+        <link rel="stylesheet" href="../css/customFlickPrimefaces.css" type="text/css"/>
     </h:head>
     <h:body>
         <p:layout>
-            <p:layoutUnit position="north" style="min-height:75px;margin:0;padding:0;border-style:none">
-                <h:form style="border-style:none;margin:0;padding:0">
-                    <p:menubar style="text-align:center;margin:0;padding:10px">
+            <p:layoutUnit position="north" styleClass="menu">
+                <h:form>
+                    <p:menubar>
                         <p:menuitem value="Keuzemenu" url="keuzemenu.xhtml"/>
                         <p:menuitem value="Artikellijst" url="artikellijst.xhtml"/>
                         <p:menuitem value="Klantenlijst" url="klantlijst.xhtml"/>
@@ -19,10 +20,11 @@
                     </p:menubar>
                 </h:form>
             </p:layoutUnit>
-            <p:layoutUnit position="center" style="border-style: none">
-                <h1 styleClass="ui-outputLabel">Alle artikelen in de database</h1>
+            <p:layoutUnit position="center" styleClass="centerLayout">
                 <f:view>
-                    <h:form>
+                    <h:form styleClass="dataTable">
+                        <h1 styleClass="ui-outputLabel">Alle artikelen in de database</h1>
+                        <br/>
                         <p:dataTable id="artikelen" value="#{artikelBean.artikelen}" var="artikel">
                             <p:column>    				
                                <f:facet name="header">Naam</f:facet>    				
@@ -48,7 +50,7 @@
                          </p:dataTable>
                     </h:form>
                 </f:view>
-                <h:form>
+                <h:form styleClass="dataTable">
                     <h3 styleClass="ui-outputLabel">Voeg artikel toe</h3>
                     <br/>
                     <table>

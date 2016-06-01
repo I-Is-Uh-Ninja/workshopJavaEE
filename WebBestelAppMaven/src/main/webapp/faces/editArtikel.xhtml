@@ -8,13 +8,14 @@
     
     <h:head>
         <title>Artikel bewerken</title>
+        <link rel="stylesheet" href="../css/customFlickPrimefaces.css" type="text/css"/>
     </h:head>
-    <h:body>
+    <h:body id="slim">
         <p:layout>
-            <p:layoutUnit position="north" style="min-height: 75px">
+            <p:layoutUnit position="north" styleClass="menu">
                 <p:button value="Terug naar artikellijst" outcome="artikellijst"/>
             </p:layoutUnit>
-            <p:layoutUnit position="center" style="min-height: 500px">
+            <p:layoutUnit position="center" styleClass="centerLayout">
                 <h:form>
                     <h3 styleClass="ui-outputLabel">Bewerk artikel</h3>
                     <hr/>

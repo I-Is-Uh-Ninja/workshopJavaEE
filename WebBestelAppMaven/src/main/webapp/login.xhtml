@@ -6,48 +6,55 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Log in</title>
+        <link rel="stylesheet" href="css/customFlickPrimefaces.css" type="text/css"/>
     </h:head>
-    <h:body>
-        <h:form>
-            <h3 styleClass="ui-outputLabel">Log in</h3>
-            <table border="0">
-                <tr>
-                    <td><p:outputLabel value="Inlognaam"/></td>
-                    <td><p:inputText id="username" value="#{loginBean.login.inlognaam}"/></td>
-                </tr>
-                <tr>
-                    <td><p:outputLabel value="Wachtwoord" /></td>
-                    <td><p:password id="password" value="#{loginBean.login.inlogwachtwoord}"/></td>
-                </tr>
-                <tr>
-                    <td></td><td><p:messages for="invalidUserOrPassword" showDetail="true" autoUpdate="true" closable="true"/></td>
-                </tr>
-            </table>
-            <br/>
-            <p:commandButton action="#{loginBean.validateUsernamePassword()}"
-                value="Login" ajax="false"></p:commandButton>
-        </h:form>
-        <br/>
-        <h:form>
-            <h3 styleClass="ui-outputLabel">Voeg login toe</h3>
-            <table border="0">
-                <tr>
-                    <td><p:outputLabel value="Inlognaam" /></td>
-                    <td><p:inputText id="username" value="#{loginBean.login.inlognaam}">
-                            <f:validateBean disabled="false"/></p:inputText></td>
-                    <td><p:message for="username" /></td>
-                </tr>
-                <tr>
-                    <td><p:outputLabel value="Wachtwoord" /></td>
-                    <td><p:password id="password" value="#{loginBean.login.inlogwachtwoord}">
-                            <f:validateLength minimum="5" maximum="30" for="password"/></p:password></td>
-                    <td><p:message for="password" style="color:red"/></td>
-                </tr>
-            </table>
-            <br/>
-            <p:commandButton action="#{loginBean.addLogin()}"
-                value="Voeg login toe" update="@form"></p:commandButton>
-        </h:form>
+    <h:body id="slim">
+        <p:layout>
+            <p:layoutUnit position="center" styleClass="centerLayout">
+                <h1 class="ui-outputLabel">Welkom!</h1>
+                <br/>
+                <h:form>
+                    <h3 styleClass="ui-outputLabel">Log in</h3>
+                    <table border="0">
+                        <tr>
+                            <td><p:outputLabel value="Inlognaam"/></td>
+                            <td><p:inputText id="username" value="#{loginBean.login.inlognaam}"/></td>
+                        </tr>
+                        <tr>
+                            <td><p:outputLabel value="Wachtwoord" /></td>
+                            <td><p:password id="password" value="#{loginBean.login.inlogwachtwoord}"/></td>
+                        </tr>
+                        <tr>
+                            <td></td><td><p:messages for="invalidUserOrPassword" showDetail="true" autoUpdate="true" closable="true"/></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <p:commandButton action="#{loginBean.validateUsernamePassword()}"
+                        value="Login" ajax="false"></p:commandButton>
+                </h:form>
+                <br/>
+                <h:form>
+                    <h3 styleClass="ui-outputLabel">Voeg login toe</h3>
+                    <table border="0">
+                        <tr>
+                            <td><p:outputLabel value="Inlognaam" /></td>
+                            <td><p:inputText id="username" value="#{loginBean.login.inlognaam}">
+                                    <f:validateBean disabled="false"/></p:inputText></td>
+                            <td><p:message for="username" /></td>
+                        </tr>
+                        <tr>
+                            <td><p:outputLabel value="Wachtwoord" /></td>
+                            <td><p:password id="password" value="#{loginBean.login.inlogwachtwoord}">
+                                    <f:validateLength minimum="5" maximum="30" for="password"/></p:password></td>
+                            <td><p:message for="password" style="color:red"/></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <p:commandButton action="#{loginBean.addLogin()}"
+                        value="Voeg login toe" update="@form"></p:commandButton>
+                </h:form>
+            </p:layoutUnit>
+        </p:layout>
     </h:body>
 </html>
 

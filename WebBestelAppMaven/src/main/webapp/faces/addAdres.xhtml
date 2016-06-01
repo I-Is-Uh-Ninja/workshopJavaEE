@@ -7,15 +7,16 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Voeg een adres toe</title>
+        <link rel="stylesheet" href="../css/customFlickPrimefaces.css" type="text/css"/>
     </h:head>
     <h:body>
         <p:layout>
-            <p:layoutUnit position="north" style="min-height: 50px">
+            <p:layoutUnit position="north" styleClass="menu">
                 <p:button value="Terug naar klant-overzicht" outcome="viewKlant"/>
             </p:layoutUnit>
-            <p:layoutUnit position="center" style="min-height: 750px">
+            <p:layoutUnit position="center" styleClass="centerLayout">
                 <f:view>
-                    <h:form>
+                    <h:form styleClass="dataTable">
                         <h2 styleClass="ui-outputLabel">Selecteer het adrestype</h2>
                         <br/>                
                         <h:column>
@@ -57,7 +58,7 @@
                         </p:dataTable>
                     </h:form>
                 </f:view>
-                <h:form>
+                <h:form styleClass="dataTable">
                     <h3 styleClass="ui-outputLabel">Voeg een nieuw adres toe</h3>
                     <hr/>
                     <table>

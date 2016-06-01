@@ -78,7 +78,7 @@ public class LoginBean {
     public String logout() {
         HttpSession session = SessionBean.getSession();
         session.invalidate();
-        return "/login";
+        return "/login?faces-redirect=true";
     }
     
     //=====Add login=====

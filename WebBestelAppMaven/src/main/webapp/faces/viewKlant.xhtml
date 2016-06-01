@@ -13,12 +13,13 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Bekijk klantgegevens</title>
+        <link rel="stylesheet" href="../css/customFlickPrimefaces.css" type="text/css"/>
     </h:head>
     <h:body>
          <p:layout fullPage="true">
-            <p:layoutUnit position="north" style="min-height:75px;margin:0;padding:0;border-style:none">
-                <h:form style="border-style:none;margin:0;padding:0">
-                    <p:menubar style="text-align:center;margin:0;padding:10px">
+            <p:layoutUnit position="north" styleClass="menu">
+                <h:form>
+                    <p:menubar>
                         <p:menuitem value="Keuzemenu" url="keuzemenu.xhtml"/>
                         <p:menuitem value="Artikellijst" url="artikellijst.xhtml"/>
                         <p:menuitem value="Klantenlijst" url="klantlijst.xhtml"/>
@@ -27,154 +28,151 @@ and open the template in the editor.
                     </h:form>
             </p:layoutUnit>
         
-             <p:layoutUnit position="center" style="max-height:900px;border-style:none">
-                <div style="height:125px;padding: 0px 10px">
-                    <h1 styleClass="ui-outputlabel" style="text-align:center;line-height:100px;width:100%;height:100px;">Klant met ID #{klantBean.selectedKlant.idKlant}</h1>
-                </div>
-             
-        <h2 styleClass="ui-outputLabel">Klantgegevens:</h2>
-        <h:form>
-            <p:dataTable value ="#{klantBean.selectedKlant}" var="klant">
-                <p:column>
-                        <f:facet name="header">Klant Id</f:facet>
-                        #{klant.idKlant}
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Voornaam</f:facet>
-                        #{klant.voornaam}
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Tussenvoegsel</f:facet>
-                        #{klant.tussenvoegsel}
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Achternaam</f:facet>
-                        #{klant.achternaam}
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Email</f:facet>
-                        #{klant.email}
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Actie</f:facet>
-                        <p:commandButton action="#{klantBean.goToEditKlant(klant)}" value="Bewerken"/>
-                        <p:commandButton action="#{klantBean.removeFromKlanten(klant)}" value="Verwijderen" update="@form"/>
-                    </p:column>
-            </p:dataTable>
-        </h:form>
-        <h2 styleClass="ui-outputLabel">Adresgegevens:</h2>
-        <f:metadata>
-                <f:event listener="#{adresBean.findAdressenByKlant(klantBean.selectedKlant)}" type="postAddToView"/>
-        </f:metadata>            
-        <f:view>
-            <h:form>
-                <p:dataTable value="#{adresBean.adressenInKlant}" var="adres">
-                    <p:column>
-                        <f:facet name="header">Adres Id</f:facet>
-                        #{adres.adresidAdres.idAdres}
-                   </p:column>                    
-                    <p:column>
-                        <f:facet name="header">Straatnaam</f:facet>
-                        #{adres.adresidAdres.straatnaam}
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Postcode</f:facet>
-                        #{adres.adresidAdres.postcode}
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Huisnummer</f:facet>
-                        #{adres.adresidAdres.huisnummer}
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Woonplaats</f:facet>
-                        #{adres.adresidAdres.woonplaats}
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Adres-type</f:facet>
-                        #{adres.adrestypeidAdrestype.adresType}
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Actie</f:facet>
-                        <p:commandButton action="#{adresBean.goToEditAdres(adres)}" value="Bewerken"/>
-                    </p:column>
-                </p:dataTable>
-            </h:form>
-        </f:view>
-        <h:form>
-            <p:commandButton action="addAdres" value="Voeg een adres toe" />
-        </h:form>  
-        
-        <h2 styleClass="ui-outputLabel">Accountgegevens:</h2>
-        <f:view>
-             <f:metadata>
-                <f:event listener="#{accountBean.findAccounts(klantBean.selectedKlant)}" type="postAddToView"/>
-                <f:event listener="#{accountBean.setSelectedKlant(klantBean.selectedKlant)}" type="preRenderView"/>
-            </f:metadata>            
-           <h:form id="accounts">
-               <p:dataTable value="#{accountBean.accounts}" var="account">
-                   <p:column>
-                        <f:facet name="header">Account Id</f:facet>
-                        #{account.idAccount}
-                   </p:column>       
-                   <p:column>    				
-                       <f:facet name="header">Accountnaam</f:facet>    				
-                       #{account.accountNaam}
-                    </p:column>             
-                   <p:column>    				
-                       <f:facet name="header">Creatie datum</f:facet>    				
-                       #{account.creatieDatum}
-                   </p:column>
-                   <p:column>    				
-                       <f:facet name="header">Klant id</f:facet>    				
-                       #{account.klantidKlant.idKlant}
-                    </p:column>
-                   <p:column>
-                        <f:facet name="header">Actie</f:facet>
-                        <p:commandButton action="#{accountBean.goToEditAccount(account)}" value="Bewerken"/>
-                        <p:commandButton action="#{accountBean.removeFromAccounts(account)}" value="Verwijderen" update="@form"/>
-                    </p:column>
-               </p:dataTable>
-           </h:form>
-       </f:view>
-       <h:form>
-           <h3 styleClass="ui-outputLabel">Voeg account toe</h3>
-            <br/>
-            <tr>
-                  <td>Accountnaam</td>
-                  <td><p:inputText size="80" value="#{accountBean.selectedAccount.accountNaam}">
-                      <f:validateBean disabled="false"/></p:inputText></td>
-            </tr>
-            <tr>
-                  <td><p:commandButton value="Voeg account toe" action="#{accountBean.addToAccounts()}" update="accounts"/></td>
-            </tr>   
-       </h:form>
-       <h2>Bestellingen:</h2>
-       <br/>
-       <f:view>
-           <f:metadata>
-               <f:event listener="#{bestellingBean.findBestellingenByKlantId(klantBean.selectedKlant.idKlant)}" type="preRenderView"/>
-           </f:metadata>
-           <h:form>
-               <p:dataTable value="#{bestellingBean.bestellingen}" var="bestelling">
-               <p:column>
-                   <f:facet name="header">Bestelling ID</f:facet>
-                   #{bestelling.idBestelling}
-               </p:column>
-               <p:column>
-                        <f:facet name="header">Actie</f:facet>
-                        <p:commandButton action="#{bestellingBean.goToViewBestelling(bestelling)}" value="Selecteer bestelling"/>
-                        <p:commandButton action="#{bestellingBean.removeFromBestellingen(bestelling)}" value="Verwijder bestelling" update="@form"/>
-               </p:column>    
-              </p:dataTable>
-                 <tr>
-                  <td><p:commandButton value="Voeg bestelling toe" action="#{bestellingBean.addSelectedBestelling()}" update="@form"/></td>
-                </tr>
-           </h:form>
-       
-       
-       
-       </f:view>
-       </p:layoutUnit>
-       </p:layout>     
+            <p:layoutUnit position="center" styleClass="centerLayout">
+                <h1 styleClass="ui-outputlabel">Klant met ID #{klantBean.selectedKlant.idKlant}</h1>
+                <br/>
+                <h2 styleClass="ui-outputLabel">Klantgegevens:</h2>
+                <h:form styleClass="dataTable">
+                    <p:dataTable value ="#{klantBean.selectedKlant}" var="klant">
+                        <p:column>
+                            <f:facet name="header">Klant Id</f:facet>
+                            #{klant.idKlant}
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Voornaam</f:facet>
+                            #{klant.voornaam}
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Tussenvoegsel</f:facet>
+                            #{klant.tussenvoegsel}
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Achternaam</f:facet>
+                            #{klant.achternaam}
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Email</f:facet>
+                            #{klant.email}
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Actie</f:facet>
+                            <p:commandButton action="#{klantBean.goToEditKlant(klant)}" value="Bewerken"/>
+                            <p:commandButton action="#{klantBean.removeFromKlanten(klant)}" value="Verwijderen" update="@form"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <br/>
+                <h2 styleClass="ui-outputLabel">Adresgegevens:</h2>
+                <f:metadata>
+                    <f:event listener="#{adresBean.findAdressenByKlant(klantBean.selectedKlant)}" type="postAddToView"/>
+                </f:metadata>            
+                <f:view>
+                    <h:form styleClass="dataTable">
+                        <p:dataTable value="#{adresBean.adressenInKlant}" var="adres">
+                            <p:column>
+                                <f:facet name="header">Adres Id</f:facet>
+                                #{adres.adresidAdres.idAdres}
+                           </p:column>                    
+                            <p:column>
+                                <f:facet name="header">Straatnaam</f:facet>
+                                #{adres.adresidAdres.straatnaam}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Postcode</f:facet>
+                                #{adres.adresidAdres.postcode}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Huisnummer</f:facet>
+                                #{adres.adresidAdres.huisnummer}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Woonplaats</f:facet>
+                                #{adres.adresidAdres.woonplaats}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Adres-type</f:facet>
+                                #{adres.adrestypeidAdrestype.adresType}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Actie</f:facet>
+                                <p:commandButton action="#{adresBean.goToEditAdres(adres)}" value="Bewerken"/>
+                                <p:commandButton action="#{adresBean.removeAdresFromKlant(adres)}" value="Verwijderen"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+                <h:form>
+                    <p:commandButton action="addAdres" value="Voeg een adres toe" />
+                </h:form>  
+                <br/>
+                <h2 styleClass="ui-outputLabel">Accountgegevens:</h2>
+                <f:view>
+                    <f:metadata>
+                        <f:event listener="#{accountBean.findAccounts(klantBean.selectedKlant)}" type="postAddToView"/>
+                        <f:event listener="#{accountBean.setSelectedKlant(klantBean.selectedKlant)}" type="preRenderView"/>
+                    </f:metadata>            
+                    <h:form id="accounts" styleClass="dataTable">
+                        <p:dataTable value="#{accountBean.accounts}" var="account">
+                            <p:column>
+                                <f:facet name="header">Account Id</f:facet>
+                                #{account.idAccount}
+                            </p:column>       
+                            <p:column>    				
+                               <f:facet name="header">Accountnaam</f:facet>    				
+                               #{account.accountNaam}
+                            </p:column>             
+                            <p:column>    				
+                               <f:facet name="header">Creatie datum</f:facet>    				
+                               #{account.creatieDatum}
+                            </p:column>
+                            <p:column>    				
+                               <f:facet name="header">Klant id</f:facet>    				
+                               #{account.klantidKlant.idKlant}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Actie</f:facet>
+                                <p:commandButton action="#{accountBean.goToEditAccount(account)}" value="Bewerken"/>
+                                <p:commandButton action="#{accountBean.removeFromAccounts(account)}" value="Verwijderen" update="@form"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+                <br/>
+                <h:form>
+                    <h3 styleClass="ui-outputLabel">Voeg account toe</h3>
+                    <tr>
+                        <td>Accountnaam</td>
+                        <td><p:inputText size="80" value="#{accountBean.selectedAccount.accountNaam}">
+                            <f:validateBean disabled="false"/></p:inputText></td>
+                    </tr>
+                    <tr>
+                        <td><p:commandButton value="Voeg account toe" action="#{accountBean.addToAccounts()}" update="accounts"/></td>
+                    </tr>   
+                </h:form>
+                <br/>
+                <f:view>
+                    <f:metadata>
+                        <f:event listener="#{bestellingBean.findBestellingenByKlantId(klantBean.selectedKlant.idKlant)}" type="preRenderView"/>
+                    </f:metadata>
+                    <h:form styleClass="dataTable">
+                        <h2>Bestellingen:</h2>
+                        <p:dataTable value="#{bestellingBean.bestellingen}" var="bestelling">
+                        <p:column>
+                            <f:facet name="header">Bestelling ID</f:facet>
+                            #{bestelling.idBestelling}
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">Actie</f:facet>
+                            <p:commandButton action="#{bestellingBean.goToViewBestelling(bestelling)}" value="Selecteer bestelling"/>
+                            <p:commandButton action="#{bestellingBean.removeFromBestellingen(bestelling)}" value="Verwijder bestelling" update="@form"/>
+                       </p:column>    
+                      </p:dataTable>
+                        <tr>
+                        <td><p:commandButton value="Voeg bestelling toe" action="#{bestellingBean.addSelectedBestelling()}" update="@form"/></td>
+                        </tr>
+                    </h:form>
+                </f:view>
+            </p:layoutUnit>
+        </p:layout>     
     </h:body>
 </html>

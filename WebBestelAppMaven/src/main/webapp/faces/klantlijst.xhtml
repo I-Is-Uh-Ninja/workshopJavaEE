@@ -12,12 +12,13 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Klantenlijst</title>
+        <link rel="stylesheet" href="../css/customFlickPrimefaces.css" type="text/css"/>
     </h:head>
     <h:body>
         <p:layout fullPage="true">
-            <p:layoutUnit position="north" style="min-height:75px;margin:0;padding:0;border-style:none">
-                <h:form style="border-style:none;margin:0;padding:0">
-                    <p:menubar style="text-align:center;margin:0;padding:10px">
+            <p:layoutUnit position="north" styleClass="menu">
+                <h:form styleClass="dataTable">
+                    <p:menubar>
                         <p:menuitem value="Keuzemenu" url="keuzemenu.xhtml"/>
                         <p:menuitem value="Artikellijst" url="artikellijst.xhtml"/>
                         <p:menuitem value="Klantenlijst" url="klantlijst.xhtml"/>
@@ -25,72 +26,71 @@ and open the template in the editor.
                     </p:menubar>
                 </h:form>
             </p:layoutUnit>
-            <p:layoutUnit position="center" style="max-height:900px;border-style:none">
-                <div style="height:125px;padding: 0px 10px">
-                    <h1 styleClass="ui-outputlabel" style="text-align:center;line-height:100px;width:100%;height:100px;">Klantenlijst</h1>
-                </div>
+            <p:layoutUnit position="center" styleClass="centerLayout">
+                <h1 styleClass="ui-outputlabel">Klantenlijst</h1>
                 <f:view>
                     <h:form>
                         <p:dataTable value="#{klantBean.klanten}" var="klant">
-                    <p:column>
-                        <f:facet name="header">Klant Id</f:facet>
-                        #{klant.idKlant}
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Voornaam</f:facet>
-                        #{klant.voornaam}
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Tussenvoegsel</f:facet>
-                        #{klant.tussenvoegsel}
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Achternaam</f:facet>
-                        #{klant.achternaam}
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Email</f:facet>
-                        #{klant.email}
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">Actie</f:facet>
-                        <p:commandButton action="#{klantBean.goToSelectedKlant(klant)}" value="Selecteren"/>
-                        <p:commandButton action="#{klantBean.removeFromKlanten(klant)}" value="Verwijderen" update="@form"/>
-                    </p:column>
-                    </p:dataTable>
+                            <p:column>
+                                <f:facet name="header">Klant Id</f:facet>
+                                #{klant.idKlant}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Voornaam</f:facet>
+                                #{klant.voornaam}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Tussenvoegsel</f:facet>
+                                #{klant.tussenvoegsel}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Achternaam</f:facet>
+                                #{klant.achternaam}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Email</f:facet>
+                                #{klant.email}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Actie</f:facet>
+                                <p:commandButton action="#{klantBean.goToSelectedKlant(klant)}" value="Selecteren"/>
+                                <p:commandButton action="#{klantBean.removeFromKlanten(klant)}" value="Verwijderen" update="@form"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+                <br/><br/>
+                <h:form>
+                    <h3 styleClass="ui-outputLabel">Voeg Klant toe</h3>
+                    <br/>
+                    <table>
+                        <tr>
+                            <td>Voornaam</td>
+                            <td><p:inputText size='50' value="#{klantBean.selectedKlant.voornaam}">
+                                <f:validateBean disabled="false"/></p:inputText></td>
+                        </tr>
+                        <tr>
+                            <td>Tussenvoegsel</td>
+                            <td><p:inputText size='10' value="#{klantBean.selectedKlant.tussenvoegsel}">
+                                <f:validateBean disabled="false"/></p:inputText></td>
+                        </tr>
+                        <tr>
+                            <td>Achternaam</td>
+                            <td><p:inputText size='52' value="#{klantBean.selectedKlant.achternaam}">
+                                <f:validateBean disabled="false"/></p:inputText></td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td><p:inputText size='80' value="#{klantBean.selectedKlant.email}">
+                                <f:validateBean disabled="false"/></p:inputText></td>
+                        </tr>
+                        <tr>
+                          <td> </td>
+                          <td><p:commandButton value="Voeg klant toe" action="#{klantBean.addThisKlant()}" ajax="false"/></td>
+                    </tr>
+                    </table>
                 </h:form>
-            </f:view>
-        <h:form>
-            <h3 styleClass="ui-outputLabel">Voeg Klant toe</h3>
-            <br/>
-            <table>
-                <tr>
-                    <td>Voornaam</td>
-                    <td><p:inputText size='50' value="#{klantBean.selectedKlant.voornaam}">
-                        <f:validateBean disabled="false"/></p:inputText></td>
-                </tr>
-                <tr>
-                    <td>Tussenvoegsel</td>
-                    <td><p:inputText size='10' value="#{klantBean.selectedKlant.tussenvoegsel}">
-                        <f:validateBean disabled="false"/></p:inputText></td>
-                </tr>
-                <tr>
-                    <td>Achternaam</td>
-                    <td><p:inputText size='52' value="#{klantBean.selectedKlant.achternaam}">
-                        <f:validateBean disabled="false"/></p:inputText></td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td><p:inputText size='80' value="#{klantBean.selectedKlant.email}">
-                        <f:validateBean disabled="false"/></p:inputText></td>
-                </tr>
-                <tr>
-                  <td> </td>
-                  <td><p:commandButton value="Voeg klant toe" action="#{klantBean.addThisKlant()}" ajax="false"/></td>
-            </tr>
-            </table>
-        </h:form>
-        </p:layoutUnit>
+            </p:layoutUnit>
         </p:layout>
     </h:body>
 </html>

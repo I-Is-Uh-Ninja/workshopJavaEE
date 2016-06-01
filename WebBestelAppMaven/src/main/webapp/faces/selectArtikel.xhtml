@@ -6,17 +6,18 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Selecteer een artikel</title>
+        <link rel="stylesheet" href="../css/customFlickPrimefaces.css" type="text/css"/>
     </h:head>
     <h:body>
         <p:layout>
-            <p:layoutUnit position="north" style="min-height:60px;border-style: none">
+            <p:layoutUnit position="north" styleClass="menu">
                 <p:button value="Terug naar bestelling-overzicht" outcome="viewBestelling"/>
             </p:layoutUnit>
-            <p:layoutUnit position="center" style="min-height: 750px">
+            <p:layoutUnit position="center" styleClass="centerLayout">
                 <h1>Selecteer een artikel om toe te voegen aan de bestelling</h1>
                 <br/>
                 <f:view>
-                    <h:form>
+                    <h:form styleClass="dataTable">
                         <p:dataTable value="#{artikelBean.artikelen}" var="artikel">
                             <p:column>    				
                                <f:facet name="header">Naam</f:facet>    				

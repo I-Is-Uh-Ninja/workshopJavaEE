@@ -11,43 +11,44 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Klant bewerken</title>
+        <link rel="stylesheet" href="../css/customFlickPrimefaces.css" type="text/css"/>
     </h:head>
     <h:body>
        <p:layout>
             <p:layoutUnit position="north" style="min-height: 50px">
                 <p:button value="Terug naar klant-overzicht" outcome="viewKlant"/>
             </p:layoutUnit>
-       <p:layoutUnit position="center" style="min-height: 750px"> 
-         <h:form>
-            <h3 styleClass="ui-outputLabel">Bewerk klant</h3>
-            <br/>
-            <table>
-            <tr>
-                <td>Voornaam</td>
-                <td><p:inputText size="50" value="#{klantBean.selectedKlant.voornaam}">
-                <f:validateBean disabled="false"/></p:inputText></td>
-            </tr>
-            <tr>
-                <td>Tussenvoegsel</td>
-                <td><p:inputText size="10" value="#{klantBean.selectedKlant.tussenvoegsel}">
-                <f:validateBean disabled="false"/></p:inputText></td>        
-            </tr>
-            <tr>
-                <td>Achternaam</td>
-                <td><p:inputText size="51" value="#{klantBean.selectedKlant.achternaam}">
-                <f:validateBean disabled="false"/></p:inputText></td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td><p:inputText size="80" value="#{klantBean.selectedKlant.email}">
-                <f:validateBean disabled="false"/></p:inputText></td>
-            </tr>
-            <tr>
-                 <td><p:commandButton value="Bewerk klant" action="#{klantBean.editThisKlant()}"/></td>
-            </tr>
-            </table>
-        </h:form> 
-        </p:layoutUnit>
+            <p:layoutUnit position="center" styleClass="centerLayout"> 
+                <h:form>
+                    <h3 styleClass="ui-outputLabel">Bewerk klant</h3>
+                    <br/>
+                    <table>
+                    <tr>
+                        <td>Voornaam</td>
+                        <td><p:inputText size="50" value="#{klantBean.selectedKlant.voornaam}">
+                        <f:validateBean disabled="false"/></p:inputText></td>
+                    </tr>
+                    <tr>
+                        <td>Tussenvoegsel</td>
+                        <td><p:inputText size="10" value="#{klantBean.selectedKlant.tussenvoegsel}">
+                        <f:validateBean disabled="false"/></p:inputText></td>        
+                    </tr>
+                    <tr>
+                        <td>Achternaam</td>
+                        <td><p:inputText size="51" value="#{klantBean.selectedKlant.achternaam}">
+                        <f:validateBean disabled="false"/></p:inputText></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><p:inputText size="80" value="#{klantBean.selectedKlant.email}">
+                        <f:validateBean disabled="false"/></p:inputText></td>
+                    </tr>
+                    <tr>
+                        <td><p:commandButton value="Bewerk klant" action="#{klantBean.editThisKlant()}"/></td>
+                    </tr>
+                    </table>
+                </h:form> 
+            </p:layoutUnit>
         </p:layout>
     </h:body>
 </html>
