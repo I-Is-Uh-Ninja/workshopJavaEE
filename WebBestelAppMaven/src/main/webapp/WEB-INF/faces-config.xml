@@ -9,5 +9,5 @@
             <from-outcome>keuzemenu</from-outcome>
             <to-view-id>/faces/keuzemenu.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>
+    </navigation-rule>     
 </faces-config>
