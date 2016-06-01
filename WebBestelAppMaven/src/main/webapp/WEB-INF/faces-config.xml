@@ -7,7 +7,10 @@
         <from-view-id>/login.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>keuzemenu</from-outcome>
-            <to-view-id>/faces/keuzemenu.xhtml</to-view-id>
+            <to-view-id>/faces/keuzemenu.xhtml?faces-redirect=true</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <factory>
+        <exception-handler-factory>exception.CustomExceptionHandlerFactory</exception-handler-factory>
+    </factory>
 </faces-config>
