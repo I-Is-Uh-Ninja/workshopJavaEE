@@ -8,12 +8,13 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Bekijk bestelling</title>
+        <link rel="stylesheet" href="../css/customFlickPrimefaces.css" type="text/css"/>
     </h:head>
     <h:body>
-        <p:layout fullPage="true">
-            <p:layoutUnit position="north" style="min-height:75px;margin:0;padding:0;border-style:none">
-                <h:form style="border-style:none;margin:0;padding:0">
-                    <p:menubar style="text-align:center;margin:0;padding:10px">
+        <p:layout>
+            <p:layoutUnit position="north" styleClass="menu">
+                <h:form>
+                    <p:menubar>
                         <p:menuitem value="Keuzemenu" url="keuzemenu.xhtml"/>
                         <p:menuitem value="Artikellijst" url="artikellijst.xhtml"/>
                         <p:menuitem value="Klantenlijst" url="klantlijst.xhtml"/>
@@ -21,15 +22,15 @@
                     </p:menubar>
                 </h:form>
             </p:layoutUnit>
-            <p:layoutUnit position="center" style="max-height:900px;border-style:none">
-                <div style="height:125px;padding: 0px 10px">
-                    <h1 styleClass="ui-outputlabel" style="text-align:center;line-height:100px;width:100%;height:100px;">Bestelling with ID #{bestellingBean.selectedBestelling.idBestelling}</h1>
-                </div>
+            <p:layoutUnit position="center" styleClass="centerLayout">
+                <p:button value="Terug naar klant-overzicht" outcome="viewKlant"/>
+                <br/>
+                <h1 styleClass="ui-outputlabel">Bestelling with ID #{bestellingBean.selectedBestelling.idBestelling}</h1>
                 <f:view>
                     <f:metadata>
                         <f:event listener="#{factuurBean.findFacturen(bestellingBean.selectedBestelling)}" type="preRenderView"/>
                     </f:metadata>
-                    <h:form>
+                    <h:form styleClass="dataTable">
                         <p:dataTable id="artikelen" value="#{bestellingBean.artikelenInBestelling}" var="artikel">
                             <p:column>
                                <f:facet name="header">Artikel ID</f:facet>
@@ -71,7 +72,7 @@
                         <p:button outcome="betaalBestelling" value="Betaal de bestelling"/>
                     </h:form>
                     <br/>
-                    <h:form>
+                    <h:form styleClass="dataTable">
                         <p:dataTable value="#{factuurBean.findFacturen(bestellingBean.selectedBestelling)}" var="factuur">
                             <p:column>
                                 <f:facet name="header">Factuur ID</f:facet>

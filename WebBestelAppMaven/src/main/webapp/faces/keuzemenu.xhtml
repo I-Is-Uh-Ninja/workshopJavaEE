@@ -6,26 +6,32 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Hoofdmenu</title>
+        <link rel="stylesheet" href="css/customFlickPrimefaces.css" type="text/css"/>
+        <link rel="stylesheet" href="../css/customFlickPrimefaces.css" type="text/css"/>
     </h:head>
-    <h:body>
-        <p:layout>
-            <p:layoutUnit position="north">
-                <h:form>
-                    <p:commandButton value="Logout" action="#{loginBean.logout()}" ajax="false"/>
-                </h:form>
-            </p:layoutUnit>
-            <p:layoutUnit position="center" style="min-height: 500px">
-                <h1 styleClass="ui-outputLabel">Hoofdmenu</h1>
-                <br/>
-                <f:view>
+    <h:body id="slim">
+        <div class="wrapperSlim">
+            <p:layout>
+                <p:layoutUnit position="north" styleClass="menu">
                     <h:form>
-                        <p:button outcome="artikellijst" value="Bekijk lijst met artikelen" />
-                        <br/><br/>
-                        <p:button outcome="klantlijst" value="Bekijk lijst met klanten" />
+                        <p:menubar>
+                            <p:menuitem action="#{loginBean.logout()}" ajax="false" value="Logout"/>
+                        </p:menubar>
                     </h:form>
-                </f:view>
-            </p:layoutUnit>
-        </p:layout>
+                </p:layoutUnit>
+                <p:layoutUnit position="center" styleClass="centerLayout" id="hoofdmenu">
+                    <h1 styleClass="ui-outputLabel">Hoofdmenu</h1>
+                    <br/>
+                    <f:view>
+                        <h:form>
+                            <p:button outcome="artikellijst" value="Bekijk lijst met artikelen" />
+                            <br/><br/>
+                            <p:button outcome="klantlijst" value="Bekijk lijst met klanten" />
+                        </h:form>
+                    </f:view>
+                </p:layoutUnit>
+            </p:layout>
+        </div>
     </h:body>
 </html>
 

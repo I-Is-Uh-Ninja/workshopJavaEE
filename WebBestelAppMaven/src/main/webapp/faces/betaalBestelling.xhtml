@@ -7,18 +7,19 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Betaal de Bestelling</title>
+        <link rel="stylesheet" href="../css/customFlickPrimefaces.css" type="text/css"/>
     </h:head>
-    <h:body>
+    <h:body id="slim">
         <p:layout>
-            <p:layoutUnit position="north" style="min-height:60px;border-style: none">
+            <p:layoutUnit position="north" styleClass="menu">
                 <p:button value="Terug naar bestelling-overzicht" outcome="viewBestelling"/>
             </p:layoutUnit>
-            <p:layoutUnit position="center" style="min-height:750px">
+            <p:layoutUnit position="center" styleClass="centerLayout">
                 <f:view>
                     <f:metadata>
                         <f:event type="preRenderView" listener="#{factuurBean.setSelectedBestelling(bestellingBean.selectedBestelling)}"/>
                     </f:metadata>
-                    <h:form>
+                    <h:form styleClass="dataTable">
                         <p:dataTable value="#{bestellingBean.artikelenInBestelling}" var="artikel">
                             <p:column>    				
                                <f:facet name="header">Artikelnaam</f:facet>    				

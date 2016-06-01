@@ -1,0 +1,38 @@
+body{
+    background-color: #06b;
+    padding: 0 10%;
+}
+
+#slim{
+    background-color: #06b;
+    padding: 0 25%;
+}
+
+.centerLayout{
+    padding: 25px;
+    min-height: 800px;
+    margin: auto;
+}
+
+#hoofdmenu{
+    text-align: center;
+    margin:auto;
+}
+
+.menu{
+    min-height: 75px;
+    padding: 20px 10px 10px 10px;
+}
+
+.ui-menubar, .ui-menuitem{
+    max-height: 40px;
+    border: 0;
+}
+
+.ui-menuitem{
+    padding: 10px 20px;
+}
+
+.dataTable{
+    padding: 25px 10px;
+}
