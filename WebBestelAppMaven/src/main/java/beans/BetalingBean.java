@@ -79,9 +79,16 @@ public class BetalingBean {
     //=====Adding betaling=====
     
     public Betaling addBetaling(){
-        betaling.setBetaalDatum(new Date());
-        setSelectedBetaalwijze(betaalwijzeFacade.find(betaalwijzeId));
+        try { 
+            betaling.setBetaalDatum(new Date());
+            setSelectedBetaalwijze(betaalwijzeFacade.find(betaalwijzeId));
         betaling.setBetaalwijzeidBetaalwijze(selectedBetaalwijze);
+        }
+        catch (javax.ejb.EJBTransactionRolledbackException ex) {
+            throw new javax.ejb.EJBTransactionRolledbackException("Er is geen betaalwijze opgegeven"); 
+        }
+       
+        
         return betaling;
     }
     

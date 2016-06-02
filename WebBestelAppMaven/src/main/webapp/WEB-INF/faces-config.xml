@@ -9,12 +9,8 @@
             <from-outcome>keuzemenu</from-outcome>
             <to-view-id>/faces/keuzemenu.xhtml?faces-redirect=true</to-view-id>
         </navigation-case>
-<<<<<<< HEAD
-    </navigation-rule>     
-=======
     </navigation-rule>
     <factory>
         <exception-handler-factory>exception.CustomExceptionHandlerFactory</exception-handler-factory>
     </factory>
->>>>>>> f643ae59e06bb7eeb3839a3382b8689629a8ca3f
 </faces-config>

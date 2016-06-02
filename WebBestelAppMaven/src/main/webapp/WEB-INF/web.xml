@@ -35,14 +35,12 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>login.xhtml</welcome-file>
-<<<<<<< HEAD
+        <welcome-file>../../login.xhtml</welcome-file>
     </welcome-file-list>    
-=======
-    </welcome-file-list>
+   
     <error-page>
         <exception-type>java.lang.RuntimeException</exception-type>
         <location>/error.xhtml</location>
      </error-page>
->>>>>>> f643ae59e06bb7eeb3839a3382b8689629a8ca3f
+
 </web-app>

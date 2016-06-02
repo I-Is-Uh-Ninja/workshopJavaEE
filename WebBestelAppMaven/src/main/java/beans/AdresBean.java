@@ -133,16 +133,32 @@ public class AdresBean implements Serializable {
     
     //Add an existing adres to a klant
     public String addExistingAdres(Adres adres){
-        KlantHasAdres kha = new KlantHasAdres();
-        kha.setAdresidAdres(adres);
-        setSelectedAdresType(adresTypeFacade.find(selectedAdresType.getIdAdrestype()));
-        kha.setAdrestypeidAdrestype(selectedAdresType);
-        kha.setKlantidKlant(selectedKlant);
-        kHAFacade.create(kha);
-        adressenInKlant.add(kha);
-        selectedAdres = new Adres();
-        selectedAdresType = new AdresType();
-        return "viewKlant";
+        try { 
+            KlantHasAdres kha = new KlantHasAdres();
+            kha.setAdresidAdres(adres);
+            setSelectedAdresType(adresTypeFacade.find(selectedAdresType.getIdAdrestype()));
+            kha.setAdrestypeidAdrestype(selectedAdresType);
+            kha.setKlantidKlant(selectedKlant);
+            kHAFacade.create(kha);
+            adressenInKlant.add(kha);
+            selectedAdres = new Adres();
+            selectedAdresType = new AdresType();
+        } 
+        
+        catch (javax.ejb.EJBTransactionRolledbackException ex) {
+            throw new javax.ejb.EJBTransactionRolledbackException("Er is geen adrestype opgegeven.");
+        } 
+        
+        /*catch (javax.faces.el.EvaluationException ex) {
+            throw new javax.faces.el.EvaluationException("Deze klant heeft al een adres met dit adrestype");
+        }*/
+        catch (javax.ejb.EJBException ex) {
+            //throw new javax.ejb.EJBException("Deze klant heeft al een adres met dit adrestype.");
+           // throw ex.getCausedByException();
+        }
+        
+        
+       return "viewKlant";
     }
     
     //Remove an adres from klant, then check if the adres is not connected to another klant. If it is not connected, delete it entirely
