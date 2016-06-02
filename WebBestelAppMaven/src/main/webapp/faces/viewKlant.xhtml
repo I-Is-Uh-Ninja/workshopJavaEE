@@ -109,7 +109,7 @@ and open the template in the editor.
                 <f:view>
                     <f:metadata>
                         <f:event listener="#{accountBean.findAccounts(klantBean.selectedKlant)}" type="postAddToView"/>
-                        <f:event listener="#{accountBean.setSelectedKlant(klantBean.selectedKlant)}" type="preRenderView" />
+                        <f:event listener="#{accountBean.setSelectedKlant(klantBean.selectedKlant)}" type="preRenderView"/>
                     </f:metadata>            
                     <h:form id="accounts" styleClass="dataTable">
                         <p:dataTable value="#{accountBean.accounts}" var="account">
@@ -142,7 +142,7 @@ and open the template in the editor.
                     <h3 styleClass="ui-outputLabel">Voeg account toe</h3>
                     <tr>
                         <td>Accountnaam</td>
-                        <td><p:inputText size="80" value="#{accountBean.selectedAccount.accountNaam}">
+                        <td><p:inputText size="30" value="#{accountBean.selectedAccount.accountNaam}">
                             <f:validateBean disabled="false"/></p:inputText></td>
                     </tr>
                     <tr>

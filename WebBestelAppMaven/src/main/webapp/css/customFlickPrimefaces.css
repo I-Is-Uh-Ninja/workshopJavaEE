@@ -10,13 +10,16 @@ body{
 
 .centerLayout{
     padding: 25px;
-    min-height: 800px;
+    min-height: 600px;
+    height: 800px;
     margin: auto;
 }
 
 #hoofdmenu{
     text-align: center;
     margin:auto;
+    max-height: 600px;
+    height: 600px;
 }
 
 .menu{
@@ -24,9 +27,12 @@ body{
     padding: 20px 10px 10px 10px;
 }
 
+.ui-menubar{
+    border: 0;
+}
+
 .ui-menubar, .ui-menuitem{
     max-height: 40px;
-    border: 0;
 }
 
 .ui-menuitem{
