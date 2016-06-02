@@ -1,14 +1,37 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html" 
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-<h:body>
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Er ging iets mis</title>
+        <link rel="stylesheet" href="../css/customFlickPrimefaces.css" type="text/css"/>
+    </h:head>
 
-    <h2>Er ging iets mis!</h2>
-
-    <h4>Foutmelding:</h4>
-    #{requestScope['error-message']}
-
-</h:body>
+    <h:body> 
+    <p:layout fullPage="true">
+        <p:layoutUnit position="north" styleClass="menu">
+            <h2 styleClass="ui-outputlabel">Er ging iets mis!</h2>
+        </p:layoutUnit>
+            
+        <p:layoutUnit position="center" styleClass="centerLayout">
+            <p:menubar>
+                <p:menuitem value="Terug naar het Keuzemenu" url="keuzemenu.xhtml" style="font-size :200%"/>
+            </p:menubar>
+            <br/><br/><br/>
+            <h4 styleClass="ui-outputlabel">
+                Let op, geef altijd een adrestype of betaalwijze op!
+                <br/>
+                Elke klant kan van elk adrestype maar één hebben.
+            </h4>
+        </p:layoutUnit>
+            
+        <p:layoutUnit position="south">
+        <h4 styleClass="ui-outputlabel">Foutmelding:</h4>
+            #{requestScope['error-message']}
+        </p:layoutUnit>
+    </p:layout>
+    </h:body>
 </html>
