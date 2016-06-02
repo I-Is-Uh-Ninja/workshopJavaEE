@@ -22,7 +22,7 @@
                     <table>
                     <tr>
                         <td>Naam</td>
-                        <td><p:inputText size="80" value="#{artikelBean.selectedArtikel.artikelnaam}">
+                        <td><p:inputText size="30" value="#{artikelBean.selectedArtikel.artikelnaam}">
                                 <f:validateBean disabled="false"/></p:inputText></td>
                     </tr>
                     <tr>
@@ -32,13 +32,13 @@
                     </tr>
                     <tr>
                         <td>Nummer</td>
-                        <td><p:inputText size="45" value="#{artikelBean.selectedArtikel.artikelnummer}">
+                        <td><p:inputText size="30" value="#{artikelBean.selectedArtikel.artikelnummer}">
                             <f:validateBean disabled="false"/></p:inputText></td>
                     </tr>
                     <tr>
                         <td>Omschrijving</td>
-                        <td><p:inputText size="80" value="#{artikelBean.selectedArtikel.artikelomschrijving}">
-                            <f:validateBean disabled="false"/></p:inputText></td>
+                        <td><p:inputTextarea value="#{artikelBean.selectedArtikel.artikelomschrijving}">
+                            <f:validateBean disabled="false"/></p:inputTextarea></td>
                     </tr>
                     <tr>
                         <td> </td>

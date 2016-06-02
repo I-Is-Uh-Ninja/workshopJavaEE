@@ -25,12 +25,12 @@ and open the template in the editor.
             <table>
                 <tr>
                     <td>Accountnaam</td>
-                    <td><p:inputText size="80" value="#{accountBean.selectedAccount.accountNaam}">
+                    <td><p:inputText size="30" value="#{accountBean.selectedAccount.accountNaam}">
                     <f:validateBean disabled="false"/></p:inputText></td>
                 </tr>
                 <tr>
                     <td>Klant id</td>
-                    <td><p:inputText size="10" value="#{accountBean.selectedAccount.klantidKlant.idKlant}">
+                    <td><p:inputText size="10" value="#{accountBean.selectedAccount.klantidKlant.idKlant}" readonly="readonly">
                     <f:validateBean disabled="false"/></p:inputText></td>
                 </tr>
                 <tr>
