@@ -20,7 +20,7 @@ import javax.persistence.Query;
 @Stateless
 public class BetalingFacade extends AbstractFacade<Betaling> {
 
-    @PersistenceContext(unitName = "RestTestPU")
+    @PersistenceContext(unitName = "WebBestelAppPU")
     private EntityManager em;
 
     @Override

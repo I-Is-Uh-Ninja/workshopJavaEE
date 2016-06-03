@@ -19,7 +19,7 @@ import javax.persistence.Query;
 @Stateless
 public class FactuurFacade extends AbstractFacade<Factuur> {
 
-    @PersistenceContext(unitName = "RestTestPU")
+    @PersistenceContext(unitName = "WebBestelAppPU")
     private EntityManager em;
 
     @Override

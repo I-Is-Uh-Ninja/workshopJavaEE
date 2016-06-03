@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class AdresFacade extends AbstractFacade<Adres> {
 
-    @PersistenceContext(unitName = "RestTestPU")
+    @PersistenceContext(unitName = "WebBestelAppPU")
     private EntityManager em;
 
     @Override

@@ -1,43 +1,36 @@
 $(document).ready(function(){
     var URL = "http://localhost:40847/RestTest/rest/artikel";
-    var currentArtikel;
-    var currentId = 0;
     
     $.getJSON(URL, function(result){
         $.each(result, function(i, field){
-            $("#adresBody").append("<tr>");
+            $("#artikelBody").append("<tr> id='" + field.idArtikel + "'></tr>");
                 for (var p in field){
                     if(i===0){
-                        $("#adresTitle").append("<th>" + p + "</th>")
+                        $("#artikelsTitle").append("<th>" + p + "</th>");
                     }
-                    $("#adresBody").append("<td>" + field[p] + "</td>");
+                    $("tr#" + field.idArtikel).append("<td>" + field[p] + "</td>");
                 }
-            $("#adresBody").append("</tr>");
+                if(i===0) {               
+                    $("#artikelBody").append("<td>" + field[p] + "</td>");
+                }
+            $("tr#" + field.idArtikel).append("<td id='view'><button type='button' id='"+ field.idKArtikel + "'>Bekijk artikel</button>");
+            $("tr#" + field.idArtikel).append("<td id='delete'><button type='button' id='"+ field.idArtikel + "'>Verwijder artikel</button>");
             });
         });
     
-    $(document).on("click", "td#select button", function(){
-        alert("button clicked");
-        selectedId = $(this).attr('id');
-        $("tr").removeClass('highlight');
-        $("tr#" + selectedId).addClass('highlight');
-        $('button#deleteArtikel').removeAttr("hidden");
-    }); 
+     $(document).on("click", "td#view button", function(){
+        var currentId = {artikelId : event.target.id};
+        var idParam = $.param(currentId);
+        location.href = "viewArtikel.html?" + idParam; 
+    });
+    
+      $(document).on("click", "td#delete button", function(){
+        var delURL = URL + "/" + event.target.id;
+        ajaxDeleteArtikel(delURL);
+    });
     
      $("#nieuwArtikel").submit(function(){
-        $.ajax({
-            type: 'POST',
-            contentType: 'application/json',
-            url: URL,
-            dataType: "application/json",
-            data: formToJson(),
-            success: function(data, textStatus, jqXHR){
-                alert(formToJson());
-            },
-            error: function(jqXHR, textStatus, errorThrown){
-                alert('Fout bij  toevoegen artikel:' + errorThrown + formToJson());
-            }
-        });
+         ajaxCreateArtikel(URL);
     });
     
     function formToJson(){
@@ -49,17 +42,32 @@ $(document).ready(function(){
         });
     }
     
-     $('button#deleteArtikel').click(function(){
-        var URLdel = URL + "/" + selectedId;
+    function ajaxCreateArtikel(URL) {
         $.ajax({
-            type: 'DELETE',
-            url: URLdel,
+            type: 'POST',
+            contentType: 'application/json',
+            url: URL,
+            dataType: "application/json",
+            data: formToJson(),
             success: function(data, textStatus, jqXHR){
-                alert('verwijderen geslaagd' + url);
+                alert(formToJson() + 'is toegevoegd.');
             },
             error: function(jqXHR, textStatus, errorThrown){
-                alert('Fout bij verwijderen' + url);
+                alert('Fout bij toevoegen artikel:' + "\n" + errorThrown + "\n" + formToJson());
             }
         });
-    });
+    }
+    
+    function ajaxDeleteArtikel(URL) {
+        $.ajax({
+            type: 'DELETE',
+            url: URL,
+            succes: function(data, textStatus, jqXHR) {
+                alert("Artikel verwijderd");
+            },
+            error: function(jqXHR, textStatus, errorTrhrown){
+                alert("Fout bij verwijderen artikel: " + textStatus + "\n" + errorThrown + "\n" + URL);
+            }    
+        });
+    }
 });

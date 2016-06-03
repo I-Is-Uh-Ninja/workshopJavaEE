@@ -19,7 +19,7 @@ import javax.persistence.Query;
 @Stateless
 public class KlantHasAdresFacade extends AbstractFacade<KlantHasAdres> {
 
-    @PersistenceContext(unitName = "RestTestPU")
+    @PersistenceContext(unitName = "WebBestelAppPU")
     private EntityManager em;
 
     @Override

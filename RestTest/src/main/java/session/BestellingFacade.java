@@ -21,7 +21,7 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class BestellingFacade extends AbstractFacade<Bestelling> {
 
-    @PersistenceContext(unitName = "RestTestPU")
+    @PersistenceContext(unitName = "WebBestelAppPU")
     private EntityManager em;
 
     @Override

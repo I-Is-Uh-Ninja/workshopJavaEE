@@ -97,6 +97,7 @@ public class BestellingFacadeREST {
     
     //vindt artikelen in een bestelling
     @GET
+    @Path("artikellijstbestelling/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Artikel> findArtikelInBestelling() {
          return artikelFacade.findAll();
@@ -104,6 +105,7 @@ public class BestellingFacadeREST {
     
     //vindt lijst met bestellingen
     @GET
+    @Path("bestellinglijst")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Bestelling> findAll() {
         return bestellingFacade.findAll();
