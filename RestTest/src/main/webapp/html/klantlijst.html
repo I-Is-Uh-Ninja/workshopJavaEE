@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../css/style.css" type="text/css">
+
+
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <h1>Klantenlijst</h1>
+        <br/>
+        <h2>Alle klanten in database</h2>
+        <br/>
+        <form>
+            <table id="klanten">
+                <thead id="klantenTitle">
+                </thead>
+                <tbody id="klantenBody">
+                </tbody>
+            </table>
+        </form>
+        
+        <br/>
+        <h2>Voeg nieuw klant toe</h2>
+        <br/>
+        <form id="nieuwKlant" method="post">
+            <table>
+                <tr>
+                    <td>Voornaam</td>
+                    <td><input type="text" size="40" id="voornaam"/></td>
+                </tr><tr>
+                    <td>Tussenvoegsel</td>
+                    <td><input type="text" id="tussenvoegsel" size="10"/></td>
+                </tr><tr>
+                    <td>Achternaam</td>
+                    <td><input type="text" size="40" id="achternaam"/></td>
+                </tr><tr>
+                    <td>E-mail</td>
+                    <td><input type="text" size="80" id="email"/></td>
+                </tr><tr>
+                    <td></td><td>
+                        <input type="submit" value="Voeg klant toe"/></td>
+                </tr>
+            </table>
+        </form>
+        <p id="error"></p>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+        <!--script type="text/javascript" charset="utf-8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script-->
+        <script src="../js/klant.js"></script>
+        
+    </body>
+</html>

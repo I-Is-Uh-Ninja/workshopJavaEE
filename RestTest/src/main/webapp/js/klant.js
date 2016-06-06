@@ -1,6 +1,6 @@
 $(document).ready(function(){
     var restURL = "http://localhost:8080/RestTest/rest/klant";
-
+/*
     $.getJSON(restURL, function(result){
         $.each(result, function(i, field){
             $("#klantenBody").append("<tr id='" + field.idKlant + "'></tr>");
@@ -16,8 +16,44 @@ $(document).ready(function(){
             $("tr#" + field.idKlant).append("<td id='view'><button type='button' id='"+ field.idKlant + "'>Bekijk klant</button>");
             $("tr#" + field.idKlant).append("<td id='delete'><button type='button' id='"+ field.idKlant + "'>Verwijder klant</button>");
         });
+    });*/
+    
+    $.ajax({
+        type: 'GET',
+        url: restURL,
+        dataType: "json",
+        success: function(data){
+            displayKlantTable(data);
+        }
     });
-
+    
+    function getKlanten(){
+        $.ajax({
+            type: 'GET',
+            url: restURL,
+            dataType: "json",
+            success: function(data){
+                displayKlantTable(data);
+            }
+        });
+    }
+    
+    function displayKlantTable(klanten){
+        $.each(klanten, function(i, field){
+            $("#klantenBody").append("<tr id='" + field.idKlant + "'></tr>");
+            for (var p in field){
+                if(i===0){
+                    $("#klantenTitle").append("<th>" + p + "</th>");
+                }
+                $("tr#" + field.idKlant).append("<td>" + field[p] + "</td>");
+            }
+            if (i===0){
+                $("#klantenTitle").append("<th>Actie</th>");
+            }
+            $("tr#" + field.idKlant).append("<td id='view'><button type='button' id='"+ field.idKlant + "'>Bekijk klant</button>");
+            $("tr#" + field.idKlant).append("<td id='delete'><button type='button' id='"+ field.idKlant + "'>Verwijder klant</button>");
+        });
+    }
 
     $(document).on("click", "td#view button", function(){
         var id = {klantId : event.target.id};
@@ -28,17 +64,6 @@ $(document).ready(function(){
     $(document).on("click", "td#delete button", function(){
         var URL = restURL + "/" + event.target.id;
         ajaxDelete(URL);
-        /*
-        $.ajax({
-            type: 'DELETE',
-            url: URL,
-            success: function(data, textStatus, jqXHR){
-                //alert("Success!\n" + URL);
-            },
-            error: function(jqXHR, textStatus, errorThrown){
-                alert("Error: " + errorThrown + "\n" + URL);
-            }
-        });*/
     });
 
     $("#nieuwKlant").submit(function(){
@@ -67,7 +92,7 @@ $(document).ready(function(){
                 //alert(formToJson());
             },
             error: function(jqXHR, textStatus, errorThrown){
-                alert('Error: ' + errorThrown + formToJson());
+                //alert('Error: ' + errorThrown + formToJson());
             }
         });
     }
@@ -77,7 +102,7 @@ $(document).ready(function(){
             type: 'DELETE',
             url: URL,
             success: function(data, textStatus, jqXHR){
-                //alert("Success!" + URL);
+                getKlanten();
             },
             error: function(jqXHR, textStatus, errorThrown){
                 alert("Error: " + textStatus + "\n" + errorThrown + "\n" + URL);

@@ -29,7 +29,7 @@ import session.KlantHasAdresFacade;
 AdresFacadeREST vervangt AdresTypeFacadeREST en KlantHasAdresFacadeREST
 */
 @Stateless
-@Path("klant/{klantId}/adres")
+@Path("adres")
 public class AdresFacadeREST {
 
     @EJB
@@ -37,57 +37,52 @@ public class AdresFacadeREST {
     
     @EJB
     AdresTypeFacade adresTypeFacade;
-    
-    @EJB
-    KlantHasAdresFacade khaFacade;
-    
-    @EJB
-    KlantFacade klantFacade;
 
     @POST
-    @Path("nieuwAdres")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Adres entity) {
         adresFacade.create(entity);
-    }
-    
-    @POST
-    @Path("existingAdres")
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void addExistingAdres(KlantHasAdres entity) {
-        khaFacade.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, KlantHasAdres entity) {
-        khaFacade.edit(entity);
+    public void edit(@PathParam("id") Integer id, Adres entity) {
+        adresFacade.edit(entity);
     }
     
     //Adres should only be removed if no KlantHasAdres is attached
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") Integer id, @PathParam("klantId") Integer klantId) {
-        Integer idAdres = khaFacade.find(id).getAdresidAdres().getIdAdres();
-        khaFacade.remove(khaFacade.find(id));
-        if(khaFacade.findByIdAdres(idAdres).isEmpty()){
-            adresFacade.remove(adresFacade.find(idAdres));
-        }
+    public void remove(@PathParam("id") Integer id) {
+        adresFacade.remove(adresFacade.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public KlantHasAdres find(@PathParam("id") Integer id) {
-        return khaFacade.find(id);
+    public Adres find(@PathParam("id") Integer id) {
+        return adresFacade.find(id);
     }
     
-    //find all for this klant
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<KlantHasAdres> findAll(@PathParam("klantId") Integer klantId) {
-        return khaFacade.findByIdKlant(klantId);
+    public List<Adres> findAll() {
+        return adresFacade.findAll();
+    }
+    
+    @GET
+    @Path("adresType")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<AdresType> findAllAdresTypes() {
+        return adresTypeFacade.findAll();
+    }
+    
+    @GET
+    @Path("adresType/{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public AdresType findAdresType(@PathParam("id") Integer id) {
+        return adresTypeFacade.find(id);
     }
     
     /*
