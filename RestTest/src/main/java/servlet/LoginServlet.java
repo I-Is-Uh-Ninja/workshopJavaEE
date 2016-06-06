@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
             Cookie userName = new Cookie("user", user);
             userName.setMaxAge(30*60);
             response.addCookie(userName);
-            response.sendRedirect("html/klantlijst.html");
+            response.sendRedirect("html/keuzemenu.html");
         }
         else{
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
