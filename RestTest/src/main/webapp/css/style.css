@@ -91,6 +91,11 @@ table {
     text-align: left;
 }
 
+/*input itself*/
+input[type="text"] {
+    font-size: medium;
+}
+
 /*Tables used for displaying data*/
 .datatable {
     margin: 20px auto;

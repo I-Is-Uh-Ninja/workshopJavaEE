@@ -65,6 +65,13 @@ $(document).ready(function(){
     
     //methods for buttons
     
+    //go back to viewKlant
+    $("button#backToKlant").click(function() {
+        var id = {klantId : selectedKlant.idKlant};
+        var idParam = $.param(id);
+        window.location.href = "viewKlant.html?" + idParam;
+    });
+    
     //select an existing adres
     $(document).on("click","td#selectAdres button", function(){
         selectedAdres = allAdressen[event.target.id];
