@@ -9,76 +9,87 @@ and open the template in the editor.
         <title>Overzicht klant</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/style.css" type="text/css">
     </head>
     <body>
-        <h1>Overzicht voor klant</h1>
-        <br/>
-        <h2>Klant-gegevens</h2>
-        <div id="klantgegevens">
-            <table id="klant">
-                <thead id="klantTitle">
-                <th>Voornaam</th>
-                <th>Tussenvoegsel</th>
-                <th>Achternaam</th>
-                <th>Email</th>
-                </thead>
-                <tbody id="klantBody">
-
-                </tbody>
-            </table>
-            <button id="editKlant">Bewerk klant-gegevens</button>
-        </div>
-        <br/>
-        <h2>Adressen</h2>
-        <div id="adressen">
-            <table id="adres">
-                <thead id="adresTitle">
-                <th>Straatnaam</th>
-                <th>Huisnummer</th>
-                <th>Postcode</th>
-                <th>Woonplaats</th>
-                <th>Adres-type</th>
-                <th colspan="2">Actie</th>
-                </thead>
-                <tbody id="adresBody">
-                    
-                </tbody>
-            </table>
-            <button id="addAdres">Voeg een adres toe</button>
-        </div>
-        <br/>
-        <div id="accounts">
-            <h2>Accounts</h2>
-            <table id="account">
-                <thead>
-                <th>Accountnaam</th>
-                <th>Creatie-datum</th>
-                <th colspan="2">Actie</th>
-                </thead>
-                <tbody id="accountBody">
-                    
-                </tbody>
-            </table>
+        <form action="../LogoutServlet" method="post">
+            <ul class="nav-menu">
+                <li><a href="keuzemenu.html" >Hoofdmenu</a></li>
+                <li><a href="artikellijst.html" >Artikellijst</a></li>
+                <li><a href="klantlijst.html" >Klantlijst</a></li>
+                <li><button type="submit">Logout</button></li>
+            </ul>
+        </form>
+        <div class="center">
+            <h1>Overzicht voor klant</h1>
             <br/>
-            <h3>Voeg een account toe</h3>
-            <input type="text" id="newAccountnaam" size="30" placeholder="Accountnaam"/>
-            <button id='addAccount'>Voeg account toe</button>
+            <h2>Klant-gegevens</h2>
+            <div id="klantgegevens">
+                <table id="klant" class="datatable">
+                    <thead id="klantTitle">
+                    <th>Voornaam</th>
+                    <th>Tussenvoegsel</th>
+                    <th>Achternaam</th>
+                    <th>Email</th>
+                    </thead>
+                    <tbody id="klantBody">
+
+                    </tbody>
+                </table>
+                <button id="editKlant">Bewerk klant-gegevens</button>
+            </div>
+            <br/>
+            <h2>Adressen</h2>
+            <div id="adressen">
+                <table id="adres" class="datatable">
+                    <thead id="adresTitle">
+                    <th>Straatnaam</th>
+                    <th>Huisnummer</th>
+                    <th>Postcode</th>
+                    <th>Woonplaats</th>
+                    <th>Adres-type</th>
+                    <th colspan="2">Actie</th>
+                    </thead>
+                    <tbody id="adresBody">
+
+                    </tbody>
+                </table>
+                <button id="addAdres">Voeg een adres toe</button>
+            </div>
+            <br/>
+            <div id="accounts">
+                <h2>Accounts</h2>
+                <table id="account" class="datatable">
+                    <thead>
+                    <th>Accountnaam</th>
+                    <th>Creatie-datum</th>
+                    <th colspan="2">Actie</th>
+                    </thead>
+                    <tbody id="accountBody">
+
+                    </tbody>
+                </table>
+                <br/>
+                <h3>Voeg een account toe</h3>
+                <input type="text" id="newAccountnaam" size="30" placeholder="Accountnaam"/>
+                <button id='addAccount'>Voeg account toe</button>
+            </div>
+            <br/>
+            <div id="bestellingen">
+                <h2>Bestellingen</h2>
+                <table id="bestelling" class="datatable">
+                    <thead>
+                    <th>Bestelling ID</th>
+                    <th colspan="2">Actie</th>
+                    </thead>
+                    <tbody id="bestellingBody">
+
+                    </tbody>
+                </table>
+                <button id="addBestelling">Voeg een bestelling toe</button>
+            </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+            <script src="../js/viewKlant.js"></script>
         </div>
-        <br/>
-        <div id="bestellingen">
-            <h2>Bestellingen</h2>
-            <table id="bestelling">
-                <thead>
-                <th>Bestelling ID</th>
-                <th colspan="2">Actie</th>
-                </thead>
-                <tbody id="bestellingBody">
-                    
-                </tbody>
-            </table>
-            <button id="addBestelling">Voeg een bestelling toe</button>
-        </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-        <script src="../js/viewKlant.js"></script>
     </body>
 </html>

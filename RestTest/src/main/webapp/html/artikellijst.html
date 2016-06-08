@@ -7,46 +7,56 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <h1>Artikellijst</h1>
-        <br/>
-        <h2>Alle artikelen in de database</h2>
-        <br/>
-        
-        <form>
-            <table id="artikel">
-                <thead id="artikelTitle">
-                </thead>
-                <tbody id="artikelBody">
-                </tbody>
-            </table>
+        <form action="../LogoutServlet" method="post">
+                <ul class="nav-menu">
+                    <li><a href="keuzemenu.html" >Hoofdmenu</a></li>
+                    <li><a href="artikellijst.html" >Artikellijst</a></li>
+                    <li><a href="klantlijst.html" >Klantlijst</a></li>
+                    <li><button type="submit">Logout</button></li>
+                </ul>
         </form>
-        
-        <br/>
-        <h2>Voeg nieuw artikel toe</h2>
-        <br/>
-        
-        <form id="nieuwArtikel" method="post">
-            <table>
-                <tr>
-                    <td>Artikelnaam</td>
-                    <td><input type="text" size="30" id="artikelnaam"/></td>
-                </tr><tr>
-                    <td>Artikelnummer</td>
-                    <td><input type="text" size="30" id="artikelnummer"/></td>
-                </tr><tr>
-                    <td>Artikelomschrijving</td>
-                    <td><input type="text" size="80" id="artikelomschrijving"/></td>
-                </tr><tr>
-                    <td>Artikelprijs</td>
-                    <td><input type="text" size="6" id="artikelprijs"/></td>
-                </tr><tr>
-                    <td></td><td>
-                        <input type="submit" value="Voeg artikel toe"/></td>
-                </tr>
-            </table>
-        </form>
-        <p id="error"></p>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-        <script src="../js/artikel.js"></script>
+        <div class="center">
+            <h1>Artikellijst</h1>
+            <br/>
+            <h2>Alle artikelen in de database</h2>
+            <br/>
+
+            <form>
+                <table id="artikel" class="datatable">
+                    <thead id="artikelTitle">
+                    </thead>
+                    <tbody id="artikelBody">
+                    </tbody>
+                </table>
+            </form>
+
+            <br/>
+            <h2>Voeg nieuw artikel toe</h2>
+            <br/>
+
+            <form id="nieuwArtikel" method="post">
+                <table>
+                    <tr>
+                        <td>Artikelnaam</td>
+                        <td><input type="text" size="30" id="artikelnaam"/></td>
+                    </tr><tr>
+                        <td>Artikelnummer</td>
+                        <td><input type="text" size="30" id="artikelnummer"/></td>
+                    </tr><tr>
+                        <td>Artikelomschrijving</td>
+                        <td><input type="text" size="80" id="artikelomschrijving"/></td>
+                    </tr><tr>
+                        <td>Artikelprijs</td>
+                        <td><input type="text" size="6" id="artikelprijs"/></td>
+                    </tr><tr>
+                        <td></td><td>
+                            <input type="submit" value="Voeg artikel toe"/></td>
+                    </tr>
+                </table>
+            </form>
+            <p id="error"></p>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+            <script src="../js/artikel.js"></script>
+        </div>
     </body>
 </html>

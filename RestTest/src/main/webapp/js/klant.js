@@ -48,7 +48,7 @@ $(document).ready(function(){
                 $("tr#" + field.idKlant).append("<td>" + field[p] + "</td>");
             }
             if (i===0){
-                $("#klantenTitle").append("<th>Actie</th>");
+                $("#klantenTitle").append("<th colspan='2'>Actie</th>");
             }
             $("tr#" + field.idKlant).append("<td id='view'><button type='button' id='"+ field.idKlant + "'>Bekijk klant</button>");
             $("tr#" + field.idKlant).append("<td id='delete'><button type='button' id='"+ field.idKlant + "'>Verwijder klant</button>");

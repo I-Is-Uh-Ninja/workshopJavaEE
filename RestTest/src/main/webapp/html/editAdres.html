@@ -9,36 +9,41 @@ and open the template in the editor.
         <title>Bewerk adres</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/style.css" type="text/css">
     </head>
     <body>
-        <h1>Bewerk adres</h1>
-        <br/>
-        <form id="editAdres">
-            <h2>Pas adres-gegevens aan</h2>
-            <h3 style="color:red">Let op! Als de adres-gegevens (behalve adres-type) aangepast worden, wordt dit voor elke klant gedaan!</h3>
-            <table>
-                <tr>
-                    <td>Straatnaam</td>
-                    <td><input type="text" size="40" id="straatnaam"/></td>
-                </tr><tr>
-                    <td>Huisnummer</td>
-                    <td><input type="text" id="huisnummer" size="10"/></td>
-                </tr><tr>
-                    <td>Postcode</td>
-                    <td><input type="text" size="6" id="postcode"/></td>
-                </tr><tr>
-                    <td>Woonplaats</td>
-                    <td><input type="text" size="40" id="woonplaats"/></td>
-                </tr><tr>
-                    <td>Adres-type</td>
-                    <td><select id="adresType" name="adresType">
-                    </select></td>
-                    <td></td><td>
-                        <button id="editAdres">Bewerk adres</button></td>
-                </tr>
-            </table>
-        </form>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-        <script src="../js/editAdres.js"></script>
+        <div class="center">
+            <h1>Bewerk adres</h1>
+            <br/>
+            <form id="editAdres">
+                <h2>Pas adres-gegevens aan</h2>
+                <h3 style="color:red">Let op! Als de adres-gegevens (behalve adres-type) aangepast worden, wordt dit voor elke klant gedaan!</h3>
+                <table>
+                    <tr>
+                        <td>Straatnaam</td>
+                        <td><input type="text" size="40" id="straatnaam"/></td>
+                    </tr><tr>
+                        <td>Huisnummer</td>
+                        <td><input type="text" id="huisnummer" size="10"/></td>
+                    </tr><tr>
+                        <td>Postcode</td>
+                        <td><input type="text" size="6" id="postcode"/></td>
+                    </tr><tr>
+                        <td>Woonplaats</td>
+                        <td><input type="text" size="40" id="woonplaats"/></td>
+                    </tr><tr>
+                        <td>Adres-type</td>
+                        <td><select id="adresType" name="adresType">
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td></td><td>
+                            <button id="editAdres">Bewerk adres</button></td>
+                    </tr>
+                </table>
+            </form>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+            <script src="../js/editAdres.js"></script>
+        </div>
     </body>
 </html>
