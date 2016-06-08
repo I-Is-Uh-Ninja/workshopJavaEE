@@ -17,9 +17,9 @@ $(document).ready(function(){
     
     //initialize variables
     var klantId = getUrlParameter('klantId');
-    var klantURL = "http://localhost:40847/RestTest/rest/klant/" + klantId;
+    var klantURL = "http://localhost:8080/RestTest/rest/klant/" + klantId;
     var restURL = klantURL + "/adres";
-    var adresURL = "http://localhost:40847/RestTest/rest/adres";
+    var adresURL = "http://localhost:8080/RestTest/rest/adres";
     var selectedAdres = 0;
     var selectedKlant = null;
     var allAdressen = [];
@@ -104,9 +104,22 @@ $(document).ready(function(){
            "woonplaats": $("input#woonplaats").val()
         });
         
-        var adres = ajaxCreate(adresURL, newAdres);
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json',
+            url: adresURL,
+            dataType: "application/json",
+            data: newAdres,
+            success: function(data, textStatus, jqXHR){
+                //ajaxCreate = data;
+                getAllAdressen();
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                //alert('Error: ' + errorThrown + object);
+            }
+        });
         
-        getAllAdressen();
+        
     });
    
    //helper functions

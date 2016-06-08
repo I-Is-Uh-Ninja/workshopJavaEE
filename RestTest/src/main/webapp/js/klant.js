@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var restURL = "http://localhost:40847/RestTest/rest/klant";
+    var restURL = "http://localhost:8080/RestTest/rest/klant";
 /*
     $.getJSON(restURL, function(result){
         $.each(result, function(i, field){
@@ -89,7 +89,7 @@ $(document).ready(function(){
             dataType: "application/json",
             data: formToJson(),
             success: function(data, textStatus, jqXHR){
-                //alert(formToJson());
+                getKlanten();
             },
             error: function(jqXHR, textStatus, errorThrown){
                 //alert('Error: ' + errorThrown + formToJson());

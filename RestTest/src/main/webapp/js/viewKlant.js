@@ -18,7 +18,7 @@ $(document).ready(function(){
     
     //initialize variables
     var klantId = getUrlParameter('klantId');
-    var restURL = "http://localhost:40847/RestTest/rest/klant/" + klantId;
+    var restURL = "http://localhost:8080/RestTest/rest/klant/" + klantId;
     var klant = null;
     
     //getting info for tables
@@ -104,7 +104,7 @@ $(document).ready(function(){
     }
     
     //bestelling
-    var bestellingURL = "http://localhost:40847/RestTest/rest/bestelling/bestellingByKlant/" + klantId;
+    var bestellingURL = "http://localhost:8080/RestTest/rest/bestelling/bestellingByKlant/" + klantId;
     getBestellingen();
     
     function getBestellingen(){
@@ -245,40 +245,48 @@ $(document).ready(function(){
     
     //delete adres
     $(document).on("click", "td#deleteAdres button", function(){
-        var deleteAdresURL = adresURL + "/" + event.target.id;
-        ajaxDelete(deleteAdresURL);
-        getAdressen();
+        $.ajax({
+            type: 'DELETE',
+            url: adresURL + "/" + event.target.id,
+            success: function(data, textStatus, jqXHR){
+                getAdressen();
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                alert("Error: " + textStatus + "\n" + errorThrown + "\n" + url);
+            }
+        });
+        
     });
     
     //delete account
     $(document).on("click", "td#deleteAccount button", function(){
-        var deleteAccountURL = accountURL + "/" + event.target.id;
-        ajaxDelete(deleteAccountURL);
-        getAccounts();
+        $.ajax({
+            type: 'DELETE',
+            url:  accountURL + "/" + event.target.id,
+            success: function(data, textStatus, jqXHR){
+                getAccounts();
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                alert("Error: " + textStatus + "\n" + errorThrown + "\n" + url);
+            }
+        });
+        
     });
     
     //delete bestelling
     $(document).on("click", "td#deleteBestelling button", function(){
-        var deleteBestellingURL = bestellingURL + "/" + event.target.id;
-        ajaxDelete(deleteBestellingURL);
-        getBestellingen();
-    });
-    
-    //helper functions
-    
-    //generic delete function based on url
-    function ajaxDelete(URL){
         $.ajax({
             type: 'DELETE',
-            url: URL,
+            url: bestellingURL + "/" + event.target.id,
             success: function(data, textStatus, jqXHR){
-                //alert("Success!" + URL);
+                getBestellingen();
             },
             error: function(jqXHR, textStatus, errorThrown){
-                alert("Error: " + textStatus + "\n" + errorThrown + "\n" + URL);
+                alert("Error: " + textStatus + "\n" + errorThrown + "\n" + url);
             }
         });
-    }
+        
+    });
     
 });
 
