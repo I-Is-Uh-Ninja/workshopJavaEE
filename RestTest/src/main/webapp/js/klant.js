@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var restURL = "http://localhost:8080/RestTest/rest/klant";
+    var restURL = "http://localhost:40847/RestTest/rest/klant";
 /*
     $.getJSON(restURL, function(result){
         $.each(result, function(i, field){
@@ -48,7 +48,7 @@ $(document).ready(function(){
                 $("tr#" + field.idKlant).append("<td>" + field[p] + "</td>");
             }
             if (i===0){
-                $("#klantenTitle").append("<th colspan='2'>Actie</th>");
+                $("#klantenTitle").append("<th>Actie</th>");
             }
             $("tr#" + field.idKlant).append("<td id='view'><button type='button' id='"+ field.idKlant + "'>Bekijk klant</button>");
             $("tr#" + field.idKlant).append("<td id='delete'><button type='button' id='"+ field.idKlant + "'>Verwijder klant</button>");

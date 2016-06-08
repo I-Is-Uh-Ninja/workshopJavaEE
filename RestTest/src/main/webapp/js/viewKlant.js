@@ -18,7 +18,7 @@ $(document).ready(function(){
     
     //initialize variables
     var klantId = getUrlParameter('klantId');
-    var restURL = "http://localhost:8080/RestTest/rest/klant/" + klantId;
+    var restURL = "http://localhost:40847/RestTest/rest/klant/" + klantId;
     var klant = null;
     
     //getting info for tables
@@ -104,7 +104,7 @@ $(document).ready(function(){
     }
     
     //bestelling
-    var bestellingURL = restURL + "/bestelling";
+    var bestellingURL = "http://localhost:40847/RestTest/rest/bestelling/bestellingByKlant/" + klantId;
     getBestellingen();
     
     function getBestellingen(){
@@ -114,9 +114,12 @@ $(document).ready(function(){
             dataType: "json",
             success: function(data){
                 displayBestellingenTable(data);
+            },
+            failure: function(data) {
+                displayTableBestelling(data);
             }
         });
-    }
+    }   
     
     function displayBestellingenTable(result){
         $("#bestellingBody").empty();

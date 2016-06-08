@@ -9,20 +9,15 @@ and open the template in the editor.
         <title>Hoofdmenu</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../css/style.css" type="text/css">
     </head>
     <body>
         <form action="../LogoutServlet" method="post">
-            <ul class="nav-menu">
-                <li><button type="submit">Logout</button></li>
-            </ul>
+            <button type="submit">Logout</button>
         </form>
-        <div class="center">
-            <h1>Hoofdmenu</h1>
-            <br/>
-            <button class="nav-button" type="button" onclick="location.href='artikellijst.html'">Ga naar lijst met artikelen</button>
-            <br/>
-            <button class="nav-button" type="button" onclick="location.href='klantlijst.html'">Ga naar lijst met klanten</button>
-        </div>
+        <h1>Hoofdmenu</h1>
+        <br/>
+        <button type="button" onclick="location.href='artikellijst.html'">Ga naar lijst met artikelen</button>
+        <br/><br/>
+        <button type="button" onclick="location.href='klantlijst.html'">Ga naar lijst met klanten</button>
     </body>
 </html>

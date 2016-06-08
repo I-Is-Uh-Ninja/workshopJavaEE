@@ -21,10 +21,10 @@ $(document).ready(function(){
    //initialize variables
     var klantId = getUrlParameter('klantId');
     var adresId = getUrlParameter('adresId');
-    var klantUrl = "http://localhost:8080/RestTest/rest/klant/" + klantId;
+    var klantUrl = "http://localhost:40847/RestTest/rest/klant/" + klantId;
     var restUrl = klantUrl + "/adres";
     var adresUrl = restUrl + "/" + adresId;
-    var allAdresUrl = "http://localhost:8080/RestTest/rest/adres";
+    var allAdresUrl = "http://localhost:40847/RestTest/rest/adres";
     var initAdresType = null;
     var initAdres = null;
     var klantHasAdresId = 0;

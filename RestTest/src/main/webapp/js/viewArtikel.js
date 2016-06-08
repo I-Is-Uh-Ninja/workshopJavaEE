@@ -25,7 +25,7 @@ $(document).ready(function(){
     getArtikel();
     
     function getArtikel(){
-        $getJSON(restURL, function(result)){
+        $getJSON(restURL, function(result){
             artikel = result;
             $("#artikelBody").empty();
             $("#artikelBody").append("<tr id='" + result.idArtikel + "'></tr>");
@@ -38,5 +38,5 @@ $(document).ready(function(){
     
     //edit methodes
     
-}
+});
 

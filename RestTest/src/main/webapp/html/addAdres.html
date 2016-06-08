@@ -12,54 +12,52 @@ and open the template in the editor.
         <link rel="stylesheet" href="../css/style.css" type="text/css">
     </head>
     <body>
-        <div class="center">
-            <h1>Voeg een adres toe</h1>
-            <form id="addExistingAdres">
-                <h2>Selecteer het adres-type</h2>
-                <select id="selectedAdresType">
-                </select>
-                <br/>
-                <div id="existingAdressen">
-                    <h2>Voeg een bestaand adres toe</h2>
-                    <table id="existingAdres" class="datatable">
-                        <thead>
-                        <th>Straatnaam</th>
-                        <th>Huisnummer</th>
-                        <th>Postcode</th>
-                        <th>Woonplaats</th>
-                        <th>Selecteer</th>
-                        </thead>
-                        <tbody id="existingAdresBody">
+        <h1>Voeg een adres toe</h1>
+        <form id="addExistingAdres">
+            <h2>Selecteer het adres-type</h2>
+            <select id="selectedAdresType">
+            </select>
+            <br/>
+            <div id="existingAdressen">
+                <h2>Voeg een bestaand adres toe</h2>
+                <table id="existingAdres">
+                    <thead>
+                    <th>Straatnaam</th>
+                    <th>Huisnummer</th>
+                    <th>Postcode</th>
+                    <th>Woonplaats</th>
+                    <th>Selecteer</th>
+                    </thead>
+                    <tbody id="existingAdresBody">
 
-                        </tbody>
-                    </table>
-                    <button id="addExistingAdres">Voeg bestaand adres aan klant toe</button>
-                </div>
-                <br/>
-                <div id="addNewAdres">
-                    <h2>Voeg een nieuw adres toe</h2>
-                    <table>
-                        <tr>
-                            <td>Straatnaam</td>
-                            <td><input type="text" size="40" id="straatnaam"/></td>
-                        </tr><tr>
-                            <td>Huisnummer</td>
-                            <td><input type="text" id="huisnummer" size="10"/></td>
-                        </tr><tr>
-                            <td>Postcode</td>
-                            <td><input type="text" size="6" id="postcode"/></td>
-                        </tr><tr>
-                            <td>Woonplaats</td>
-                            <td><input type="text" size="50" id="woonplaats"/></td>
-                        </tr><tr>
-                            <td></td><td>
-                                <button id="addNewAdres">Voeg nieuw adres toe</button></td>
-                        </tr>
-                    </table>
-                </div>
-            </form>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-            <script src="../js/adres.js"></script>
-        </div>
+                    </tbody>
+                </table>
+                <button id="addExistingAdres">Voeg bestaand adres aan klant toe</button>
+            </div>
+            <br/>
+            <div id="addNewAdres">
+                <h2>Voeg een nieuw adres toe</h2>
+                <table>
+                    <tr>
+                        <td>Straatnaam</td>
+                        <td><input type="text" size="40" id="straatnaam"/></td>
+                    </tr><tr>
+                        <td>Huisnummer</td>
+                        <td><input type="text" id="huisnummer" size="10"/></td>
+                    </tr><tr>
+                        <td>Postcode</td>
+                        <td><input type="text" size="6" id="postcode"/></td>
+                    </tr><tr>
+                        <td>Woonplaats</td>
+                        <td><input type="text" size="50" id="woonplaats"/></td>
+                    </tr><tr>
+                        <td></td><td>
+                            <button id="addNewAdres">Voeg nieuw adres toe</button></td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+        <script src="../js/adres.js"></script>
     </body>
 </html>

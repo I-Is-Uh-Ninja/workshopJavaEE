@@ -115,7 +115,7 @@ public class BestellingFacadeREST {
     @GET
     @Path("bestellingByKlant/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Bestelling> findAllByKlant(@PathParam("klantId") Integer klantId) {
+    public List<Bestelling> findAllByKlant(@PathParam("id") Integer klantId) {
         return bestellingFacade.findBestellingByKlantId(klantId);
     }
     
