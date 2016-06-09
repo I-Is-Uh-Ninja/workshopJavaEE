@@ -55,9 +55,7 @@ $(document).ready(function(){
     function displayTableBHA(result) {
         //bha = result;
         $('#bestellingBody').empty(); 
-        $.each(result, function(i, bestellingHasArtikel) {
-            alert(bestellingHasArtikel.idBestelArtikel);
-            
+        $.each(result, function(i, bestellingHasArtikel) {     
             $('#bestellingBody').append("<tr id='" + bestellingHasArtikel.idBestelArtikel + "'></tr>");
             
             $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelnaam'>" + bestellingHasArtikel.artikelidArtikel.artikelnaam + "</td>");
@@ -86,5 +84,19 @@ $(document).ready(function(){
         var id = {bestellingId : bestellingId};
         var idParam = $.param(id);
         location.href = "selectArtikel.html?" + idParam;
+    });
+    
+    //delete artikel uit bestelling, onbekend of deze werkt?
+    $(document).on("click", "td#delArtikel button", function(){
+       $.ajax({
+           type: 'DELETE',
+           url: "http://localhost:40847/RestTest/rest/bestellinghasartikel/" + event.target.id,
+           succces: function (data, textStatus, jqHXR){
+               displayTableBHA(data);
+           },
+           error: function(jqXHR, textStatus, errorThrown, data){
+               displayTableBHA(data);    
+           }
+       });   
     });
 });
