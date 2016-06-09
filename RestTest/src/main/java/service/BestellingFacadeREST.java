@@ -8,6 +8,7 @@ package service;
 import entity.Artikel;
 import entity.Bestelling;
 import entity.BestellingHasArtikel;
+import entity.Klant;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -34,7 +35,7 @@ import session.KlantFacade;
 //=== Toevoegen/verwijderen/lezen van BestellingHasArtikel aan code toevoegen
 
 @Stateless
-@Path("bestelling")
+@Path("klant/{klantId}/bestelling")
 public class BestellingFacadeREST {
 
     @EJB
@@ -48,14 +49,21 @@ public class BestellingFacadeREST {
     
     @EJB
     BestellingHasArtikelFacade bhaf;
+   
+    private Klant selectedKlant;
     
+    public void setSelectedKlant(Integer klantId){
+        this.selectedKlant = klantFacade.find(klantId);
+    }
     
     @POST   
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Bestelling entity) {
+    public void create(Bestelling entity, @PathParam("klantId") Integer klantId) {
+        setSelectedKlant(klantId);
+        entity.setKlantidKlant(selectedKlant);
         bestellingFacade.create(entity);
     }
-    
+    /*
     //Voegt artikel toe door bha toe te voegen
     @POST
     @Path("addArtikel")
@@ -71,7 +79,7 @@ public class BestellingFacadeREST {
     public void removeArtikel(BestellingHasArtikel entity) {
          bhaf.remove(entity);
     }
-    
+    */
     //Bestelling heeft alleen bestellingId en klantId, beide hoeven niet te worden aangepast
     /*@PUT
     @Path("{id}")
@@ -95,28 +103,28 @@ public class BestellingFacadeREST {
         return bestellingFacade.find(id);
     }
     
-    //vindt artikelen in een bestelling
+   /* //vindt artikelen in een bestelling
     @GET
     @Path("artikellijstbestelling/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Artikel> findArtikelInBestelling() {
          return artikelFacade.findAll();
-    }
+    }*/
     
-    //vindt lijst met bestellingen
+   /* //vindt lijst met bestellingen
     @GET
-    @Path("bestellinglijst")
+    //@Path("bestellinglijst")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Bestelling> findAll() {
         return bestellingFacade.findAll();
-    }
+    }*/
     
     //vindt bestellingen bij deze klant
     @GET
-    @Path("bestellingByKlant/{id}")
+    //@Path("bestellingByKlant/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Bestelling> findAllByKlant(@PathParam("id") Integer klantId) {
-        return bestellingFacade.findBestellingByKlantId(klantId);
+    public List<Bestelling> findAllByKlant(@PathParam("klantId") Integer id) {
+        return bestellingFacade.findBestellingByKlantId(id);
     }
     
     //niet nodig

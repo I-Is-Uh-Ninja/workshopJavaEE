@@ -5,6 +5,7 @@
  */
 package service;
 
+import entity.Artikel;
 import entity.BestellingHasArtikel;
 import java.util.List;
 import javax.ejb.EJB;
@@ -18,6 +19,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import session.ArtikelFacade;
 import session.BestellingHasArtikelFacade;
 
 /**
@@ -30,7 +32,8 @@ public class BestellingHasArtikelFacadeREST {
 
    @EJB
    BestellingHasArtikelFacade bhaf;
-
+  
+   
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(BestellingHasArtikel entity) {
@@ -62,6 +65,7 @@ public class BestellingHasArtikelFacadeREST {
     public List<BestellingHasArtikel> findAll() {
         return bhaf.findAll();
     }
+           
 
     @GET
     @Path("{from}/{to}")

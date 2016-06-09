@@ -18,7 +18,7 @@ $(document).ready(function(){
     
     //initialize variables
     var klantId = getUrlParameter('klantId');
-    var restURL = "http://localhost:8080/RestTest/rest/klant/" + klantId;
+    var restURL = "http://localhost:40847/RestTest/rest/klant/" + klantId;
     var klant = null;
     
     //getting info for tables
@@ -104,7 +104,7 @@ $(document).ready(function(){
     }
     
     //bestelling
-    var bestellingURL = "http://localhost:8080/RestTest/rest/bestelling/bestellingByKlant/" + klantId;
+    var bestellingURL = restURL + "/bestelling";
     getBestellingen();
     
     function getBestellingen(){
@@ -131,6 +131,50 @@ $(document).ready(function(){
         });
     }
     
+    //delete bestelling
+    $(document).on("click", "td#deleteBestelling button", function(){
+        $.ajax({
+            type: 'DELETE',
+            url: bestellingURL + "/" + event.target.id,
+            success: function(data, textStatus, jqXHR){
+                getBestellingen();
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                alert("Error: " + textStatus + "\n" + errorThrown + "\n" + url);
+            }
+        });
+    });
+    //addBestelling        
+    $("button#addBestelling").click(function(){
+       var bestellingUrl = restURL + "/bestelling";
+       var id = {klantId : klantId};
+       var jsonBestelling = JSON.stringify({
+           "klantIdKlant": id
+       });
+       $.ajax({
+           type: 'POST',
+           contentType: 'application/json',
+           url: bestellingUrl,
+           dataType: "application/json",
+           data: jsonBestelling,
+            success: function(data, textStatus, jqXHR){
+                //getBestelling();
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                //alert('Error: ' + errorThrown + object);
+            }
+        });
+    });
+    
+    //door na viewBestelling
+    $(document).on("click", "td#viewBestelling button", function() {
+        event.preventDefault();
+        var id = {klantId : klantId, bestellingId : event.target.id};
+        var idParam = $.param(id);
+        location.href = "viewBestelling.html?" + idParam;
+    });
+    
+  
     //functions for buttons
     
     //add adres
@@ -164,6 +208,9 @@ $(document).ready(function(){
         });
         getAccounts();
     });
+    
+    
+    
     
     //edit klant
     var editKlantClicked = false;
@@ -265,21 +312,6 @@ $(document).ready(function(){
             url:  accountURL + "/" + event.target.id,
             success: function(data, textStatus, jqXHR){
                 getAccounts();
-            },
-            error: function(jqXHR, textStatus, errorThrown){
-                alert("Error: " + textStatus + "\n" + errorThrown + "\n" + url);
-            }
-        });
-        
-    });
-    
-    //delete bestelling
-    $(document).on("click", "td#deleteBestelling button", function(){
-        $.ajax({
-            type: 'DELETE',
-            url: bestellingURL + "/" + event.target.id,
-            success: function(data, textStatus, jqXHR){
-                getBestellingen();
             },
             error: function(jqXHR, textStatus, errorThrown){
                 alert("Error: " + textStatus + "\n" + errorThrown + "\n" + url);
