@@ -21,12 +21,10 @@ $(document).ready(function(){
     };
     
     var bestellingId = getUrlParameter('bestellingId');
-    var URL = "http://localhost:40847/RestTest/rest/bestellinghasartikel" + bestellingId;
+    var URL = "http://localhost:40847/RestTest/rest/bestellinghasartikel/" + bestellingId;
     //var bha = null;
-    getArtikelenInBestelling();
-    
-    function getArtikelenInBestelling(){
-        $.ajax({
+    //getArtikelenInBestelling();
+    $.ajax({
            type: 'GET' ,
            url: URL,
            dataType:"json" ,
@@ -37,35 +35,52 @@ $(document).ready(function(){
                displayTableBHA(data);
            }
         });
-    }
+    
+    /*function getArtikelenInBestelling(){
+        $.ajax({
+           type: 'GET' ,
+           url: URL,
+           dataType:"json" ,
+           success: function(data){
+               alert("success");
+               displayTableBHA(data);
+           },
+           failure: function(data){
+               alert("fout");
+               displayTableBHA(data);
+           }
+        });
+    }*/
    
     function displayTableBHA(result) {
         //bha = result;
-        $('#artikelenInBestelling').empty();
+        $('#bestellingBody').empty(); 
         $.each(result, function(i, bestellingHasArtikel) {
-            $('#artikelenInBestelling').append("<tr id='" + bestellingHasArtikel.idBestelArtikel + "'></tr>");
+            alert(bestellingHasArtikel.idBestelArtikel);
             
-            $('#artikelenInBestelling tr#' + bestellingHasArtikel.idBestelArtikel).append("<tr id='" + bestellingHasArtikel.artikelIdArtikel.artikelnaam + "'></tr>");
-            $('#artikelenInBestelling tr#' + bestellingHasArtikel.idBestelArtikel).append("<tr id='" + bestellingHasArtikel.artikelIdArtikel.artikelnummer + "'></tr>");
-            $('#artikelenInBestelling tr#' + bestellingHasArtikel.idBestelArtikel).append("<tr id='" + bestellingHasArtikel.artikelIdArtikel.artikelomschrijving + "'></tr>");
-            $('#artikelenInBestelling tr#' + bestellingHasArtikel.idBestelArtikel).append("<tr id='" + bestellingHasArtikel.artikelIdArtikel.artikelprijs + "'></tr>");
+            $('#bestellingBody').append("<tr id='" + bestellingHasArtikel.idBestelArtikel + "'></tr>");
             
-            $('#artikelenInBestelling tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='editAantal'><button type='button' id='" + bestellingHasArtikel.idBestelArtikel + "'>Pas aantal aan</button></td>");
-            $('#artikelenInBestelling tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='delArtikel'><button type='button' id='" + bestellingHasArtikel.idBestelArtikel + "'>Verwijder artikel</button></td>");
+            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelnaam'>" + bestellingHasArtikel.artikelidArtikel.artikelnaam + "</td>");
+            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelnummer'>" + bestellingHasArtikel.artikelidArtikel.artikelnummer + "</td>");
+            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelomschrijving'>" + bestellingHasArtikel.artikelidArtikel.artikelomschrijving + "</td>");
+            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelprijs'>" + bestellingHasArtikel.artikelidArtikel.artikelprijs + "</td>");
+            
+            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='editAantal'><button type='button' id='" + bestellingHasArtikel.idBestelArtikel + "'>Pas aantal aan</button></td>");
+            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='delArtikel'><button type='button' id='" + bestellingHasArtikel.idBestelArtikel + "'>Verwijder artikel</button></td>");
         });
     }
     
     
     
     
-    //door na betaalBestelling, werkt niet
+    //door na betaalBestelling
     $("button#naarBetaling").on("click", function() {
         event.preventDefault();
         var id = {bestellingId : bestellingId};
         var idParam = $.param(id);
         location.href = "betaling.html?" + idParam;
     });
-    //door na selectArtikel, werkt niet
+    //door na selectArtikel
     $("button#addArtikel").on("click", function() {
         event.preventDefault();
         var id = {bestellingId : bestellingId};

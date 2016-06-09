@@ -34,8 +34,8 @@ public class BestellingFacade extends AbstractFacade<Bestelling> {
     }
     
     public List<Bestelling> findBestellingByKlantId(int klantId){
-        Query query = em.createNamedQuery("Bestelling.findByKlantId", Bestelling.class);
-        query = query.setParameter("Klant_idKlant", klantId);
+        Query query = em.createNamedQuery("Bestelling.findBestellingByKlantId", Bestelling.class);
+        query = query.setParameter("idKlant", klantId);
         return query.getResultList();
     }
     

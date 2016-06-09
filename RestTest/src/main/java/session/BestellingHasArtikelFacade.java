@@ -42,4 +42,10 @@ public class BestellingHasArtikelFacade extends AbstractFacade<BestellingHasArti
         query.setParameter("idKlant", idKlant);
         return query.getResultList();
     }
+    
+    public List<BestellingHasArtikel> findByBestellingId(Integer idBestelling){
+        Query query = em.createNamedQuery("BestellingHasArtikel.findByBestellingId", BestellingHasArtikel.class);
+        query.setParameter("bestelling_idBestelling", idBestelling);
+        return query.getResultList();
+    }
 }

@@ -56,8 +56,8 @@ public class BestellingHasArtikelFacadeREST {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public BestellingHasArtikel find(@PathParam("id") Integer id) {
-        return bhaf.find(id);
+    public List<BestellingHasArtikel> find(@PathParam("id") Integer id) {
+        return bhaf.findByBestellingId(id);
     }
 
     @GET

@@ -5,9 +5,9 @@
  */
 
 $(document).ready(function(){
-    var URL = "http://localhost:40847/RestTest/rest/bestelling_has_artikel"; //andere link?
+    var artURL = "http://localhost:40847/RestTest/rest/bestelling_has_artikel"; //andere link?
     
-    $.getJSON(URL, function(result){
+    $.getJSON(artURL, function(result){
         $.each(result, function(i, field){
             $("#selectArtikelBody").append("<tr id='" + field.idArtikel + "'></tr>");
                 for (var p in field){
@@ -21,7 +21,7 @@ $(document).ready(function(){
         });
         
         $(document).on("click", "td#addToBestelling button", function(){
-           ajaxCreateBHA(URL);
+           ajaxCreateBHA(artURL);
         }); 
         
        function ajaxCreateBHA (URL) {
