@@ -99,6 +99,11 @@ table {
 input[type="text"] {
     font-size: medium;
 }
+/*For the validator message*/
+label.error{
+    margin-left: 10px;
+    color: red;
+}
 
 /*Tables used for displaying data*/
 .datatable {
@@ -136,3 +141,5 @@ input[type="text"] {
 .datatable button:hover, .datatable input[type="submit"]:hover {
     background-color: #ddd;
 }
+
+

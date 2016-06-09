@@ -37,16 +37,16 @@
                 <table>
                     <tr>
                         <td>Voornaam</td>
-                        <td><input type="text" size="40" id="voornaam"/></td>
+                        <td><input type="text" size="40" name="voornaam" id="voornaam" required maxlength="50"/></td>
                     </tr><tr>
                         <td>Tussenvoegsel</td>
-                        <td><input type="text" id="tussenvoegsel" size="10"/></td>
+                        <td><input type="text" name="tussenvoegsel" id="tussenvoegsel" size="10" maxlength="10"/></td>
                     </tr><tr>
                         <td>Achternaam</td>
-                        <td><input type="text" size="40" id="achternaam"/></td>
+                        <td><input type="text" name="achternaam" size="40" id="achternaam" required maxlength="51"/></td>
                     </tr><tr>
                         <td>E-mail</td>
-                        <td><input type="text" size="80" id="email"/></td>
+                        <td><input type="email" name="email" size="80" id="email" required maxlength="80"/></td>
                     </tr><tr>
                         <td></td><td>
                             <input type="submit" value="Voeg klant toe"/></td>
@@ -55,6 +55,7 @@
             </form>
             <p id="error"></p>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+            <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
             <!--script type="text/javascript" charset="utf-8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script-->
             <script src="../js/klant.js"></script>
         </div>
