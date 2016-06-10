@@ -21,8 +21,8 @@ $(document).ready(function(){
     };
     
     var bestellingId = getUrlParameter('bestellingId');
-    var URL = "http://localhost:40847/RestTest/rest/bestellinghasartikel/" + bestellingId;
-    var bhaURL = "http://localhost:40847/RestTest/rest/bestellinghasartikel";
+    var bhaURL = "http://localhost:8080/RestTest/rest/bestellinghasartikel/";
+    var URL = bhaURL + bestellingId;
     //var bha = null;
     //getArtikelenInBestelling();
     $.ajax({
@@ -37,21 +37,21 @@ $(document).ready(function(){
            }
         });
     
-    /*function getArtikelenInBestelling(){
+    function getArtikelenInBestelling(){
         $.ajax({
            type: 'GET' ,
            url: URL,
            dataType:"json" ,
            success: function(data){
-               alert("success");
+               //alert("success");
                displayTableBHA(data);
            },
            failure: function(data){
-               alert("fout");
+               //alert("fout");
                displayTableBHA(data);
            }
         });
-    }*/
+    }
    
     function displayTableBHA(result) {
         //bha = result;
@@ -92,7 +92,7 @@ $(document).ready(function(){
     $(document).on("click", "td#delArtikel button", function(){
        $.ajax({
            type: 'DELETE',
-           url: "http://localhost:40847/RestTest/rest/bestellinghasartikel/" + event.target.id,
+           url: bhaURL + event.target.id,
            succces: function (data, textStatus, jqHXR){
                displayTableBHA(data);
            },
@@ -104,8 +104,8 @@ $(document).ready(function(){
     
     var selectedArtikel = null;
     var selectedBestelling = null;
-    var bestURL = "http://localhost:40847/RestTest/rest/klant/" + klantId + "/bestelling/" + bestellingId;
-    var artURL = "http://localhost:40847/RestTest/rest/artikel";
+    var bestURL = "http://localhost:8080/RestTest/rest/klant/" + klantId + "/bestelling/" + bestellingId;
+    var artURL = "http://localhost:8080/RestTest/rest/artikel/";
     var klantId = getUrlParameter('klantId');
     
     $.getJSON(bestURL, function(result){
@@ -116,15 +116,16 @@ $(document).ready(function(){
     var editAantalClicked = false;
     $(document).on("click", "td#editAantal button", function(){
         event.preventDefault();
-        var bhaId = $("td#editAantal button#" + event.target.id).parent().parent().attr("id");
-        //alert(bhaId);
+        var bhaId = $(this).parent().parent().attr("id");
         if(editAantalClicked === false) {
+            //alert(bhaId);
             var existingAantal = $("tr#" + bhaId + " td#aantal").text();
             $("tr#" + bhaId + " td#aantal").empty();
             $("tr#" + bhaId + " td#aantal").append("<input type='text' size=4 id='wijzigAantal' value= '" + existingAantal + "' /></td>");
-            editAantalClicked = true;
-        } else {
             getSelectedArtikel(event.target.id);
+            editAantalClicked = true;
+        }
+        else {
             var bhaJson = JSON.stringify({
                 "idBestelArtikel": bhaId,
                 "artikelidArtikel": selectedArtikel,
@@ -134,22 +135,23 @@ $(document).ready(function(){
             $.ajax({
                 type: 'PUT',
                 contentType: 'application/json',
-                url: bhaURL + "/" + bhaId,
+                url: bhaURL + bhaId,
                 data: bhaJson,
                 dataType: 'json',
                 success: function(data, textStatus, jqXHR){
-                    alert("Aantal gewijzigd: ");
+                    //alert("Aantal gewijzigd: ");
                     editAantalClicked = false;
+                    getArtikelenInBestelling();
                },
                error: function(jqXHR, textStatus, errorThrown){
-                   alert("Error: " + textStatus + "\n" + errorThrown + "\n");
+                   alert("Error: " + textStatus + "\n" + errorThrown + "\n" + bhaJson);
                } 
             });
         } 
     });
     
     function getSelectedArtikel(id) {
-        $.getJSON(artURL + "/" + id, function(result){
+        $.getJSON(artURL + id, function(result){
             selectedArtikel = result;
         });
     }
