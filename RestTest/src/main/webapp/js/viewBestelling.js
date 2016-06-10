@@ -22,6 +22,7 @@ $(document).ready(function(){
     
     var bestellingId = getUrlParameter('bestellingId');
     var URL = "http://localhost:40847/RestTest/rest/bestellinghasartikel/" + bestellingId;
+    var bhaURL = "http://localhost:40847/RestTest/rest/bestellinghasartikel";
     //var bha = null;
     //getArtikelenInBestelling();
     $.ajax({
@@ -62,13 +63,14 @@ $(document).ready(function(){
             $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelnummer'>" + bestellingHasArtikel.artikelidArtikel.artikelnummer + "</td>");
             $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelomschrijving'>" + bestellingHasArtikel.artikelidArtikel.artikelomschrijving + "</td>");
             $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelprijs'>" + bestellingHasArtikel.artikelidArtikel.artikelprijs + "</td>");
+            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='aantal'>" + bestellingHasArtikel.aantal + "</td>");
             
-            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='editAantal'><button type='button' id='" + bestellingHasArtikel.idBestelArtikel + "'>Pas aantal aan</button></td>");
+            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='editAantal'><button type='button' id='" + bestellingHasArtikel.artikelidArtikel.idArtikel + "'>Pas aantal aan</button></td>");
             $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='delArtikel'><button type='button' id='" + bestellingHasArtikel.idBestelArtikel + "'>Verwijder artikel</button></td>");
         });
     }
     
-    
+   
     
     
     //door na betaalBestelling
@@ -99,4 +101,56 @@ $(document).ready(function(){
            }
        });   
     });
+    
+    var selectedArtikel = null;
+    var selectedBestelling = null;
+    var bestURL = "http://localhost:40847/RestTest/rest/klant/" + klantId + "/bestelling/" + bestellingId;
+    var artURL = "http://localhost:40847/RestTest/rest/artikel";
+    var klantId = getUrlParameter('klantId');
+    
+    $.getJSON(bestURL, function(result){
+               selectedBestelling = result;
+    });
+    //$getJSON(artURL, function)
+    
+    var editAantalClicked = false;
+    $(document).on("click", "td#editAantal button", function(){
+        event.preventDefault();
+        var bhaId = $("td#editAantal button#" + event.target.id).parent().parent().attr("id");
+        //alert(bhaId);
+        if(editAantalClicked === false) {
+            var existingAantal = $("tr#" + bhaId + " td#aantal").text();
+            $("tr#" + bhaId + " td#aantal").empty();
+            $("tr#" + bhaId + " td#aantal").append("<input type='text' size=4 id='wijzigAantal' value= '" + existingAantal + "' /></td>");
+            editAantalClicked = true;
+        } else {
+            getSelectedArtikel(event.target.id);
+            var bhaJson = JSON.stringify({
+                "idBestelArtikel": bhaId,
+                "artikelidArtikel": selectedArtikel,
+                "bestellingidBestelling": selectedBestelling,
+                "aantal": $("input#wijzigAantal").val()
+            });
+            $.ajax({
+                type: 'PUT',
+                contentType: 'application/json',
+                url: bhaURL + "/" + bhaId,
+                data: bhaJson,
+                dataType: 'json',
+                success: function(data, textStatus, jqXHR){
+                    alert("Aantal gewijzigd: ");
+                    editAantalClicked = false;
+               },
+               error: function(jqXHR, textStatus, errorThrown){
+                   alert("Error: " + textStatus + "\n" + errorThrown + "\n");
+               } 
+            });
+        } 
+    });
+    
+    function getSelectedArtikel(id) {
+        $.getJSON(artURL + "/" + id, function(result){
+            selectedArtikel = result;
+        });
+    }
 });

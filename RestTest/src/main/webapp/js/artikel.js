@@ -103,13 +103,12 @@ $(document).ready(function(){
                dataType: 'json',
                success: function(data, textStatus, jqXHR){
                     //alert("Artikel gewijzigd naar: " + artikelJson);
+                    editArtikelClicked = false;
                },
                error: function(jqXHR, textStatus, errorThrown){
                    //alert("Error: " + textStatus + "\n" + errorThrown + "\n" + artikelJson);
                } 
             });
-            editArtikelClicked = false;
-            //getArtikelen();
         }
     });
 });

@@ -22,54 +22,95 @@ $(document).ready(function(){
     };
     
     var bestellingId = getUrlParameter('bestellingId');
+    var klantId = getUrlParameter('klantId');
     var artURL = "http://localhost:40847/RestTest/rest/artikel";
-    var bestURL = "http://localhost:40847/RestTest/rest/bestelling" + bestellingId;
-    var bhaURL = "http://localhost:40847/RestTest/rest/bestelling_has_artikel";
+    var bestURL = "http://localhost:40847/RestTest/rest/klant/" + klantId + "/bestelling/" + bestellingId;
+    var bhaURL = "http://localhost:40847/RestTest/rest/bestellinghasartikel";
+    var selectedArtikel = null;
     var selectedBestelling = null;
+    var alleArtikelen = [];
     
-    $.getJSON(artURL, function(result){
-        $.each(result, function(i, field){
-            $("#selectArtikelBody").append("<tr id='" + field.idArtikel + "'></tr>");
-                for (var p in field){
-                    if(i===0){
-                        $("#selectArtikelTitle").append("<th>" + p + "</th>");
+    getArtikellijst();
+    
+    function getArtikellijst() {
+        $.getJSON(artURL, function(result){
+            alleArtikelen = result;
+            $.each(result, function(i, field){
+                $("#selectArtikelBody").append("<tr id='" + field.idArtikel + "'></tr>");
+                    for (var p in field){
+                        if(i===0){
+                            $("#selectArtikelTitle").append("<th>" + p + "</th>");
+                        }
+                        $("tr#" + field.idArtikel).append("<td id='" + p + "'>" + field[p] + "</td>");
                     }
-                    $("tr#" + field.idArtikel).append("<td id='" + p + "'>" + field[p] + "</td>");
-                }
-            $("tr#" + field.idArtikel).append("<td id='addToBestelling'><button type='button' id='"+ field.idArtikel + "'>Voeg aan bestelling toe</button>");
+                $("tr#" + field.idArtikel).append("<td id='selecteerArtikel'><button type='button' id='"+ i + "'>Selecteer</button>");
+                });
             });
-        });
+        }
         
-        $(document).on("click", "td#addToBestelling button", function(){
-           ajaxCreateBHA(bhaURL);
+        //select artikel
+        $(document).on("click", "td#selecteerArtikel button", function(){
+           selectedArtikel = alleArtikelen[event.target.id];
+           $("#existingArtikelBody tr").removeClass('highlight');
+           $("#existingArtikelBody tr#" + selectedArtikel.idArtikel).addClass("highlight");
         }); 
         
-       function ajaxCreateBHA (bhaURL) {
+        //add artikel
+        $("button#voegArtikelToe").click(function(){
+          event.preventDefault();
+          //var artikelId = $("select#selectedArtikel").find(":selected").val();
+          
+          //var jsonArtikel = JSON.stringify(selectedArtikel);
+          //var jsonBestelling = JSON.stringify(getBestelling());
+          
+          //selectedBestelling = getBestelling();
+          
+          var jsonBHA = JSON.stringify({
+             "artikelidArtikel": selectedArtikel,
+             "bestellingidBestelling": selectedBestelling,
+             "aantal": 1
+          });
+          
+          ajaxCreateBHA(bhaURL, jsonBHA);
+          terugNaarBestelling();
+        });
+        
+        //getBestelling
+        $.getJSON(bestURL, function(result){
+               selectedBestelling = result;
+           });
+           
+        /*var getBestelling = function getBestelling() {
+           $.getJSON(bestURL, function(result){
+               return result;
+           });
+        };*/
+        
+        
+        $("button#terugNaarBestelling").click(function(){
+            terugNaarBestelling();
+        });
+        
+        function terugNaarBestelling() {
+            event.preventDefault();
+            var id = {bestellingId : bestellingId};
+            var idParam = $.param(id);
+            window.location.href = "viewBestelling.html?" + idParam;
+        }
+        
+        function ajaxCreateBHA (URL, object) {
            $.ajax({
               type: 'POST',
                 contentType: 'application/json',
-                url: bhaURL,
+                url: URL,
                 dataType: "application/json",
-                data: formToJson(),
+                data: object,
                 success: function(data, textStatus, jqXHR){
                     //alert(formToJson() + 'is toegevoegd.');
                 },
                 error: function(jqXHR, textStatus, errorThrown){
-                    alert('Fout bij toevoegen artikel:' + "\n" + errorThrown + "\n" + formToJson());
+                    alert('Fout bij toevoegen artikel:' + "\n" + errorThrown + "\n" + object);
                 }
             });
         }
-        
-        //getter selectedBestelling
-        $.getJSON(bestURL, function(result) {
-           selectedBestelling = result; 
-        });
-        
-        // werkt nog niet
-        $("button#terugNaarBestelling").click(function(){
-            var id = {bestellingID : selectedBestelling.bestellingId};
-            var idParam = $.param(id);
-            window.location.href = "viewBestelling.html?" + idParam;
-        });
-        
     });
