@@ -24,16 +24,16 @@ and open the template in the editor.
                 <table>
                     <tr>
                         <td>Straatnaam</td>
-                        <td><input type="text" size="40" id="straatnaam"/></td>
+                        <td><input type="text" size="40" name="straatnaam" id="straatnaam"/></td>
                     </tr><tr>
                         <td>Huisnummer</td>
-                        <td><input type="text" id="huisnummer" size="10"/></td>
+                        <td><input type="text" name="huisnummer" id="huisnummer" size="10"/></td>
                     </tr><tr>
                         <td>Postcode</td>
-                        <td><input type="text" size="6" id="postcode"/></td>
+                        <td><input type="text" name="postcode" size="6" id="postcode"/></td>
                     </tr><tr>
                         <td>Woonplaats</td>
-                        <td><input type="text" size="40" id="woonplaats"/></td>
+                        <td><input type="text" size="40" name="woonplaats" id="woonplaats"/></td>
                     </tr><tr>
                         <td>Adres-type</td>
                         <td><select id="adresType" name="adresType">
@@ -46,6 +46,7 @@ and open the template in the editor.
                 </table>
             </form>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+            <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
             <script src="../js/editAdres.js"></script>
         </div>
     </body>

@@ -18,7 +18,7 @@ $(document).ready(function(){
     
     //initialize variables
     var klantId = getUrlParameter('klantId');
-    var restURL = "http://localhost:40847/RestTest/rest/klant/" + klantId;
+    var restURL = "http://localhost:8080/RestTest/rest/klant/" + klantId;
     var klant = null;
     
     //getting info for tables
@@ -144,6 +144,7 @@ $(document).ready(function(){
             }
         });
     });
+    
     //addBestelling        
     $("button#addBestelling").click(function(){
        var bestellingUrl = restURL + "/bestelling";
@@ -158,7 +159,7 @@ $(document).ready(function(){
            dataType: "application/json",
            data: jsonBestelling,
             success: function(data, textStatus, jqXHR){
-                //getBestelling();
+                getBestellingen();
             },
             error: function(jqXHR, textStatus, errorThrown){
                 //alert('Error: ' + errorThrown + object);
@@ -187,30 +188,30 @@ $(document).ready(function(){
     
     //add account
     $("button#addAccount").click(function(){
-        var accountUrl = restURL + "/account";
-        var date = new Date();
-        var jsonAccount = JSON.stringify({
-            "accountNaam": $("#newAccountnaam").val(),
-            "creatieDatum": date,
-            "klantidKlant": klantId
-        });
-        $.ajax({
-            type: 'POST',
-            contentType: 'application/json',
-            url: accountUrl,
-            dataType: "application/json",
-            data: jsonAccount,
-            success: function(data, textStatus, jqXHR){
-            },
-            error: function(jqXHR, textStatus, errorThrown){
-                //alert('Error: ' + errorThrown + object);
-            }
-        });
-        getAccounts();
+        event.preventDefault();
+        if($("form#account").valid()){
+            var accountUrl = restURL + "/account";
+            var date = new Date();
+            var jsonAccount = JSON.stringify({
+                "accountNaam": $("#newAccountnaam").val(),
+                "creatieDatum": date,
+                "klantidKlant": klantId
+            });
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                url: accountUrl,
+                dataType: "application/json",
+                data: jsonAccount,
+                success: function(data, textStatus, jqXHR){
+                    getAccounts();
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    //alert('Error: ' + errorThrown + object);
+                }
+            });
+        }
     });
-    
-    
-    
     
     //edit klant
     var editKlantClicked = false;
@@ -224,28 +225,31 @@ $(document).ready(function(){
             editKlantClicked = true;
         }
         else{
-            var klantJson = JSON.stringify({
-                "voornaam": $("input#voornaam").val(),
-                "tussenvoegsel": $("input#tussenvoegsel").val(),
-                "achternaam": $("input#achternaam").val(),
-                "email": $("input#email").val(),
-                "idKlant": klant.idKlant
-            });
-            $.ajax({
-                type: 'PUT',
-                contentType: 'application/json',
-                url: restURL,
-                data: klantJson,
-                dataType: 'json',
-                success: function(data, textStatus, jqXHR){
-                    //alert("Success!");
-                },
-                error: function(jqXHR, textStatus, errorThrown){
-                    alert("Error: " + textStatus + "\n" + errorThrown);
-                }
-            });
-            editKlantClicked = false;
-            getKlant();
+            if($("form#klant").valid()){
+                var klantJson = JSON.stringify({
+                    "voornaam": $("input#voornaam").val(),
+                    "tussenvoegsel": $("input#tussenvoegsel").val(),
+                    "achternaam": $("input#achternaam").val(),
+                    "email": $("input#email").val(),
+                    "idKlant": klant.idKlant
+                });
+                $.ajax({
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    url: restURL,
+                    data: klantJson,
+                    dataType: 'json',
+                    success: function(data, textStatus, jqXHR){
+                        //alert("Success!");
+                        editKlantClicked = false;
+                        getKlant();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert("Error: " + textStatus + "\n" + errorThrown);
+                    }
+                });
+                
+            }
         }
     });
     
@@ -260,33 +264,37 @@ $(document).ready(function(){
     //edit account
     var editAccountClicked = false;
     $(document).on("click", "td#editAccount button", function(){
+        event.preventDefault();
         if(editAccountClicked === false){
             var existingAccountNaam = $("tr#" + event.target.id + " td#accountNaam").text();
             $("tr#" + event.target.id + " td#accountNaam").empty();
-            $("td#accountNaam").append("<input type='text' size=30 id='editAccountNaam' value='" + existingAccountNaam + "'/>");
+            $("td#accountNaam").append("<input type='text' size=30 name='accountnaam' id='editAccountNaam' value='" + existingAccountNaam + "'/>");
             editAccountClicked = true;
         }
         else {
-            var accountJson = JSON.stringify({
-                "accountNaam": $("input#editAccountNaam").val(),
-                "creatieDatum": $("tr#" + event.target.id + " td#accountCreatieDatum").text(),
-                "klantidKlant": klant
-            });
-            $.ajax({
-                type: 'PUT',
-                contentType: 'application/json',
-                url: accountURL + "/" + event.target.id,
-                data: accountJson,
-                dataType: 'json',
-                success: function(data, textStatus, jqXHR){
-                    //alert("Success!");
-                },
-                error: function(jqXHR, textStatus, errorThrown){
-                    alert("Error: " + textStatus + "\n" + errorThrown + "\n" + accountJson);
-                }
-            });
-            editAccountClicked = false;
-            getAccounts();
+            if($("form#account").valid()){
+                var accountJson = JSON.stringify({
+                    "accountNaam": $("input#editAccountNaam").val(),
+                    "creatieDatum": $("tr#" + event.target.id + " td#accountCreatieDatum").text(),
+                    "idAccount": event.target.id,
+                    "klantidKlant": klant
+                });
+                $.ajax({
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    url: accountURL + "/" + event.target.id,
+                    data: accountJson,
+                    dataType: 'json',
+                    success: function(data, textStatus, jqXHR){
+                        //alert("Success!");
+                        editAccountClicked = false;
+                        getAccounts();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        alert("Error: " + textStatus + "\n" + errorThrown + "\n" + accountJson);
+                    }
+                });
+            }
         }
     });
     
@@ -318,6 +326,64 @@ $(document).ready(function(){
             }
         });
         
+    });
+    
+    //validators
+    
+    //validate klant
+    $("form#klant").validate({
+        rules: { //add rules
+            voornaam:{
+                required: true,
+                maxlength: 50
+            },
+            tussenvoegsel:{
+                maxlength: 50
+            },
+            achternaam:{
+                required: true,
+                maxlength: 51
+            },
+            email: {
+                required: true,
+                email: true,
+                maxlength: 80
+            }
+        },
+        messages: {
+            voornaam: {
+                required: "Voornaam is verplicht",
+                maxlength: jQuery.validator.format("Voornaam mag maximaal {0} karakters lang zijn") //{0} is a callback to the maxlength value
+            },
+            tussenvoegsel: {
+                maxlength: jQuery.validator.format("Tussenvoegsel mag maximaal {0} karakters lang zijn")
+            },
+            achternaam: {
+                required: "Achternaam is verplicht",
+                maxlength: jQuery.validator.format("Achternaam mag maximaal {0} karakters lang zijn")
+            },
+            email: {
+                required: "E-mail is verplicht",
+                maxlength: jQuery.validator.format("E-mail mag maximaal {0} karakters lang zijn"),
+                email: "Geen geldig e-mail adres"
+            }
+        }
+    });
+    
+    //validate accountnaam
+    $("form#account").validate({
+        rules: { //add rules
+            accountnaam:{
+                required: true,
+                maxlength: 80
+            }
+        },
+        messages: {
+            accountnaam: {
+                required: "Accountnaam is verplicht",
+                maxlength: jQuery.validator.format("Accountnaam mag maximaal {0} karakters lang zijn") //{0} is a callback to the maxlength value
+            }
+        }
     });
     
 });

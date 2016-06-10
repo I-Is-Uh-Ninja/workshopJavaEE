@@ -44,16 +44,16 @@ and open the template in the editor.
                     <table>
                         <tr>
                             <td>Straatnaam</td>
-                            <td><input type="text" size="40" id="straatnaam"/></td>
+                            <td><input type="text" size="40" name="straatnaam" id="straatnaam"/></td>
                         </tr><tr>
                             <td>Huisnummer</td>
-                            <td><input type="text" id="huisnummer" size="10"/></td>
+                            <td><input type="text" id="huisnummer" name="huisnummer" size="10"/></td>
                         </tr><tr>
                             <td>Postcode</td>
-                            <td><input type="text" size="6" id="postcode"/></td>
+                            <td><input type="text" size="6" name="postcode" id="postcode"/></td>
                         </tr><tr>
                             <td>Woonplaats</td>
-                            <td><input type="text" size="50" id="woonplaats"/></td>
+                            <td><input type="text" size="50" name="woonplaats" id="woonplaats"/></td>
                         </tr><tr>
                             <td></td><td>
                                 <button id="addNewAdres">Voeg nieuw adres toe</button></td>
@@ -62,6 +62,7 @@ and open the template in the editor.
                 </div>
             </form>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+            <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
             <script src="../js/adres.js"></script>
         </div>
     </body>

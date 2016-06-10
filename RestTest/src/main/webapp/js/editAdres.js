@@ -103,26 +103,70 @@ $(document).ready(function(){
     //editAdresType clicked
     $("button#editAdres").click(function(){
         event.preventDefault();
-        var adresType = $("option:selected");
-        var adresJson = JSON.stringify({ //For some reason, adres has to be edited first this way
-            "idAdres": initAdres.idAdres, "straatnaam": $("input#straatnaam").val(), "huisnummer": $("input#huisnummer").val(),
-                "postcode": $("input#postcode").val(), "woonplaats": $("input#woonplaats").val()
-        });
-        updateAdres(adresJson);
-        
-        var klantHasAdresJson = JSON.stringify({ //now klant has adres can be updated
-            "adresidAdres": 
-                    {"idAdres": initAdres.idAdres, "straatnaam": $("input#straatnaam").val(), "huisnummer": $("input#huisnummer").val(),
-                "postcode": $("input#postcode").val(), "woonplaats": $("input#woonplaats").val()} ,
-            "adrestypeidAdrestype": {"idAdrestype": adresType.attr('id'), "adresType": adresType.val()} ,
-            "idKlanthasadres": klantHasAdresId,
-            "klantidKlant": {"idKlant": klant.idKlant, "voornaam": klant.voornaam, "tussenvoegsel": klant.tussenvoegsel,
-                "achternaam": klant.achternaam, "email": klant.email}
-        });
-        editAdres(klantHasAdresJson);
-        var id = {klantId : klantId};
-        var idParam = $.param(id);
-        window.location.href = "viewKlant.html?" + idParam;
+        if($("form#editAdres").valid()){
+            var adresType = $("option:selected");
+            var adresJson = JSON.stringify({ //For some reason, adres has to be edited first this way
+                "idAdres": initAdres.idAdres, "straatnaam": $("input#straatnaam").val(), "huisnummer": $("input#huisnummer").val(),
+                    "postcode": $("input#postcode").val(), "woonplaats": $("input#woonplaats").val()
+            });
+            updateAdres(adresJson);
+
+            var klantHasAdresJson = JSON.stringify({ //now klant has adres can be updated
+                "adresidAdres": 
+                        {"idAdres": initAdres.idAdres, "straatnaam": $("input#straatnaam").val(), "huisnummer": $("input#huisnummer").val(),
+                    "postcode": $("input#postcode").val(), "woonplaats": $("input#woonplaats").val()} ,
+                "adrestypeidAdrestype": {"idAdrestype": adresType.attr('id'), "adresType": adresType.val()} ,
+                "idKlanthasadres": klantHasAdresId,
+                "klantidKlant": {"idKlant": klant.idKlant, "voornaam": klant.voornaam, "tussenvoegsel": klant.tussenvoegsel,
+                    "achternaam": klant.achternaam, "email": klant.email}
+            });
+            editAdres(klantHasAdresJson);
+            var id = {klantId : klantId};
+            var idParam = $.param(id);
+            window.location.href = "viewKlant.html?" + idParam;
+        }
+    });
+    
+    //validate adres
+    $("form#editAdres").validate({
+        rules: { //add rules
+            straatnaam:{
+                required: true,
+                maxlength: 34
+            },
+            huisnummer:{
+                required: true,
+                maxlength: 10
+            },
+            postcode:{
+                required: true,
+                maxlength: 6,
+                minlength: 6
+            },
+            woonplaats: {
+                required: true,
+                maxlength: 30
+            }
+        },
+        messages: {
+            straatnaam: {
+                required: "Straatnaam is verplicht",
+                maxlength: jQuery.validator.format("Straatnaam mag maximaal {0} karakters lang zijn") //{0} is a callback to the maxlength value
+            },
+            huisnummer: {
+                required: "Huisnummer is verplicht",
+                maxlength: jQuery.validator.format("Huisnummer mag maximaal {0} karakters lang zijn")
+            },
+            postcode: {
+                required: "Postcode is verplicht",
+                maxlength: jQuery.validator.format("Postcode moet {0} karakters lang zijn"),
+                minlength: jQuery.validator.format("Postcode moet {0} karakters lang zijn")
+            },
+            woonplaats: {
+                required: "Woonplaats is verplicht",
+                maxlength: jQuery.validator.format("Woonplaats mag maximaal {0} karakters lang zijn")
+            }
+        }
     });
 });
 

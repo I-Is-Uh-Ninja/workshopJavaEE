@@ -25,18 +25,20 @@ and open the template in the editor.
             <br/>
             <h2>Klant-gegevens</h2>
             <div id="klantgegevens">
-                <table id="klant" class="datatable">
-                    <thead id="klantTitle">
-                    <th>Voornaam</th>
-                    <th>Tussenvoegsel</th>
-                    <th>Achternaam</th>
-                    <th>Email</th>
-                    </thead>
-                    <tbody id="klantBody">
+                <form id="klant">
+                    <table id="klant" class="datatable">
+                        <thead id="klantTitle">
+                        <th>Voornaam</th>
+                        <th>Tussenvoegsel</th>
+                        <th>Achternaam</th>
+                        <th>Email</th>
+                        </thead>
+                        <tbody id="klantBody">
 
-                    </tbody>
-                </table>
-                <button id="editKlant">Bewerk klant-gegevens</button>
+                        </tbody>
+                    </table>
+                    <button id="editKlant">Bewerk klant-gegevens</button>
+                </form>
             </div>
             <br/>
             <h2>Adressen</h2>
@@ -58,21 +60,23 @@ and open the template in the editor.
             </div>
             <br/>
             <div id="accounts">
-                <h2>Accounts</h2>
-                <table id="account" class="datatable">
-                    <thead>
-                    <th>Accountnaam</th>
-                    <th>Creatie-datum</th>
-                    <th colspan="2">Actie</th>
-                    </thead>
-                    <tbody id="accountBody">
+                <form id="account">
+                    <h2>Accounts</h2>
+                    <table id="account" class="datatable">
+                        <thead>
+                        <th>Accountnaam</th>
+                        <th>Creatie-datum</th>
+                        <th colspan="2">Actie</th>
+                        </thead>
+                        <tbody id="accountBody">
 
-                    </tbody>
-                </table>
-                <br/>
-                <h3>Voeg een account toe</h3>
-                <input type="text" id="newAccountnaam" size="30" placeholder="Accountnaam"/>
-                <button id='addAccount'>Voeg account toe</button>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <h3>Voeg een account toe</h3>
+                    <input type="text" id="newAccountnaam" name="accountnaam" size="30" placeholder="Accountnaam"/>
+                    <button id='addAccount'>Voeg account toe</button>
+                </form>
             </div>
             <br/>
             <div id="bestellingen">
@@ -89,6 +93,7 @@ and open the template in the editor.
                 <button id="addBestelling">Voeg een bestelling toe</button>
             </div>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+             <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
             <script src="../js/viewKlant.js"></script>
         </div>
     </body>

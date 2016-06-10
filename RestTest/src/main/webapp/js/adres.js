@@ -103,30 +103,29 @@ $(document).ready(function(){
     //add new adres
     $("button#addNewAdres").click(function(){
         event.preventDefault();
-        
-        var newAdres = JSON.stringify({
-            "straatnaam": $("input#straatnaam").val(),
-           "huisnummer": $("input#huisnummer").val(),
-           "postcode": $("input#postcode").val(),
-           "woonplaats": $("input#woonplaats").val()
-        });
-        
-        $.ajax({
-            type: 'POST',
-            contentType: 'application/json',
-            url: adresURL,
-            dataType: "application/json",
-            data: newAdres,
-            success: function(data, textStatus, jqXHR){
-                //ajaxCreate = data;
-                getAllAdressen();
-            },
-            error: function(jqXHR, textStatus, errorThrown){
-                //alert('Error: ' + errorThrown + object);
-            }
-        });
-        
-        
+        if ($("#addExistingAdres").valid()){
+            var newAdres = JSON.stringify({
+                "straatnaam": $("input#straatnaam").val(),
+               "huisnummer": $("input#huisnummer").val(),
+               "postcode": $("input#postcode").val(),
+               "woonplaats": $("input#woonplaats").val()
+            });
+
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                url: adresURL,
+                dataType: "application/json",
+                data: newAdres,
+                success: function(data, textStatus, jqXHR){
+                    //ajaxCreate = data;
+                    getAllAdressen();
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    //alert('Error: ' + errorThrown + object);
+                }
+            });
+        }
     });
    
    //helper functions
@@ -165,4 +164,46 @@ $(document).ready(function(){
             }
         });
     };
+    
+    //validate adres
+    $("#addExistingAdres").validate({
+        rules: { //add rules
+            straatnaam:{
+                required: true,
+                maxlength: 34
+            },
+            huisnummer:{
+                required: true,
+                maxlength: 10
+            },
+            postcode:{
+                required: true,
+                maxlength: 6,
+                minlength: 6
+            },
+            woonplaats: {
+                required: true,
+                maxlength: 30
+            }
+        },
+        messages: {
+            straatnaam: {
+                required: "Straatnaam is verplicht",
+                maxlength: jQuery.validator.format("Straatnaam mag maximaal {0} karakters lang zijn") //{0} is a callback to the maxlength value
+            },
+            huisnummer: {
+                required: "Huisnummer is verplicht",
+                maxlength: jQuery.validator.format("Huisnummer mag maximaal {0} karakters lang zijn")
+            },
+            postcode: {
+                required: "Postcode is verplicht",
+                maxlength: jQuery.validator.format("Postcode moet {0} karakters lang zijn"),
+                minlength: jQuery.validator.format("Postcode moet {0} karakters lang zijn")
+            },
+            woonplaats: {
+                required: "Woonplaats is verplicht",
+                maxlength: jQuery.validator.format("Woonplaats mag maximaal {0} karakters lang zijn")
+            }
+        }
+    });
 });
