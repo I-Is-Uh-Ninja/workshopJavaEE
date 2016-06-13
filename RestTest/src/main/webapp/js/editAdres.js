@@ -101,7 +101,7 @@ $(document).ready(function(){
     });
 
     //editAdresType clicked
-    $("button#editAdres").click(function(){
+    $("button#editAdres").click(function(event){
         event.preventDefault();
         if($("form#editAdres").valid()){
             var adresType = $("option:selected");

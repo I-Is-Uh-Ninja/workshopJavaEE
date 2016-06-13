@@ -23,9 +23,9 @@ $(document).ready(function(){
     
     var bestellingId = getUrlParameter('bestellingId');
     var klantId = getUrlParameter('klantId');
-    var artURL = "http://localhost:40847/RestTest/rest/artikel";
-    var bestURL = "http://localhost:40847/RestTest/rest/klant/" + klantId + "/bestelling/" + bestellingId;
-    var bhaURL = "http://localhost:40847/RestTest/rest/bestellinghasartikel";
+    var artURL = "http://localhost:8080/RestTest/rest/artikel";
+    var bestURL = "http://localhost:8080/RestTest/rest/klant/" + klantId + "/bestelling/" + bestellingId;
+    var bhaURL = "http://localhost:8080/RestTest/rest/bestellinghasartikel";
     var selectedArtikel = null;
     var selectedBestelling = null;
     var alleArtikelen = [];
@@ -41,22 +41,22 @@ $(document).ready(function(){
                         if(i===0){
                             $("#selectArtikelTitle").append("<th>" + p + "</th>");
                         }
-                        $("tr#" + field.idArtikel).append("<td id='" + p + "'>" + field[p] + "</td>");
+                        $("#selectArtikelBody tr#" + field.idArtikel).append("<td id='" + p + "'>" + field[p] + "</td>");
                     }
-                $("tr#" + field.idArtikel).append("<td id='selecteerArtikel'><button type='button' id='"+ i + "'>Selecteer</button>");
+                $("#selectArtikelBody tr#" + field.idArtikel).append("<td id='selecteerArtikel'><button type='button' id='"+ i + "'>Selecteer</button>");
                 });
             });
         }
         
         //select artikel
-        $(document).on("click", "td#selecteerArtikel button", function(){
+        $(document).on("click", "td#selecteerArtikel button", function(event){
            selectedArtikel = alleArtikelen[event.target.id];
-           $("#existingArtikelBody tr").removeClass('highlight');
-           $("#existingArtikelBody tr#" + selectedArtikel.idArtikel).addClass("highlight");
+           $("#selectArtikelBody tr").removeClass('highlight');
+           $("#selectArtikelBody tr#" + selectedArtikel.idArtikel).addClass("highlight");
         }); 
         
         //add artikel
-        $("button#voegArtikelToe").click(function(){
+        $("button#voegArtikelToe").click(function(event){
           event.preventDefault();
           //var artikelId = $("select#selectedArtikel").find(":selected").val();
           
@@ -91,7 +91,7 @@ $(document).ready(function(){
             terugNaarBestelling();
         });
         
-        function terugNaarBestelling() {
+        function terugNaarBestelling(event) {
             event.preventDefault();
             var id = {bestellingId : bestellingId};
             var idParam = $.param(id);

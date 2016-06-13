@@ -132,7 +132,7 @@ $(document).ready(function(){
     }
     
     //delete bestelling
-    $(document).on("click", "td#deleteBestelling button", function(){
+    $(document).on("click", "td#deleteBestelling button", function(event){
         $.ajax({
             type: 'DELETE',
             url: bestellingURL + "/" + event.target.id,
@@ -146,7 +146,8 @@ $(document).ready(function(){
     });
     
     //addBestelling        
-    $("button#addBestelling").click(function(){
+    $("button#addBestelling").click(function(event){
+        event.preventDefault();
        var bestellingUrl = restURL + "/bestelling";
        var id = {klantId : klantId};
        var jsonBestelling = JSON.stringify({
@@ -168,7 +169,7 @@ $(document).ready(function(){
     });
     
     //door na viewBestelling
-    $(document).on("click", "td#viewBestelling button", function() {
+    $(document).on("click", "td#viewBestelling button", function(event) {
         event.preventDefault();
         var id = {klantId : klantId, bestellingId : event.target.id};
         var idParam = $.param(id);
@@ -179,7 +180,7 @@ $(document).ready(function(){
     //functions for buttons
     
     //add adres
-    $("button#addAdres").click(function(){
+    $("button#addAdres").click(function(event){
         event.preventDefault();
         var id = {klantId : klantId};
         var idParam = $.param(id);
@@ -187,7 +188,7 @@ $(document).ready(function(){
     });
     
     //add account
-    $("button#addAccount").click(function(){
+    $("button#addAccount").click(function(event){
         event.preventDefault();
         if($("form#account").valid()){
             var accountUrl = restURL + "/account";
@@ -215,7 +216,8 @@ $(document).ready(function(){
     
     //edit klant
     var editKlantClicked = false;
-    $("button#editKlant").click(function(){
+    $("button#editKlant").click(function(event){
+        event.preventDefault();
         if(editKlantClicked === false){
             $("#klantBody tr").empty();
             $("#klantBody tr").append("<td><input type='text' id='voornaam' size='20' value='" + klant.voornaam + "' /></td>");
@@ -254,7 +256,7 @@ $(document).ready(function(){
     });
     
     //edit adres
-    $(document).on("click", "td#editAdres button", function(){
+    $(document).on("click", "td#editAdres button", function(event){
         event.preventDefault();
         var id = {klantId : klantId, adresId : event.target.id};
         var idParam = $.param(id);
@@ -263,7 +265,7 @@ $(document).ready(function(){
     
     //edit account
     var editAccountClicked = false;
-    $(document).on("click", "td#editAccount button", function(){
+    $(document).on("click", "td#editAccount button", function(event){
         event.preventDefault();
         if(editAccountClicked === false){
             var existingAccountNaam = $("tr#" + event.target.id + " td#accountNaam").text();
@@ -299,7 +301,7 @@ $(document).ready(function(){
     });
     
     //delete adres
-    $(document).on("click", "td#deleteAdres button", function(){
+    $(document).on("click", "td#deleteAdres button", function(event){
         $.ajax({
             type: 'DELETE',
             url: adresURL + "/" + event.target.id,
@@ -314,7 +316,7 @@ $(document).ready(function(){
     });
     
     //delete account
-    $(document).on("click", "td#deleteAccount button", function(){
+    $(document).on("click", "td#deleteAccount button", function(event){
         $.ajax({
             type: 'DELETE',
             url:  accountURL + "/" + event.target.id,

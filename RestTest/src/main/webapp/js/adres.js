@@ -66,21 +66,23 @@ $(document).ready(function(){
     //methods for buttons
     
     //go back to viewKlant
-    $("button#backToKlant").click(function() {
+    $("button#backToKlant").click(function(event) {
+        event.preventDefault();
         var id = {klantId : selectedKlant.idKlant};
         var idParam = $.param(id);
         window.location.href = "viewKlant.html?" + idParam;
     });
     
     //select an existing adres
-    $(document).on("click","td#selectAdres button", function(){
+    $(document).on("click","td#selectAdres button", function(event){
+        event.preventDefault();
         selectedAdres = allAdressen[event.target.id];
         $("#existingAdresBody tr").removeClass('highlight');
         $("#existingAdresBody tr#" + selectedAdres.idAdres).addClass("highlight");
     });
     
     //add an existing adres
-    $(document).on('click',"button#addExistingAdres",function(){
+    $(document).on('click',"button#addExistingAdres",function(event){
         //alert("Adres: " + selectedAdres.idAdres + ", klant: " + selectedKlant.idKlant);
         event.preventDefault(); //important: if removed, you aren't redirected
         var adresTypeId = $("select#selectedAdresType").find(":selected").val();
@@ -101,7 +103,7 @@ $(document).ready(function(){
     });
     
     //add new adres
-    $("button#addNewAdres").click(function(){
+    $("button#addNewAdres").click(function(event){
         event.preventDefault();
         if ($("#addExistingAdres").valid()){
             var newAdres = JSON.stringify({

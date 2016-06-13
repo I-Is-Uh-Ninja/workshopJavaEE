@@ -60,14 +60,14 @@ $(document).ready(function(){
     }
     
     //method for clicking the view-button -> go to viewKlant.html with klant ID as parameter
-    $(document).on("click", "td#view button", function(){
+    $(document).on("click", "td#view button", function(event){
         var id = {klantId : event.target.id};
         var idParam = $.param(id);
-        location.href = "viewKlant.html?" + idParam; 
+        window.location.href = "viewKlant.html?" + idParam; 
     });
     
     //method for clicking the delete-button -> make ajax delete request for deleting klant
-    $(document).on("click", "td#delete button", function(){
+    $(document).on("click", "td#delete button", function(event){
         var URL = restURL + "/" + event.target.id;
         ajaxDelete(URL);
     });

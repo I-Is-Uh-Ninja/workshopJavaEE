@@ -74,14 +74,14 @@ $(document).ready(function(){
     
     
     //door na betaalBestelling
-    $("button#naarBetaling").on("click", function() {
+    $("button#naarBetaling").on("click", function(event) {
         event.preventDefault();
         var id = {bestellingId : bestellingId};
         var idParam = $.param(id);
         location.href = "betaling.html?" + idParam;
     });
     //door na selectArtikel
-    $("button#addArtikel").on("click", function() {
+    $("button#addArtikel").on("click", function(event) {
         event.preventDefault();
         var id = {bestellingId : bestellingId};
         var idParam = $.param(id);
@@ -89,7 +89,7 @@ $(document).ready(function(){
     });
     
     //delete artikel uit bestelling, onbekend of deze werkt?
-    $(document).on("click", "td#delArtikel button", function(){
+    $(document).on("click", "td#delArtikel button", function(event){
        $.ajax({
            type: 'DELETE',
            url: bhaURL + event.target.id,
