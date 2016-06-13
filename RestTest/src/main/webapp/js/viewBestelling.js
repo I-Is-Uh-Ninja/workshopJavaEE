@@ -63,7 +63,7 @@ $(document).ready(function(){
             $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelnummer'>" + bestellingHasArtikel.artikelidArtikel.artikelnummer + "</td>");
             $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelomschrijving'>" + bestellingHasArtikel.artikelidArtikel.artikelomschrijving + "</td>");
             $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelprijs'>" + bestellingHasArtikel.artikelidArtikel.artikelprijs + "</td>");
-            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='aantal'>" + bestellingHasArtikel.aantal + "</td>");
+            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td class='aantal'>" + bestellingHasArtikel.aantal + "</td>");
             
             $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='editAantal'><button type='button' id='" + bestellingHasArtikel.artikelidArtikel.idArtikel + "'>Pas aantal aan</button></td>");
             $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='delArtikel'><button type='button' id='" + bestellingHasArtikel.idBestelArtikel + "'>Verwijder artikel</button></td>");
@@ -114,14 +114,15 @@ $(document).ready(function(){
     //$getJSON(artURL, function)
     
     var editAantalClicked = false;
-    $(document).on("click", "td#editAantal button", function(){
+    $(document).on("click", "td#editAantal button", function(event){
         event.preventDefault();
         var bhaId = $(this).parent().parent().attr("id");
         if(editAantalClicked === false) {
             //alert(bhaId);
-            var existingAantal = $("tr#" + bhaId + " td#aantal").text();
-            $("tr#" + bhaId + " td#aantal").empty();
-            $("tr#" + bhaId + " td#aantal").append("<input type='text' size=4 id='wijzigAantal' value= '" + existingAantal + "' /></td>");
+            var existingAantal = $("tr#" + bhaId + " td.aantal").text();
+            alert(existingAantal);
+            $("tr#" + bhaId + " td.aantal").empty();
+            $("tr#" + bhaId + " td.aantal").append("<input type='text' size=4 id='wijzigAantal' value= '" + existingAantal + "' /></td>");
             getSelectedArtikel(event.target.id);
             editAantalClicked = true;
         }

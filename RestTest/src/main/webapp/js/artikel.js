@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var URL = "http://localhost:40847/RestTest/rest/artikel";
+    var URL = "http://localhost:8080/RestTest/rest/artikel";
     
     $.getJSON(URL, function(result){
         $.each(result, function(i, field){
@@ -21,13 +21,15 @@ $(document).ready(function(){
         location.href = "viewArtikel.html?" + idParam; 
     });*/
     
-    $(document).on("click", "td#delete button", function(){
+    $(document).on("click", "td#delete button", function(event){
         var delURL = URL + "/" + event.target.id;
         ajaxDeleteArtikel(delURL);
     });
     
      $("#nieuwArtikel").submit(function(){
-         ajaxCreateArtikel(URL);
+        if($("form#nieuwArtikel").valid()){
+            ajaxCreateArtikel(URL);
+        }
     });
     
     function formToJson(){
@@ -70,7 +72,7 @@ $(document).ready(function(){
     
     //edit artikel
     var editArtikelClicked = false;
-    $(document).on("click", "td#edit button", function(){
+    $(document).on("click", "td#edit button", function(event){
         if(editArtikelClicked === false) {
             var existingArtikelnaam = $("tr#" + event.target.id + " td#artikelnaam").text();
             var existingArtikelnummer = $("tr#" + event.target.id + " td#artikelnummer").text();
@@ -84,7 +86,7 @@ $(document).ready(function(){
             
             $("tr#" + event.target.id + " td#artikelnaam").append("<input type='text' size=30 id='editArtikelnaam' value='" + existingArtikelnaam + "' /></td>");
             $("tr#" + event.target.id + " td#artikelnummer").append("<input type='text' size=30 id='editArtikelnummer' value='" + existingArtikelnummer + "' /></td>");
-            $("tr#" + event.target.id + " td#artikelomschrijving").append("<input type='text' size=80 id='editArtikelomschrijving' value='" + existingArtikelomschrijving + "' /></td>");  
+            $("tr#" + event.target.id + " td#artikelomschrijving").append("<input type='text' size=40 id='editArtikelomschrijving' value='" + existingArtikelomschrijving + "' /></td>");  
             $("tr#" + event.target.id + " td#artikelprijs").append("<input type='text' size=6 id='editArtikelprijs' value='" + existingArtikelprijs + "' /></td>"); 
             editArtikelClicked = true;
         } else {
@@ -103,12 +105,57 @@ $(document).ready(function(){
                dataType: 'json',
                success: function(data, textStatus, jqXHR){
                     //alert("Artikel gewijzigd naar: " + artikelJson);
-                    editArtikelClicked = false;
                },
                error: function(jqXHR, textStatus, errorThrown){
                    //alert("Error: " + textStatus + "\n" + errorThrown + "\n" + artikelJson);
                } 
             });
+            editArtikelClicked = false;
+            //getArtikelen();
+        }
+    });
+    //add regex method to validator
+    $.validator.addMethod("regex", function(value, element, regexpr) {          
+        return regexpr.test(value); //test if the value matches the regular expression
+   }, "Please enter a valid value."); //add default message
+    
+    //validator
+    $("form#nieuwArtikel").validate({
+        rules: { //add rules
+            artikelnaam:{
+                required: true,
+                maxlength: 80
+            },
+            artikelnummer:{
+                required: true,
+                maxlength: 45
+            },
+            artikelprijs:{
+                required: true,
+                maxlength: 6,
+                regex: /^\d{1,4}(\.{1}\d{1,2}){0,1}$/
+            },
+            artikelomschrijving: {
+                maxlength: 80
+            }
+        },
+        messages: {
+            artikelnaam: {
+                required: "Artikelnaam is verplicht",
+                maxlength: jQuery.validator.format("Artikelnaam mag maximaal {0} karakters lang zijn") //{0} is a callback to the maxlength value
+            },
+            artikelnummer: {
+                required: "Artikelnummer is verplicht",
+                maxlength: jQuery.validator.format("Artikelnummer mag maximaal {0} karakters lang zijn")
+            },
+            artikelprijs: {
+                required: "Artikelprijs is verplicht",
+                maxlength: jQuery.validator.format("Artikelprijs mag maximaal {0} nummers lang zijn"),
+                regex: "Mag alleen nummers bevatten, met 4 cijfers voor, en 2 cijfers na de komma"
+            },
+            artikelomschrijving: {
+                maxlength: jQuery.validator.format("Artikelomschrijving mag maximaal {0} karakters lang zijn")
+            }
         }
     });
 });

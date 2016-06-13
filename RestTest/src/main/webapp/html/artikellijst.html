@@ -38,16 +38,16 @@
                 <table>
                     <tr>
                         <td>Artikelnaam</td>
-                        <td><input type="text" size="30" id="artikelnaam"/></td>
+                        <td><input type="text" size="30" name="artikelnaam" id="artikelnaam"/></td>
                     </tr><tr>
                         <td>Artikelnummer</td>
-                        <td><input type="text" size="30" id="artikelnummer"/></td>
+                        <td><input type="text" size="30" name="artikelnummer" id="artikelnummer"/></td>
                     </tr><tr>
                         <td>Artikelomschrijving</td>
-                        <td><input type="text" size="80" id="artikelomschrijving"/></td>
+                        <td><input type="text" size="80" name="artikelomschrijving" id="artikelomschrijving"/></td>
                     </tr><tr>
                         <td>Artikelprijs</td>
-                        <td><input type="text" size="6" id="artikelprijs"/></td>
+                        <td><input type="text" size="7" name="artikelprijs" id="artikelprijs"/></td>
                     </tr><tr>
                         <td></td><td>
                             <input type="submit" value="Voeg artikel toe"/></td>
@@ -56,6 +56,7 @@
             </form>
             <p id="error"></p>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+            <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
             <script src="../js/artikel.js"></script>
         </div>
     </body>
