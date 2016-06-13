@@ -16,7 +16,7 @@ $(document).ready(function(){
                     $("tr#" + field.idArtikel).append("<td class='" + p + "'>" + field[p] + "</td>");
                 }
                 $("tr#" + field.idArtikel).append("<td class='edit'><button type='button' id='"+ field.idArtikel + "'>Bewerken</button>");
-                $("tr#" + field.idArtikel).append("<td id='delete'><button type='button' id='"+ field.idArtikel + "'>Verwijder artikel</button>");
+                $("tr#" + field.idArtikel).append("<td class='delete'><button type='button' id='"+ field.idArtikel + "'>Verwijder artikel</button>");
             });
         });
     }
@@ -27,12 +27,14 @@ $(document).ready(function(){
         location.href = "viewArtikel.html?" + idParam; 
     });*/
     
-    $(document).on("click", "td#delete button", function(event){
+    $(document).on("click", "td.delete button", function(event){
+        event.preventDefault();
         var delURL = URL + "/" + event.target.id;
         ajaxDeleteArtikel(delURL);
     });
     
-     $("#nieuwArtikel").submit(function(){
+     $("#nieuwArtikel").submit(function(event){
+         event.preventDefault();
         if($("form#nieuwArtikel").valid()){
             ajaxCreateArtikel(URL);
         }
@@ -74,6 +76,7 @@ $(document).ready(function(){
             },
             error: function(jqXHR, textStatus, errorThrown){
                 alert("Fout bij verwijderen artikel: " + textStatus + "\n" + errorThrown + "\n" + URL);
+                getArtikelen();
             }    
         });
     }

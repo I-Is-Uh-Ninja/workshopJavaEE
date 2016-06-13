@@ -96,9 +96,9 @@ $(document).ready(function(){
         $("#accountBody").empty();
         $.each(result, function(i, account){
             $("#accountBody").append("<tr id='" + account.idAccount + "'></tr>");
-            $("#accountBody tr#" + account.idAccount).append("<td id='accountNaam'>" + account.accountNaam + "</td>");
-            $("#accountBody tr#" + account.idAccount).append("<td id='accountCreatieDatum'>" + account.creatieDatum + "</td>");
-            $("#accountBody tr#" + account.idAccount).append("<td id='editAccount'><button type='button' id='"+ account.idAccount + "'>Bewerken</button></td>");
+            $("#accountBody tr#" + account.idAccount).append("<td class='accountNaam'>" + account.accountNaam + "</td>");
+            $("#accountBody tr#" + account.idAccount).append("<td class='accountCreatieDatum'>" + account.creatieDatum + "</td>");
+            $("#accountBody tr#" + account.idAccount).append("<td class='editAccount'><button type='button' id='"+ account.idAccount + "'>Bewerken</button></td>");
             $("#accountBody tr#" + account.idAccount).append("<td id='deleteAccount'><button type='button' id='"+ account.idAccount + "'>Verwijderen</button></td>");
         });
     }
@@ -265,19 +265,19 @@ $(document).ready(function(){
     
     //edit account
     var editAccountClicked = false;
-    $(document).on("click", "td#editAccount button", function(event){
+    $(document).on("click", "td.editAccount button", function(event){
         event.preventDefault();
         if(editAccountClicked === false){
-            var existingAccountNaam = $("tr#" + event.target.id + " td#accountNaam").text();
-            $("tr#" + event.target.id + " td#accountNaam").empty();
-            $("td#accountNaam").append("<input type='text' size=30 name='accountnaam' id='editAccountNaam' value='" + existingAccountNaam + "'/>");
+            var existingAccountNaam = $("tr#" + event.target.id + " td.accountNaam").text();
+            $("tr#" + event.target.id + " td.accountNaam").empty();
+            $("tr#" + event.target.id + " td.accountNaam").append("<input type='text' size=30 name='accountnaam' id='editAccountNaam' value='" + existingAccountNaam + "'/>");
             editAccountClicked = true;
         }
         else {
             if($("form#account").valid()){
                 var accountJson = JSON.stringify({
                     "accountNaam": $("input#editAccountNaam").val(),
-                    "creatieDatum": $("tr#" + event.target.id + " td#accountCreatieDatum").text(),
+                    "creatieDatum": $("tr#" + event.target.id + " td.accountCreatieDatum").text(),
                     "idAccount": event.target.id,
                     "klantidKlant": klant
                 });
