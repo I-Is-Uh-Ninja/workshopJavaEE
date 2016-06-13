@@ -13,18 +13,41 @@ and open the template in the editor.
     <body>
         <h1>Betaal de bestelling</h1>
         <br/>
-        <div id="betalingopties">
-        <h3>Totaalprijs: </h3>
-        <br/>
-        <h4>Selecteer een betaal-methode</h4>
-        TODO: selectie
+        <h2>Bestelling gegevens</h2>
+            <div id="bestellinggegevens">
+                <table id="artikelenInBestelling">
+                    <thead id="bestellingTitel">
+                    <th>Artikelnaam</th>
+                    <th>Artikelnummer</th>
+                    <th>Artikelomschrijving</th>
+                    <th>Artikelprijs</th>
+                    <th>Artikelaantal</th>
+                    </thead>
+                    <tbody id="bestellingBody">
+                    </tbody>
+                </table>
+                <h3>Totaalprijs: </h3>
+                 <br/>
+            </div>
         
-        <br/>
-        <h4>Overige gegevens(optioneel)</h4>
-        TODO: box voor informatie
+        <div>    
+            <form id="betaalBestelling">
+            <h4>Selecteer een betaal-methode</h4>
+            <select id="selectBetaalMethode">
+            </select>
+            <br/>
         
+            <h4>Overige gegevens(optioneel)</h4>
+            <textarea id="overigeGegevens" rows="3">
+            </textarea>
+            
+            </form>
+            
+            <button id="betaalDeBestelling">Betaal de bestelling</button>
         </div>
-        
-        <button id="betaalBestelling">Betaal de bestelling</button>
+      
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+        <script src="../js/betaling.js"></script>
     </body>
 </html>

@@ -5,6 +5,7 @@
  */
 package service;
 
+import entity.Betaalwijze;
 import entity.Betaling;
 import java.util.List;
 import javax.ejb.EJB;
@@ -18,6 +19,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import session.BetaalwijzeFacade;
 import session.BetalingFacade;
 
 /**
@@ -35,6 +37,9 @@ public class BetalingFacadeREST {
 
     @EJB
     BetalingFacade betalingFacade;
+    
+    @EJB
+    BetaalwijzeFacade betaalwijzeFacade;
             
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -66,6 +71,20 @@ public class BetalingFacadeREST {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Betaling> findAll() {
         return betalingFacade.findAll();
+    }
+    
+    @GET
+    @Path("betaalwijze")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Betaalwijze> findAllBetaalwijzes() {
+        return betaalwijzeFacade.findAll();
+    }
+    
+    @GET
+    @Path("betaalwijze/{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Betaalwijze findBetaalwijze(@PathParam("id") Integer id) {
+        return betaalwijzeFacade.find(id);
     }
 
     @GET
