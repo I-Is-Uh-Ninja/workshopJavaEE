@@ -70,6 +70,7 @@ $(document).ready(function(){
             url: URL,
             succes: function(data, textStatus, jqXHR) {
                 alert("Artikel verwijderd");
+                getArtikelen();
             },
             error: function(jqXHR, textStatus, errorThrown){
                 alert("Fout bij verwijderen artikel: " + textStatus + "\n" + errorThrown + "\n" + URL);
