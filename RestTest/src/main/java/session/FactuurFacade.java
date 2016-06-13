@@ -19,12 +19,18 @@ import javax.persistence.Query;
 @Stateless
 public class FactuurFacade extends AbstractFacade<Factuur> {
 
-    @PersistenceContext(unitName = "WebBestelAppPU")
+    @PersistenceContext(unitName = "RestTestPU")
     private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+    public Integer createWithId(Factuur entity) {
+        getEntityManager().persist(entity);
+        getEntityManager().flush();
+        return entity.getIdFactuur();
     }
 
     public FactuurFacade() {

@@ -96,7 +96,7 @@ table {
 }
 
 /*input itself*/
-input[type="text"] {
+input[type="text"], input[type="password"] {
     font-size: medium;
 }
 /*For the validator message*/

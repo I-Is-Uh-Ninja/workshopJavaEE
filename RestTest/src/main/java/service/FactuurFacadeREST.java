@@ -24,7 +24,6 @@ import session.FactuurFacade;
  *
  * @author BAM
  */
-//=== Factuur aan betaling toevoegen in Bestelling
 @Stateless
 @Path("factuur")
 public class FactuurFacadeREST {
@@ -34,8 +33,8 @@ public class FactuurFacadeREST {
 
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Factuur entity) {
-        factuurFacade.create(entity);
+    public Integer create(Factuur entity) {
+        return factuurFacade.createWithId(entity);
     }
 
     @PUT
@@ -70,11 +69,11 @@ public class FactuurFacadeREST {
     public List<Factuur> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return factuurFacade.findRange(new int[]{from, to});
     }
-/*
+
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
         return String.valueOf(factuurFacade.count());
-    }   */
+    }   
 }

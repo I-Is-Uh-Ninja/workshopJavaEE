@@ -6,7 +6,9 @@
 package service;
 
 import entity.Artikel;
+import entity.Bestelling;
 import entity.BestellingHasArtikel;
+import entity.Klant;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -20,6 +22,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import session.ArtikelFacade;
+import session.BestellingFacade;
 import session.BestellingHasArtikelFacade;
 
 /**
@@ -32,6 +35,9 @@ public class BestellingHasArtikelFacadeREST {
 
    @EJB
    BestellingHasArtikelFacade bhaf;
+   
+   @EJB
+   BestellingFacade bestellingFacade;
   
    
     @POST
@@ -52,12 +58,19 @@ public class BestellingHasArtikelFacadeREST {
     public void remove(@PathParam("id") Integer id) {
         bhaf.remove(bhaf.find(id));
     }
-
+    
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<BestellingHasArtikel> find(@PathParam("id") Integer id) {
+    public List<BestellingHasArtikel> findByBestelling(@PathParam("id") Integer id) {
         return bhaf.findByBestellingId(id);
+    }
+    
+    @GET
+    @Path("bestelling/{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Bestelling findBestelling(@PathParam("id") Integer id) {
+        return bestellingFacade.find(id);
     }
 
     @GET
