@@ -77,7 +77,10 @@ $(document).ready(function(){
             error: function(jqXHR, textStatus, errorThrown){
                 alert("Fout bij verwijderen artikel: " + textStatus + "\n" + errorThrown + "\n" + URL);
                 getArtikelen();
-            }    
+            },
+            complete: function(){
+                getArtikelen();
+            }
         });
     }
     

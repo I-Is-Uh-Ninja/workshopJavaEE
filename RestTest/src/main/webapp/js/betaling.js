@@ -19,10 +19,10 @@ $(document).ready(function(){
     var selectedKlant = null;
     var selectedBestelling = null;
     var selectedFactuur = null;
-    var betalingURL = "http://localhost:40847/RestTest/rest/betaling";
-    var factuurURL = "http://localhost:40847/RestTest/rest/factuur/";
-    var bhaURL = "http://localhost:40847/RestTest/rest/bestellinghasartikel/" + bestellingId;
-    var bestellingURL = "http://localhost:40847/RestTest/rest/bestellinghasartikel/bestelling/" + bestellingId;
+    var betalingURL = "http://localhost:8080/RestTest/rest/betaling";
+    var factuurURL = "http://localhost:8080/RestTest/rest/factuur/";
+    var bhaURL = "http://localhost:8080/RestTest/rest/bestellinghasartikel/" + bestellingId;
+    var bestellingURL = "http://localhost:8080/RestTest/rest/bestellinghasartikel/bestelling/" + bestellingId;
     var totaalprijs = 0;
     
     //getBestelling
@@ -92,6 +92,13 @@ $(document).ready(function(){
         
     });
     
+    //back button clicked
+    $("button#backToBestelling").click(function(){
+        var id = {bestellingId : selectedBestelling.idBestelling};
+        var idParam = $.param(id);
+        window.location.href = "viewBestelling.html?" + idParam;
+    });
+    
     function createBetaling(){
         //maak betaling en zet deze in database
         var betaalwijzeId = $("select#selectBetaalMethode").find(":selected").val();
@@ -107,13 +114,11 @@ $(document).ready(function(){
         });
 
         ajaxCreateBetaling(betalingURL ,jsonBetaling);
-        //terug naar bestllingoverzicht
-        var id = {bestellingId : selectedBestelling.idBestelling};
-        var idParam = $.param(id);
-        window.location.href = "viewBestelling.html?" + idParam;
+        
     }
     
     function ajaxCreateFactuur(URL, object) {
+        var factuurId = null;
         $.ajax({
             type: 'POST',
             contentType: 'application/json',
@@ -122,12 +127,15 @@ $(document).ready(function(){
             data: object,
             success: function(data, textStatus, jqXHR){
                 alert("factuur gemaakt\n" + data);
-                getFactuur(data);
+                factuurId = data;
+                
             },
             error: function(jqXHR, textStatus, errorThrown){
                 //alert('Error: ' + errorThrown + object);
                 alert("fout bij factuur maken \n" + object);
-                return object;
+            },
+            complete: function(){
+                getFactuur(factuurId);
             }
         });
     };
@@ -145,6 +153,12 @@ $(document).ready(function(){
             error: function(jqXHR, textStatus, errorThrown){
                 //alert('Error: ' + errorThrown + object);
                 alert("fout bij betaling \n" + object);
+            },
+            complete: function(){
+                //terug naar bestllingoverzicht
+                var id = {bestellingId : selectedBestelling.idBestelling};
+                var idParam = $.param(id);
+                window.location.href = "viewBestelling.html?" + idParam;
             }
         });
     };
@@ -156,10 +170,13 @@ $(document).ready(function(){
            success: function(data){
                //alert("success");
                selectedFactuur = data;
-               createBetaling();
            },
            failure: function(data){
                //alert("fout");
+               selectedFactuur = data;
+           },
+           complete: function(){
+               createBetaling();
            }
         });
     }

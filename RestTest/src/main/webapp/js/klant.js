@@ -43,17 +43,13 @@ $(document).ready(function(){
     //display a table of all klanten
     function displayKlantTable(klanten){
         $("#klantenBody").empty();
-        $.each(klanten, function(i, field){
-            $("#klantenBody").append("<tr id='" + field.idKlant + "'></tr>"); //add row for each klant
-            for (var p in field){
-                if(i===0){
-                    $("#klantenTitle").append("<th>" + p + "</th>"); //add header for every property
-                }
-                $("tr#" + field.idKlant).append("<td>" + field[p] + "</td>"); //add table cell for every value
-            }
-            if (i===0){
-                $("#klantenTitle").append("<th colspan='2'>Actie</th>"); //add header for view- and delete-buttons
-            }
+        $.each(klanten, function(i, field){//for each klant
+            $("#klantenBody").append("<tr id='" + field.idKlant + "'></tr>"); //add row
+            $("tr#" + field.idKlant).append("<td>" + field.idKlant + "</td>");
+            $("tr#" + field.idKlant).append("<td>" + field.voornaam + "</td>");
+            $("tr#" + field.idKlant).append("<td>" + field.tussenvoegsel + "</td>");
+            $("tr#" + field.idKlant).append("<td>" + field.achternaam + "</td>");
+            $("tr#" + field.idKlant).append("<td>" + field.email + "</td>");
             $("tr#" + field.idKlant).append("<td id='view'><button type='button' id='"+ field.idKlant + "'>Bekijk klant</button>"); //add view button
             $("tr#" + field.idKlant).append("<td id='delete'><button type='button' id='"+ field.idKlant + "'>Verwijder klant</button>"); //add delete button
         });
@@ -73,8 +69,8 @@ $(document).ready(function(){
     });
     
     //method for creating a new klant
-    $("#nieuwKlant").submit(function(){
-        //$.post(restURL, formToJson(), alert(formToJson()));
+    $("#nieuwKlant").submit(function(event){
+        event.preventDefault();
         //validate
         if($("#nieuwKlant").valid()){ //calls the validate method
             //now create
@@ -100,7 +96,7 @@ $(document).ready(function(){
                 maxlength: 50
             },
             tussenvoegsel:{
-                maxlength: 50
+                maxlength: 10
             },
             achternaam:{
                 required: true,

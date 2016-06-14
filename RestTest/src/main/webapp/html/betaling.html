@@ -9,46 +9,52 @@ and open the template in the editor.
         <title>Betaal Bestelling</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/style.css" type="text/css">
     </head>
     <body>
-        <h1>Betaal de bestelling</h1>
-        <br/>
-        <h2>Bestelling gegevens</h2>
-            <div id="bestellinggegevens">
-                <table id="artikelenInBestelling">
-                    <thead id="bestellingTitel">
-                    <th>Artikelnaam</th>
-                    <th>Artikelnummer</th>
-                    <th>Artikelomschrijving</th>
-                    <th>Artikelprijs</th>
-                    <th>Artikelaantal</th>
-                    </thead>
-                    <tbody id="bestellingBody">
-                    </tbody>
-                </table>
-                <h3>Totaalprijs: </h3>
-                <div id="totaalPrijs"></div>
-                 <br/>
-            </div>
-        
-        <div>    
-            <form id="betaalBestelling">
-            <h4>Selecteer een betaal-methode</h4>
-            <select id="selectBetaalMethode">
-            </select>
+        <ul class="nav-menu">
+            <li><button type="button" id="backToBestelling">Terug naar bestelling</button></li>
+        </ul>
+        <div class="center">
+            <h1>Betaal de bestelling</h1>
             <br/>
-        
-            <h4>Overige gegevens(optioneel)</h4>
-            <textarea id="overigeGegevens" rows="3"></textarea>
-            
-            </form>
-            
-            <button id="betaalDeBestelling">Betaal de bestelling</button>
+            <h2>Bestelling gegevens</h2>
+                <div id="bestellinggegevens">
+                    <table class="datatable" id="artikelenInBestelling">
+                        <thead id="bestellingTitel">
+                        <th>Artikelnaam</th>
+                        <th>Artikelnummer</th>
+                        <th>Artikelomschrijving</th>
+                        <th>Artikelprijs</th>
+                        <th>Artikelaantal</th>
+                        </thead>
+                        <tbody id="bestellingBody">
+                        </tbody>
+                    </table>
+                    <h3>Totaalprijs: </h3>
+                    <div id="totaalPrijs"></div>
+                     <br/>
+                </div>
+
+            <div>    
+                <form id="betaalBestelling">
+                <h4>Selecteer een betaal-methode</h4>
+                <select id="selectBetaalMethode">
+                </select>
+                <br/>
+
+                <h4>Overige gegevens(optioneel)</h4>
+                <textarea id="overigeGegevens" rows="3"></textarea>
+
+                </form>
+
+                <button id="betaalDeBestelling">Betaal de bestelling</button>
+            </div>
+
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+            <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+            <script src="../js/betaling.js"></script>
         </div>
-        
-      
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
-        <script src="../js/betaling.js"></script>
     </body>
 </html>

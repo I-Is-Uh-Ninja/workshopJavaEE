@@ -105,6 +105,10 @@ label.error{
     color: red;
 }
 
+.errorContainer{
+    color:red;
+}
+
 /*Tables used for displaying data*/
 .datatable {
     margin: 20px auto;

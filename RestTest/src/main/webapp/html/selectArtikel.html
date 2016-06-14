@@ -9,26 +9,32 @@ and open the template in the editor.
         <title>Voeg artikel aan bestelling toe</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/style.css" type="text/css">
     </head>
     <body>
-         <h1>Artikellijst</h1>
-        <br/>
-        <h2>Alle artikelen in de database</h2>
-        <br/>
-        <form>
-            <table id="selectArtikel">
-                <thead id="selectArtikelTitle">
-                </thead>
-                <tbody id="selectArtikelBody">
-                </tbody>
-            </table>
-        </form>
-        <br/>
-        <button type="button" id="voegArtikelToe">Voeg artikel toe</button>
-        <br/>
-        <button type="button" id="terugNaarBestelling">Terug naar bestelling</button>
-        
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-        <script src="../js/selectArtikel.js"></script>
+        <ul class="nav-menu">
+            <li><button type="button" id="terugNaarBestelling">Terug naar bestelling</button></li>
+        </ul>
+        <div class="center">
+            <h1>Artikellijst</h1>
+            <br/>
+            <h2>Alle artikelen in de database</h2>
+            <br/>
+            <form>
+                <table class="datatable" id="selectArtikel">
+                    <thead id="selectArtikelTitle">
+                    </thead>
+                    <tbody id="selectArtikelBody">
+                    </tbody>
+                </table>
+            </form>
+            <br/>
+            <button type="button" id="voegArtikelToe">Voeg artikel toe</button>
+            <br/>
+            
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+            <script src="../js/selectArtikel.js"></script>
+        </div>
     </body>
 </html>

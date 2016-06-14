@@ -21,9 +21,9 @@ $(document).ready(function(){
     };
     
     var bestellingId = getUrlParameter('bestellingId');
-    var bhaURL = "http://localhost:40847/RestTest/rest/bestellinghasartikel/";
+    var bhaURL = "http://localhost:8080/RestTest/rest/bestellinghasartikel/";
     var URL = bhaURL + bestellingId;
-    var factuurURL = "http://localhost:40847/RestTest/rest/factuur/findby/" + bestellingId;
+    var factuurURL = "http://localhost:8080/RestTest/rest/factuur/findby/" + bestellingId;
     var totaalprijs = 0;
     //getArtikelenInBestelling();
     getFactuurGegevens();
@@ -87,7 +87,9 @@ $(document).ready(function(){
     }
    
     function displayTableBHA(result) {
-        $('#bestellingBody').empty(); 
+        $('#bestellingBody').empty();
+        $('#totaalPrijs').empty();
+        totaalprijs = 0;
         $.each(result, function(i, bestellingHasArtikel) {     
             $('#bestellingBody').append("<tr id='" + bestellingHasArtikel.idBestelArtikel + "'></tr>");
             
@@ -116,7 +118,7 @@ $(document).ready(function(){
            $('#factuurBody tr#' + factuur.idFactuur).append("<td class='factuurid'>" + factuur.idFactuur + "</td>");
            $('#factuurBody tr#' + factuur.idFactuur).append("<td class='factuurdatum'>" + factuur.factuurDatum + "</td>");
            
-          getBetalingBijFactuur("http://localhost:40847/RestTest/rest/betaling/findby/" + factuur.idFactuur);         
+          getBetalingBijFactuur("http://localhost:8080/RestTest/rest/betaling/findby/" + factuur.idFactuur);         
         });
     }
     
@@ -143,24 +145,26 @@ $(document).ready(function(){
     });
     
     //delete artikel uit bestelling, onbekend of deze werkt?
-    $(document).on("click", "td#delArtikel button", function(event){
+    $(document).on("click", "td.delArtikel button", function(event){
        event.preventDefault();
         $.ajax({
            type: 'DELETE',
            url: bhaURL + event.target.id,
            succces: function (data, textStatus, jqHXR){
-               displayTableBHA(data);
+               
            },
            error: function(jqXHR, textStatus, errorThrown, data){
-               displayTableBHA(data);    
+           },
+           complete: function(){
+               getArtikelenInBestelling();
            }
        });   
     });
     
     var selectedArtikel = null;
     var selectedBestelling = null;
-    var bestURL = "http://localhost:40847/RestTest/rest/klant/" + klantId + "/bestelling/" + bestellingId;
-    var artURL = "http://localhost:40847/RestTest/rest/artikel/";
+    var bestURL = "http://localhost:8080/RestTest/rest/klant/" + klantId + "/bestelling/" + bestellingId;
+    var artURL = "http://localhost:8080/RestTest/rest/artikel/";
     var klantId = getUrlParameter('klantId');
     
     $.getJSON(bestURL, function(result){
@@ -168,13 +172,13 @@ $(document).ready(function(){
     });
         
     var editAantalClicked = false;
-    $(document).on("click", "td#editAantal button", function(event){
+    $(document).on("click", "td.editAantal button", function(event){
         event.preventDefault();
         var bhaId = $(this).parent().parent().attr("id");
         if(editAantalClicked === false) {
             //alert(bhaId);
             var existingAantal = $("tr#" + bhaId + " td.aantal").text();
-            alert(existingAantal);
+            //alert(existingAantal);
             $("tr#" + bhaId + " td.aantal").empty();
             $("tr#" + bhaId + " td.aantal").append("<input type='text' size=4 id='wijzigAantal' value= '" + existingAantal + "' /></td>");
             getSelectedArtikel(event.target.id);

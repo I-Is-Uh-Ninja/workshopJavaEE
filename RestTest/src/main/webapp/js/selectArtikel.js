@@ -23,9 +23,9 @@ $(document).ready(function(){
     
     var bestellingId = getUrlParameter('bestellingId');
     var klantId = getUrlParameter('klantId');
-    var artURL = "http://localhost:40847/RestTest/rest/artikel";
-    var bestURL = "http://localhost:40847/RestTest/rest/klant/" + klantId + "/bestelling/" + bestellingId;
-    var bhaURL = "http://localhost:40847/RestTest/rest/bestellinghasartikel";
+    var artURL = "http://localhost:8080/RestTest/rest/artikel";
+    var bestURL = "http://localhost:8080/RestTest/rest/klant/" + klantId + "/bestelling/" + bestellingId;
+    var bhaURL = "http://localhost:8080/RestTest/rest/bestellinghasartikel";
     var selectedArtikel = null;
     var selectedBestelling = null;
     var alleArtikelen = [];
@@ -49,7 +49,7 @@ $(document).ready(function(){
         }
         
         //select artikel
-        $(document).on("click", "td#selecteerArtikel button", function(event){
+        $(document).on("click", "td.selecteerArtikel button", function(event){
            event.preventDefault();
            selectedArtikel = alleArtikelen[event.target.id];
            $("#selectArtikelBody tr").removeClass('highlight');
@@ -67,7 +67,7 @@ $(document).ready(function(){
           });
           
           ajaxCreateBHA(bhaURL, jsonBHA);
-          terugNaarBestelling();
+          
         });
         
         //getBestelling
@@ -81,8 +81,7 @@ $(document).ready(function(){
             terugNaarBestelling();
         });
         
-        function terugNaarBestelling(event) {
-            event.preventDefault();
+        function terugNaarBestelling() {
             var id = {bestellingId : bestellingId};
             var idParam = $.param(id);
             window.location.href = "viewBestelling.html?" + idParam;
@@ -100,6 +99,9 @@ $(document).ready(function(){
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                     alert('Fout bij toevoegen artikel:' + "\n" + errorThrown + "\n" + object);
+                },
+                complete: function(){
+                    terugNaarBestelling();
                 }
             });
         }

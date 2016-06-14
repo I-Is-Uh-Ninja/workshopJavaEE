@@ -9,52 +9,55 @@ and open the template in the editor.
         <title>Bestelling Overzicht</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/style.css" type="text/css">
     </head>
     <body>
-        <h1>Overzicht voor bestelling</h2>
-        <br/>
-        <h2>Bestelling gegevens</h2>
-            <div id="bestellinggegevens">
-                <table id="artikelenInBestelling">
-                    <thead id="bestellingTitel">
-                    <th>Artikelnaam</th>
-                    <th>Artikelnummer</th>
-                    <th>Artikelomschrijving</th>
-                    <th>Artikelprijs</th>
-                    <th>Artikelaantal</th>
-                    <th colspan="2">Actie</th>
-                    </thead>
-                    <tbody id="bestellingBody">
-                        
-                    </tbody>
-                </table>
-                
-            </div>
-        <br/>
-        <h3>Totaalprijs:  </h3> 
-        <div id="totaalPrijs"></div>
-        
-        <br/><br/>
-        <button id="addArtikel">Voeg een artikel toe</button>
-        <br/><br/>
-        <button id="naarBetaling">Betaal de bestelling</button>
-        
-        <div>
+        <div class="center">
+            <h1>Overzicht voor bestelling</h2>
+            <br/>
+            <h2>Bestelling gegevens</h2>
+                <div id="bestellinggegevens">
+                    <table class="datatable" id="artikelenInBestelling">
+                        <thead id="bestellingTitel">
+                        <th>Artikelnaam</th>
+                        <th>Artikelnummer</th>
+                        <th>Artikelomschrijving</th>
+                        <th>Artikelprijs</th>
+                        <th>Artikelaantal</th>
+                        <th colspan="2">Actie</th>
+                        </thead>
+                        <tbody id="bestellingBody">
+
+                        </tbody>
+                    </table>
+
+                </div>
+            <br/>
+            <h3>Totaalprijs:  </h3> 
+            <div id="totaalPrijs"></div>
+
             <br/><br/>
-                <table id="factuurGegevens">
-                    <thead id="factuurTitel">
-                    <th>Factuur id</th>
-                    <th>Factuur datum</th>
-                    <th>Betaalwijze</th>
-                    <th>Betalingsgegevens</th>
-                    </thead>
-                    <tbody id="factuurBody">
-                    
-                    </tbody>
-                </table>
+            <button id="addArtikel">Voeg een artikel toe</button>
+            <br/><br/>
+            <button id="naarBetaling">Betaal de bestelling</button>
+
+            <div>
+                <br/><br/>
+                    <table class="datatable" id="factuurGegevens">
+                        <thead id="factuurTitel">
+                        <th>Factuur id</th>
+                        <th>Factuur datum</th>
+                        <th>Betaalwijze</th>
+                        <th>Betalingsgegevens</th>
+                        </thead>
+                        <tbody id="factuurBody">
+
+                        </tbody>
+                    </table>
+            </div>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+            <script src="../js/viewBestelling.js"></script>
         </div>
-        
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-        <script src="../js/viewBestelling.js"></script>
     </body>
 </html>

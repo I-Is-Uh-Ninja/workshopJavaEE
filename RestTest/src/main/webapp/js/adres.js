@@ -40,7 +40,7 @@ $(document).ready(function(){
                 $("#existingAdresBody tr#" + adres.idAdres).append("<td>" + adres.huisnummer + "</td>");
                 $("#existingAdresBody tr#" + adres.idAdres).append("<td>" + adres.postcode + "</td>");
                 $("#existingAdresBody tr#" + adres.idAdres).append("<td>" + adres.woonplaats + "</td>");
-                $("#existingAdresBody tr#" + adres.idAdres).append("<td id='selectAdres'><button type='button' id='"+ i + "'>Selecteer</button></td>");
+                $("#existingAdresBody tr#" + adres.idAdres).append("<td class='selectAdres'><button type='button' id='"+ i + "'>Selecteer</button></td>");
             });
         });
     }
@@ -74,7 +74,7 @@ $(document).ready(function(){
     });
     
     //select an existing adres
-    $(document).on("click","td#selectAdres button", function(event){
+    $(document).on("click","td.selectAdres button", function(event){
         event.preventDefault();
         selectedAdres = allAdressen[event.target.id];
         $("#existingAdresBody tr").removeClass('highlight');
@@ -82,7 +82,7 @@ $(document).ready(function(){
     });
     
     //add an existing adres
-    $(document).on('click',"button#addExistingAdres",function(event){
+    $(document).on('click',"button.addExistingAdres",function(event){
         //alert("Adres: " + selectedAdres.idAdres + ", klant: " + selectedKlant.idKlant);
         event.preventDefault(); //important: if removed, you aren't redirected
         var adresTypeId = $("select#selectedAdresType").find(":selected").val();
@@ -96,16 +96,18 @@ $(document).ready(function(){
             "klantidKlant": {"idKlant": selectedKlant.idKlant, "voornaam": selectedKlant.voornaam, "tussenvoegsel": selectedKlant.tussenvoegsel,
                 "achternaam": selectedKlant.achternaam, "email": selectedKlant.email}
         });
-        ajaxCreate(restURL, jsonObject);
+        addAdresToKlant(restURL, jsonObject);
+        /*
         var id = {klantId : selectedKlant.idKlant};
         var idParam = $.param(id);
         window.location.href = "viewKlant.html?" + idParam;
+         */
     });
     
     //add new adres
-    $("button#addNewAdres").click(function(event){
+    $("button.addNewAdres").click(function(event){
         event.preventDefault();
-        if ($("#addExistingAdres").valid()){
+        if ($("form#addExistingAdres").valid()){
             var newAdres = JSON.stringify({
                 "straatnaam": $("input#straatnaam").val(),
                "huisnummer": $("input#huisnummer").val(),
@@ -160,15 +162,40 @@ $(document).ready(function(){
             data: object,
             success: function(data, textStatus, jqXHR){
                 //ajaxCreate = data;
+                alert(textStatus);
             },
             error: function(jqXHR, textStatus, errorThrown){
                 //alert('Error: ' + errorThrown + object);
+                alert(textStatus);
+            }
+        });
+    };
+    
+    function addAdresToKlant(URL, object){
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json',
+            url: URL,
+            dataType: "application/json",
+            data: object,
+            success: function(data, textStatus, jqXHR){
+                //ajaxCreate = data;
+                //alert(textStatus);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                //alert('Error: ' + errorThrown + object);
+                alert("Error: " + errorThrown);
+            },
+            complete: function(){
+                var id = {klantId : selectedKlant.idKlant};
+                var idParam = $.param(id);
+                window.location.href = "viewKlant.html?" + idParam;
             }
         });
     };
     
     //validate adres
-    $("#addExistingAdres").validate({
+    $("form#addExistingAdres").validate({
         rules: { //add rules
             straatnaam:{
                 required: true,
