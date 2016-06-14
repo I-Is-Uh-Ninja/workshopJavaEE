@@ -23,9 +23,9 @@ $(document).ready(function(){
     
     var bestellingId = getUrlParameter('bestellingId');
     var klantId = getUrlParameter('klantId');
-    var artURL = "http://localhost:8080/RestTest/rest/artikel";
-    var bestURL = "http://localhost:8080/RestTest/rest/klant/" + klantId + "/bestelling/" + bestellingId;
-    var bhaURL = "http://localhost:8080/RestTest/rest/bestellinghasartikel";
+    var artURL = "http://localhost:40847/RestTest/rest/artikel";
+    var bestURL = "http://localhost:40847/RestTest/rest/klant/" + klantId + "/bestelling/" + bestellingId;
+    var bhaURL = "http://localhost:40847/RestTest/rest/bestellinghasartikel";
     var selectedArtikel = null;
     var selectedBestelling = null;
     var alleArtikelen = [];
@@ -43,13 +43,14 @@ $(document).ready(function(){
                         }
                         $("#selectArtikelBody tr#" + field.idArtikel).append("<td id='" + p + "'>" + field[p] + "</td>");
                     }
-                $("#selectArtikelBody tr#" + field.idArtikel).append("<td id='selecteerArtikel'><button type='button' id='"+ i + "'>Selecteer</button>");
+                $("#selectArtikelBody tr#" + field.idArtikel).append("<td class='selecteerArtikel'><button type='button' id='"+ i + "'>Selecteer</button>");
                 });
             });
         }
         
         //select artikel
         $(document).on("click", "td#selecteerArtikel button", function(event){
+           event.preventDefault();
            selectedArtikel = alleArtikelen[event.target.id];
            $("#selectArtikelBody tr").removeClass('highlight');
            $("#selectArtikelBody tr#" + selectedArtikel.idArtikel).addClass("highlight");
@@ -58,12 +59,6 @@ $(document).ready(function(){
         //add artikel
         $("button#voegArtikelToe").click(function(event){
           event.preventDefault();
-          //var artikelId = $("select#selectedArtikel").find(":selected").val();
-          
-          //var jsonArtikel = JSON.stringify(selectedArtikel);
-          //var jsonBestelling = JSON.stringify(getBestelling());
-          
-          //selectedBestelling = getBestelling();
           
           var jsonBHA = JSON.stringify({
              "artikelidArtikel": selectedArtikel,
@@ -79,15 +74,10 @@ $(document).ready(function(){
         $.getJSON(bestURL, function(result){
                selectedBestelling = result;
            });
-           
-        /*var getBestelling = function getBestelling() {
-           $.getJSON(bestURL, function(result){
-               return result;
-           });
-        };*/
+                    
         
-        
-        $("button#terugNaarBestelling").click(function(){
+        $("button#terugNaarBestelling").click(function(event){
+            event.preventDefault();
             terugNaarBestelling();
         });
         

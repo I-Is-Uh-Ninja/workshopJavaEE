@@ -20,10 +20,8 @@ $(document).ready(function(){
     var selectedBestelling = null;
     var selectedFactuur = null;
     var betalingURL = "http://localhost:40847/RestTest/rest/betaling";
-    //var betaalwijzeURL = "http://localhost:40847/RestTest/rest/betaalwijze/";
     var factuurURL = "http://localhost:40847/RestTest/rest/factuur/";
     var bhaURL = "http://localhost:40847/RestTest/rest/bestellinghasartikel/" + bestellingId;
-    //alert(bestellingId);   
     var bestellingURL = "http://localhost:40847/RestTest/rest/bestellinghasartikel/bestelling/" + bestellingId;
     var totaalprijs = 0;
     
@@ -54,7 +52,6 @@ $(document).ready(function(){
     
     //displayBestelling
     function displayBestelling(result) {
-        //bha = result;
         $('#bestellingBody').empty(); 
         $.each(result, function(i, bestellingHasArtikel) {
             $('#bestellingBody').append("<tr id='" + bestellingHasArtikel.idBestelArtikel + "'></tr>");
@@ -110,7 +107,7 @@ $(document).ready(function(){
         });
 
         ajaxCreateBetaling(betalingURL ,jsonBetaling);
-        //terug naar klantoverzicht
+        //terug naar bestllingoverzicht
         var id = {bestellingId : selectedBestelling.idBestelling};
         var idParam = $.param(id);
         window.location.href = "viewBestelling.html?" + idParam;

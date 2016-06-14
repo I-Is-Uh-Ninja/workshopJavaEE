@@ -81,6 +81,13 @@ public class BetalingFacadeREST {
     }
     
     @GET
+    @Path("findby/{facId}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON}) 
+    public List<Betaling> findBetalingByFacId(@PathParam("facId") Integer id) {
+        return betalingFacade.findByFactuur(id);
+}
+    
+    @GET
     @Path("betaalwijze/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Betaalwijze findBetaalwijze(@PathParam("id") Integer id) {

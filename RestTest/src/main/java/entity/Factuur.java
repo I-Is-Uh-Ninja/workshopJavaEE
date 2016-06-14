@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,7 +53,7 @@ public class Factuur implements Serializable {
     @Column(name = "factuur_datum")
     @Temporal(TemporalType.TIMESTAMP)
     private Date factuurDatum;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "factuuridFactuur")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "factuuridFactuur", fetch=FetchType.EAGER)
     private Collection<Betaling> betalingCollection;
     @JoinColumn(name = "bestelling_idBestelling", referencedColumnName = "idBestelling")
     @ManyToOne(optional = false)

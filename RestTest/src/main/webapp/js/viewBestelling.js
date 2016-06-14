@@ -23,12 +23,10 @@ $(document).ready(function(){
     var bestellingId = getUrlParameter('bestellingId');
     var bhaURL = "http://localhost:40847/RestTest/rest/bestellinghasartikel/";
     var URL = bhaURL + bestellingId;
-    var factuurURL = "http://localhost:40847/RestTest/rest/factuur/findby/" + bestellingId; 
+    var factuurURL = "http://localhost:40847/RestTest/rest/factuur/findby/" + bestellingId;
     var totaalprijs = 0;
-    //var bha = null;
     //getArtikelenInBestelling();
     getFactuurGegevens();
-    //alert(bestellingId);
     
     $.ajax({
            type: 'GET' ,
@@ -65,7 +63,6 @@ $(document).ready(function(){
           dataType: "json",
           success: function(data){
             //alert("Factuur gegevens opgehaald"); 
-            alert(data);
             displayFactuur(data);
           },
           failure: function(data){
@@ -74,9 +71,22 @@ $(document).ready(function(){
           }
         });
     }
+    
+    function getBetalingBijFactuur(URL) {
+        $.ajax({
+            type: 'GET',
+            url: URL,
+            dataType: "json",
+            success: function(data){
+                displayBetaling(data);
+            },
+            failure: function(data){
+                displayBetaling(data);
+            }
+        });
+    }
    
     function displayTableBHA(result) {
-        //bha = result;
         $('#bestellingBody').empty(); 
         $.each(result, function(i, bestellingHasArtikel) {     
             $('#bestellingBody').append("<tr id='" + bestellingHasArtikel.idBestelArtikel + "'></tr>");
@@ -91,7 +101,6 @@ $(document).ready(function(){
             $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td class='delArtikel'><button type='button' id='" + bestellingHasArtikel.idBestelArtikel + "'>Verwijder artikel</button></td>"); 
             
             var prijs = (bestellingHasArtikel.artikelidArtikel.artikelprijs * bestellingHasArtikel.aantal);   
-            //alert(prijs);
             totaalprijs += prijs;         
         });
         $('#totaalPrijs').append(totaalprijs.toFixed(2));
@@ -102,12 +111,19 @@ $(document).ready(function(){
     function displayFactuur(result) {
         $('#factuurBody').empty();
         $.each(result, function(i, factuur) {
-           $('factuurBody').append("<tr id='" + factuur.idFactuur + "'></tr>"); 
+           $('#factuurBody').append("<tr id='" + factuur.idFactuur + "'></tr>"); 
            
-           $('factuurBody tr#' + factuur.idFactuur).append("<td class='factuurid'>" + factuur.idFactuur + "</td>");
-           $('factuurBody tr#' + factuur.idFactuur).append("<td class='factuurdatum'>" + factuur.factuurDatum + "</td>");
-           //$('factuurBody tr#' + factuur.idFactuur).append("<td class='betaalwijze'>" + //TODO + "</td>");
-           //$('factuurBody tr#' + factuur.idFactuur).append("<td class='betalinggegevens'>" + //TODO + "</td>");
+           $('#factuurBody tr#' + factuur.idFactuur).append("<td class='factuurid'>" + factuur.idFactuur + "</td>");
+           $('#factuurBody tr#' + factuur.idFactuur).append("<td class='factuurdatum'>" + factuur.factuurDatum + "</td>");
+           
+          getBetalingBijFactuur("http://localhost:40847/RestTest/rest/betaling/findby/" + factuur.idFactuur);         
+        });
+    }
+    
+    function displayBetaling(result) {
+        $.each(result, function(i, betaling) {
+           $('#factuurBody tr#' + betaling.factuuridFactuur.idFactuur).append("<td class='betaalwijze'>" + betaling.betaalwijzeidBetaalwijze.betaalwijze + "</td>");
+           $('#factuurBody tr#' + betaling.factuuridFactuur.idFactuur).append("<td class='betalingsgegevens'>" + betaling.betalingsGegevens + "</td>"); 
         });
     }
     
@@ -128,7 +144,8 @@ $(document).ready(function(){
     
     //delete artikel uit bestelling, onbekend of deze werkt?
     $(document).on("click", "td#delArtikel button", function(event){
-       $.ajax({
+       event.preventDefault();
+        $.ajax({
            type: 'DELETE',
            url: bhaURL + event.target.id,
            succces: function (data, textStatus, jqHXR){
@@ -149,8 +166,7 @@ $(document).ready(function(){
     $.getJSON(bestURL, function(result){
                selectedBestelling = result;
     });
-    //$getJSON(artURL, function)
-    
+        
     var editAantalClicked = false;
     $(document).on("click", "td#editAantal button", function(event){
         event.preventDefault();
