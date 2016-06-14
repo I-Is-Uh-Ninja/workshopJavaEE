@@ -209,6 +209,13 @@ $(document).ready(function(){
         } 
     });
     
+    $("button#backToKlant").click(function(){
+        event.preventDefault();
+        var id = {klantId : klantId};
+        var idParam = $.param(id);
+        location.href = "viewKlant.html?" + idParam;
+    });
+    
     function getSelectedArtikel(id) {
         $.getJSON(artURL + id, function(result){
             selectedArtikel = result;
