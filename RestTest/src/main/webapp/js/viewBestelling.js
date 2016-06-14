@@ -160,12 +160,24 @@ $(document).ready(function(){
            }
        });   
     });
-    
+    var klantId = getUrlParameter('klantId');
+    if(klantId === undefined){
+        //alert("Searching for klantId by bestelling");
+        $.ajax({
+           type: 'GET' ,
+           url: URL,
+           dataType:"json" ,
+           success: function(data){
+               klantId = data[0].bestellingidBestelling.klantidKlant.idKlant;
+               //alert(klantId);
+           }
+        });
+    }
     var selectedArtikel = null;
     var selectedBestelling = null;
     var bestURL = "http://localhost:8080/RestTest/rest/klant/" + klantId + "/bestelling/" + bestellingId;
     var artURL = "http://localhost:8080/RestTest/rest/artikel/";
-    var klantId = getUrlParameter('klantId');
+    
     
     $.getJSON(bestURL, function(result){
                selectedBestelling = result;
@@ -209,7 +221,7 @@ $(document).ready(function(){
         } 
     });
     
-    $("button#backToKlant").click(function(){
+    $("button#backToKlant").click(function(event){
         event.preventDefault();
         var id = {klantId : klantId};
         var idParam = $.param(id);
