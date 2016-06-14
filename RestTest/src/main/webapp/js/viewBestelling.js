@@ -21,10 +21,15 @@ $(document).ready(function(){
     };
     
     var bestellingId = getUrlParameter('bestellingId');
-    var bhaURL = "http://localhost:8080/RestTest/rest/bestellinghasartikel/";
+    var bhaURL = "http://localhost:40847/RestTest/rest/bestellinghasartikel/";
     var URL = bhaURL + bestellingId;
+    var factuurURL = "http://localhost:40847/RestTest/rest/factuur/findby/" + bestellingId; 
+    var totaalprijs = 0;
     //var bha = null;
     //getArtikelenInBestelling();
+    getFactuurGegevens();
+    //alert(bestellingId);
+    
     $.ajax({
            type: 'GET' ,
            url: URL,
@@ -49,7 +54,24 @@ $(document).ready(function(){
            failure: function(data){
                //alert("fout");
                displayTableBHA(data);
-           }
+            }
+        });
+    }
+    
+    function getFactuurGegevens() {
+        $.ajax({
+          type: 'GET',  
+          url: factuurURL,
+          dataType: "json",
+          success: function(data){
+            //alert("Factuur gegevens opgehaald"); 
+            alert(data);
+            displayFactuur(data);
+          },
+          failure: function(data){
+             //alert("Factuur gegevens fout"); 
+             displayFactuur(data);             
+          }
         });
     }
    
@@ -59,19 +81,35 @@ $(document).ready(function(){
         $.each(result, function(i, bestellingHasArtikel) {     
             $('#bestellingBody').append("<tr id='" + bestellingHasArtikel.idBestelArtikel + "'></tr>");
             
-            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelnaam'>" + bestellingHasArtikel.artikelidArtikel.artikelnaam + "</td>");
-            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelnummer'>" + bestellingHasArtikel.artikelidArtikel.artikelnummer + "</td>");
-            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelomschrijving'>" + bestellingHasArtikel.artikelidArtikel.artikelomschrijving + "</td>");
-            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelprijs'>" + bestellingHasArtikel.artikelidArtikel.artikelprijs + "</td>");
+            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td class='artikelnaam'>" + bestellingHasArtikel.artikelidArtikel.artikelnaam + "</td>");
+            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td class='artikelnummer'>" + bestellingHasArtikel.artikelidArtikel.artikelnummer + "</td>");
+            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td class='artikelomschrijving'>" + bestellingHasArtikel.artikelidArtikel.artikelomschrijving + "</td>");
+            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td class='artikelprijs'>" + bestellingHasArtikel.artikelidArtikel.artikelprijs + "</td>");
             $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td class='aantal'>" + bestellingHasArtikel.aantal + "</td>");
             
-            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='editAantal'><button type='button' id='" + bestellingHasArtikel.artikelidArtikel.idArtikel + "'>Pas aantal aan</button></td>");
-            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='delArtikel'><button type='button' id='" + bestellingHasArtikel.idBestelArtikel + "'>Verwijder artikel</button></td>");
+            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td class='editAantal'><button type='button' id='" + bestellingHasArtikel.artikelidArtikel.idArtikel + "'>Pas aantal aan</button></td>");
+            $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td class='delArtikel'><button type='button' id='" + bestellingHasArtikel.idBestelArtikel + "'>Verwijder artikel</button></td>"); 
+            
+            var prijs = (bestellingHasArtikel.artikelidArtikel.artikelprijs * bestellingHasArtikel.aantal);   
+            //alert(prijs);
+            totaalprijs += prijs;         
         });
+        $('#totaalPrijs').append(totaalprijs.toFixed(2));
     }
     
-   
     
+    //displayFactuur
+    function displayFactuur(result) {
+        $('#factuurBody').empty();
+        $.each(result, function(i, factuur) {
+           $('factuurBody').append("<tr id='" + factuur.idFactuur + "'></tr>"); 
+           
+           $('factuurBody tr#' + factuur.idFactuur).append("<td class='factuurid'>" + factuur.idFactuur + "</td>");
+           $('factuurBody tr#' + factuur.idFactuur).append("<td class='factuurdatum'>" + factuur.factuurDatum + "</td>");
+           //$('factuurBody tr#' + factuur.idFactuur).append("<td class='betaalwijze'>" + //TODO + "</td>");
+           //$('factuurBody tr#' + factuur.idFactuur).append("<td class='betalinggegevens'>" + //TODO + "</td>");
+        });
+    }
     
     //door na betaalBestelling
     $("button#naarBetaling").on("click", function(event) {
@@ -104,8 +142,8 @@ $(document).ready(function(){
     
     var selectedArtikel = null;
     var selectedBestelling = null;
-    var bestURL = "http://localhost:8080/RestTest/rest/klant/" + klantId + "/bestelling/" + bestellingId;
-    var artURL = "http://localhost:8080/RestTest/rest/artikel/";
+    var bestURL = "http://localhost:40847/RestTest/rest/klant/" + klantId + "/bestelling/" + bestellingId;
+    var artURL = "http://localhost:40847/RestTest/rest/artikel/";
     var klantId = getUrlParameter('klantId');
     
     $.getJSON(bestURL, function(result){

@@ -19,12 +19,14 @@ $(document).ready(function(){
     var selectedKlant = null;
     var selectedBestelling = null;
     var selectedFactuur = null;
-    var betalingURL = "http://localhost:8080/RestTest/rest/betaling";
+    var betalingURL = "http://localhost:40847/RestTest/rest/betaling";
     //var betaalwijzeURL = "http://localhost:40847/RestTest/rest/betaalwijze/";
-    var factuurURL = "http://localhost:8080/RestTest/rest/factuur/";
-    var bhaURL = "http://localhost:8080/RestTest/rest/bestellinghasartikel/" + bestellingId;
+    var factuurURL = "http://localhost:40847/RestTest/rest/factuur/";
+    var bhaURL = "http://localhost:40847/RestTest/rest/bestellinghasartikel/" + bestellingId;
     //alert(bestellingId);   
-    var bestellingURL = "http://localhost:8080/RestTest/rest/bestellinghasartikel/bestelling/" + bestellingId;
+    var bestellingURL = "http://localhost:40847/RestTest/rest/bestellinghasartikel/bestelling/" + bestellingId;
+    var totaalprijs = 0;
+    
     //getBestelling
      $.getJSON(bestellingURL, function(result){
         selectedBestelling = result;
@@ -33,12 +35,12 @@ $(document).ready(function(){
     
     
     getArtikelenInBestelling();
-    
+   
     function getArtikelenInBestelling(){
         $.ajax({
            type: 'GET' ,
            url: bhaURL,
-           dataType:"json" ,
+           dataType: "json",
            success: function(data){
                //alert("success");
                displayBestelling(data);
@@ -49,6 +51,7 @@ $(document).ready(function(){
            }
         });
     }
+    
     //displayBestelling
     function displayBestelling(result) {
         //bha = result;
@@ -61,8 +64,14 @@ $(document).ready(function(){
             $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelomschrijving'>" + bestellingHasArtikel.artikelidArtikel.artikelomschrijving + "</td>");
             $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td id='artikelprijs'>" + bestellingHasArtikel.artikelidArtikel.artikelprijs + "</td>");
             $('#bestellingBody tr#' + bestellingHasArtikel.idBestelArtikel).append("<td class='aantal'>" + bestellingHasArtikel.aantal + "</td>");
+            
+             var prijs = (bestellingHasArtikel.artikelidArtikel.artikelprijs * bestellingHasArtikel.aantal);   
+            //alert(prijs);
+            totaalprijs += prijs;         
         });
+        $('#totaalPrijs').append(totaalprijs.toFixed(2));
     }
+       
     //get betaalwijzes
     $.getJSON(betalingURL + "/betaalwijze", function(result){
         $.each(result, function(i, betaalwijze){
@@ -90,7 +99,7 @@ $(document).ready(function(){
         //maak betaling en zet deze in database
         var betaalwijzeId = $("select#selectBetaalMethode").find(":selected").val();
         var betaalwijze = $("select#selectBetaalMethode").find(":selected").text();
-        var betalinggegevens = $("input#overigeGegevens").val();
+        var betalinggegevens = $("textarea#overigeGegevens").val();
         
         var jsonBetaling = JSON.stringify({
             "klantidKlant": selectedKlant,
@@ -102,9 +111,9 @@ $(document).ready(function(){
 
         ajaxCreateBetaling(betalingURL ,jsonBetaling);
         //terug naar klantoverzicht
-        var id = {klantId : selectedKlant.idKlant};
+        var id = {bestellingId : selectedBestelling.idBestelling};
         var idParam = $.param(id);
-        window.location.href = "viewKlant.html?" + idParam;
+        window.location.href = "viewBestelling.html?" + idParam;
     }
     
     function ajaxCreateFactuur(URL, object) {

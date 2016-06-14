@@ -62,6 +62,13 @@ public class FactuurFacadeREST {
     public List<Factuur> findAll() {
         return factuurFacade.findAll();
     }
+    
+    @GET
+    @Path("findby/{bestellingId}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Factuur> findByBestId(@PathParam("bestellingId") Integer bestId) {
+        return factuurFacade.findFactuurByBestellingId(bestId);
+    }
 
     @GET
     @Path("{from}/{to}")
