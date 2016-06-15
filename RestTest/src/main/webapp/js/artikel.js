@@ -20,12 +20,6 @@ $(document).ready(function(){
             });
         });
     }
-
-    /*$(document).on("click", "td#view button", function(){
-        var currentId = {artikelId : event.target.id};
-        var idParam = $.param(currentId);
-        location.href = "viewArtikel.html?" + idParam; 
-    });*/
     
     $(document).on("click", "td.delete button", function(event){
         event.preventDefault();

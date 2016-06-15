@@ -20,6 +20,7 @@ $(document).ready(function(){
     var selectedBestelling = null;
     var selectedFactuur = null;
     var betalingURL = "http://localhost:8080/RestTest/rest/betaling";
+    var betaalwijzeURL = "http://localhost:8080/RestTest/rest/betaalwijze";
     var factuurURL = "http://localhost:8080/RestTest/rest/factuur/";
     var bhaURL = "http://localhost:8080/RestTest/rest/bestellinghasartikel/" + bestellingId;
     var bestellingURL = "http://localhost:8080/RestTest/rest/bestellinghasartikel/bestelling/" + bestellingId;
@@ -70,7 +71,7 @@ $(document).ready(function(){
     }
        
     //get betaalwijzes
-    $.getJSON(betalingURL + "/betaalwijze", function(result){
+    $.getJSON(betaalwijzeURL, function(result){
         $.each(result, function(i, betaalwijze){
             $("#selectBetaalMethode").append("<option value='" + betaalwijze.idBetaalwijze + "'>" + betaalwijze.betaalwijze + "</option>");
             if (i===0){
