@@ -15,6 +15,9 @@ $(document).ready(function(){
                     }
                     $("tr#" + field.idArtikel).append("<td class='" + p + "'>" + field[p] + "</td>");
                 }
+                if(i===0){
+                    $("#artikelTitle").append("<th colspan='2'>Actie</th>");
+                }
                 $("tr#" + field.idArtikel).append("<td class='edit'><button type='button' id='"+ field.idArtikel + "'>Bewerken</button>");
                 $("tr#" + field.idArtikel).append("<td class='delete'><button type='button' id='"+ field.idArtikel + "'>Verwijder artikel</button>");
             });
@@ -93,10 +96,14 @@ $(document).ready(function(){
             $("tr#" + event.target.id + " td.artikelomschrijving").empty();
             $("tr#" + event.target.id + " td.artikelprijs").empty();
             
-            $("tr#" + event.target.id + " td.artikelnaam").append("<input type='text' size=30 name='artikelnaam' id='editArtikelnaam' value='" + existingArtikelnaam + "' /></td>");
-            $("tr#" + event.target.id + " td.artikelnummer").append("<input type='text' size=30 name='artikelnummer' id='editArtikelnummer' value='" + existingArtikelnummer + "' /></td>");
-            $("tr#" + event.target.id + " td.artikelomschrijving").append("<input type='text' size=40 name='artikelomschrijving' id='editArtikelomschrijving' value='" + existingArtikelomschrijving + "' /></td>");  
-            $("tr#" + event.target.id + " td.artikelprijs").append("<input type='text' size=6 name='artikelprijs' id='editArtikelprijs' value='" + existingArtikelprijs + "' /></td>"); 
+            $("tr#" + event.target.id + " td.artikelnaam").append("<input type='text' size=30 name='artikelnaam'" + 
+                    "id='editArtikelnaam' value='" + existingArtikelnaam + "' /></td>");
+            $("tr#" + event.target.id + " td.artikelnummer").append("<input type='text' size=30 name='artikelnummer'" +
+                    "id='editArtikelnummer' value='" + existingArtikelnummer + "' /></td>");
+            $("tr#" + event.target.id + " td.artikelomschrijving").append("<input type='text' size=40 name='artikelomschrijving'" +
+                    "id='editArtikelomschrijving' value='" + existingArtikelomschrijving + "' /></td>");  
+            $("tr#" + event.target.id + " td.artikelprijs").append("<input type='text' size=6 name='artikelprijs'" +
+                    "id='editArtikelprijs' value='" + existingArtikelprijs + "' /></td>"); 
             editArtikelClicked = true;
         } else {
             if($("form#alleArtikelen").valid()){
